@@ -20,3 +20,31 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | T10 | Responsive + parity pass | terra | ⬜ |
 
 **Gate (Phase 1 done)**: `flutter test` green + `flutter analyze` clean + parity checklist (`test.md §4`) + frontend security (`security.md §3`).
+
+---
+
+## Phase 3 — Integration (frontend side) · plan `plan-integ.md`
+| Task | งาน | Model | สถานะ |
+|---|---|---|---|
+| P3-T1 | HttpApiClient (over Laravel) | terra | ⬜ |
+| P3-T2 | switch Http vs Fake by config | terra | ⬜ |
+| P3-T4 | E2E smoke (needs backend running) | terra | ⬜ |
+
+## Phase 4 — Staff & Admin UI · plan `plan-staff.md`
+| Task | งาน | Model | สถานะ |
+|---|---|---|---|
+| P4-T1 | Extend ApiClient + FakeApiClient (auth/ops/admin) | terra | ⬜ |
+| P4-T2 | Login + token store + AuthController | **sol** | ⬜ |
+| P4-T3 | Ops shell + summary + tabs + polling | terra | ⬜ |
+| P4-T4 | Kitchen board (kanban) | terra | ⬜ |
+| P4-T5 | Staff queue (calls + ready) | terra | ⬜ |
+| P4-T6 | Cashier bills + payment + receipt | **sol** | ⬜ |
+| P4-T7 | Admin shell + nav + overview | terra | ⬜ |
+| P4-T8 | Admin tables/catalog/promotions/staff CRUD | terra | ⬜ |
+| P4-T9 | Admin settings + brand preview | terra | ⬜ |
+| P4-T10 | Staff/Admin routing + parity pass | terra | ⬜ |
+
+## Phase 5 — Enhancements (opt-in) · plan `plan-enhance.md`
+Do NOT start unless told. E1 realtime, E2 offline, E3 Drive upload, E4 PDF receipt. Add rows when an epic is picked.
+
+**Build order**: finish Phase 1 → (Phase 2 backend by the other repo) → Phase 3 → Phase 4 → Phase 5 epics as requested.
