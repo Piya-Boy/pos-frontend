@@ -1,0 +1,38 @@
+test/core/theme/tokens_test.dart
+  s_0936ccdd3f56a6::t_b95a04b4e8f5c5 3,6-12,14-18
+lib/app.dart
+  s_0936ccdd3f56a6::t_23b4f4e0d7736b 1-17
+lib/core/theme/tokens.dart
+  s_0936ccdd3f56a6::t_23b4f4e0d7736b 1-38
+pubspec.yaml
+  s_0936ccdd3f56a6::t_66f444aebe7a90 34-40
+  s_0936ccdd3f56a6::t_64929edd2bc60d 41
+lib/core/theme/phius_theme.dart
+  s_0936ccdd3f56a6::t_23b4f4e0d7736b 1-21
+lib/main.dart
+  s_0936ccdd3f56a6::t_58b5c344838265 3,5
+linux/flutter/generated_plugins.cmake
+  s_0936ccdd3f56a6::t_8cf610382836d5 9
+macos/Flutter/GeneratedPluginRegistrant.swift
+  s_0936ccdd3f56a6::t_4dec1bfe576cd4 8-9,12-13
+windows/flutter/generated_plugins.cmake
+  s_0936ccdd3f56a6::t_66cfbebd8532b0 9
+pubspec.lock
+  s_0936ccdd3f56a6::t_a2236b6763d185 4-11,28-51,68-75,84-91,108-131,137-144,158-234,267-274,299-330,339-490,504-543,568-575,592-607,624-647,650
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4091659ce9d9df6fade72faf7042785e11e6b9d2",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
