@@ -1,0 +1,21 @@
+lib/features/customer/customer_page.dart
+  s_0936ccdd3f56a6::t_032fedf6e511fe 2-3,104-108
+lib/features/customer/widgets/food_card.dart
+  s_0936ccdd3f56a6::t_d9f869a2479a7d 103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "53f1b896bc0d1d0b53b1e6b2394d772d2bd2bb4b",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "unknown"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
