@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:pos_frontend/features/customer/widgets/item_detail_modal.dart';
 import 'package:provider/provider.dart';
@@ -144,10 +146,15 @@ class _MenuToolbarDelegate extends SliverPersistentHeaderDelegate {
     BuildContext context,
     double shrinkOffset,
     bool overlapsContent,
-  ) => Container(
-    color: Theme.of(context).scaffoldBackgroundColor,
-    padding: EdgeInsets.fromLTRB(padding, 8, padding, 10),
-    child: child,
+  ) => ClipRect(
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor.withValues(alpha: .9),
+        padding: EdgeInsets.fromLTRB(padding, 8, padding, 10),
+        child: child,
+      ),
+    ),
   );
 
   @override

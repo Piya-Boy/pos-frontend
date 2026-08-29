@@ -75,15 +75,23 @@ class _FoodCardState extends State<FoodCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.item.name,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 39),
+                  child: Text(
+                    widget.item.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
                 ),
-                Text(
-                  widget.item.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: PhiusTokens.muted),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 36),
+                  child: Text(
+                    widget.item.description,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: PhiusTokens.muted),
+                  ),
                 ),
                 Row(
                   children: [

@@ -13,7 +13,7 @@ class PromotionStrip extends StatelessWidget {
       : SizedBox(
           height: 144,
           child: ListView.separated(
-            physics: const PageScrollPhysics(),
+            physics: const PromotionSnapScrollPhysics(),
             scrollDirection: Axis.horizontal,
             itemCount: promotions.length,
             separatorBuilder: (_, _) => const SizedBox(width: 12),
@@ -21,6 +21,44 @@ class PromotionStrip extends StatelessWidget {
                 _PromotionCard(promotion: promotions[index]),
           ),
         );
+}
+
+class PromotionSnapScrollPhysics extends ScrollPhysics {
+  const PromotionSnapScrollPhysics({super.parent});
+
+  static const itemExtent = 292.0;
+
+  @override
+  PromotionSnapScrollPhysics applyTo(ScrollPhysics? ancestor) =>
+      PromotionSnapScrollPhysics(parent: buildParent(ancestor));
+
+  @override
+  Simulation? createBallisticSimulation(
+    ScrollMetrics position,
+    double velocity,
+  ) {
+    final basePage = position.pixels / itemExtent;
+    final roundedPage = basePage.round();
+    final atSnapBoundary = (basePage - roundedPage).abs() < .001;
+    final targetPage = velocity.abs() < toleranceFor(position).velocity
+        ? roundedPage
+        : velocity.isNegative
+        ? (atSnapBoundary ? roundedPage - 1 : basePage.floor())
+        : (atSnapBoundary ? roundedPage + 1 : basePage.ceil());
+    final target = (targetPage * itemExtent)
+        .clamp(position.minScrollExtent, position.maxScrollExtent)
+        .toDouble();
+    if (target == position.pixels) {
+      return super.createBallisticSimulation(position, velocity);
+    }
+    return ScrollSpringSimulation(
+      spring,
+      position.pixels,
+      target,
+      velocity,
+      tolerance: toleranceFor(position),
+    );
+  }
 }
 
 class _PromotionCard extends StatelessWidget {
