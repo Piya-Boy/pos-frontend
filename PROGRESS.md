@@ -15,7 +15,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | T5 | CustomerPage shell (header, guide, hero) | terra | ✅ |
 | T6 | Menu (promotions, toolbar, grid, food card) | terra | ✅ |
 | T7 | Item detail modal (options/addons/note/qty/price) | **sol** | ✅ |
-| T8 | Cart bar + cart modal + submit | terra | ⬜ |
+| T8 | Cart bar + cart modal + submit | terra | ✅ |
 | T9 | Order tracking + bill banner + status meta + polling | terra | ⬜ |
 | T10 | Responsive + parity pass | terra | ⬜ |
 
