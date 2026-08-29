@@ -25,6 +25,8 @@ stop only when: every task in this repo's PROGRESS.md is ✅, OR you hit a BLOCK
 
 **Never ask the human between tasks. Just proceed to the next.** Only stop for a real BLOCKER (§6).
 
+**Do NOT pause to report progress.** A task finishing, tests going green, "should I continue?", a status summary — none are stopping points. The moment a task commits + its `PROGRESS.md` line is ticked, start the next task in the same run, silently. Hand control back ONLY when (1) every task is ✅, or (2) a real BLOCKER. Unsure if it's a blocker? It isn't — keep going.
+
 ---
 
 ## 1. Documents (read these; do not invent)
