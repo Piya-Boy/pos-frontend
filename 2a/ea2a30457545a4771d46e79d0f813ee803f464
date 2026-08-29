@@ -1,0 +1,21 @@
+lib/features/customer/widgets/food_card.dart
+  s_59a6783ef98fe2::t_91759c735f2252 95-99,102,106-108,111-115,118
+  s_59a6783ef98fe2::t_1cd104b58055c4 145-147
+  s_59a6783ef98fe2::t_a0a4fb306cd976 59-67,70-78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "2aea2a30457545a4771d46e79d0f813ee803f464",
+  "prompts": {},
+  "sessions": {
+    "s_59a6783ef98fe2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "08bb25e9-ca7c-4f46-8956-2277701a0e62",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
