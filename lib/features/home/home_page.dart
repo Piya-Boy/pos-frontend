@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../core/api/api_client.dart';
 import '../../core/theme/tokens.dart';
 import '../../models/app_config.dart';
-import '../shared/widgets/app_footer.dart';
 import '../shared/widgets/brand_mark.dart';
 
 class HomePage extends StatefulWidget {
@@ -69,12 +68,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(24),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 720),
-                child: Column(
-                  children: [
-                    _PortalCard(app: app),
-                    const AppFooter(),
-                  ],
-                ),
+                child: _PortalCard(app: app),
               ),
             ),
           ),
