@@ -1,7 +1,11 @@
 class AppConfig {
   const AppConfig({
     required this.name,
+    required this.appName,
+    required this.restaurantName,
     required this.tagline,
+    required this.logoText,
+    required this.logoUrl,
     required this.heroKicker,
     required this.heroTitle,
     required this.heroBadgeText,
@@ -13,7 +17,11 @@ class AppConfig {
   });
 
   final String name;
+  final String appName;
+  final String restaurantName;
   final String tagline;
+  final String logoText;
+  final String logoUrl;
   final String heroKicker;
   final String heroTitle;
   final String heroBadgeText;
@@ -24,8 +32,12 @@ class AppConfig {
   final int pollSeconds;
 
   factory AppConfig.fromJson(Map<String, dynamic> json) => AppConfig(
-    name: '${json['name'] ?? json['restaurantName'] ?? ''}',
+    name: '${json['name'] ?? json['restaurantName'] ?? json['appName'] ?? ''}',
+    appName: '${json['appName'] ?? json['name'] ?? ''}',
+    restaurantName: '${json['restaurantName'] ?? json['name'] ?? ''}',
     tagline: '${json['tagline'] ?? ''}',
+    logoText: '${json['logoText'] ?? ''}',
+    logoUrl: '${json['logoUrl'] ?? ''}',
     heroKicker: '${json['heroKicker'] ?? ''}',
     heroTitle: '${json['heroTitle'] ?? ''}',
     heroBadgeText: '${json['heroBadgeText'] ?? ''}',
@@ -38,7 +50,11 @@ class AppConfig {
 
   Map<String, dynamic> toJson() => {
     'name': name,
+    'appName': appName,
+    'restaurantName': restaurantName,
     'tagline': tagline,
+    'logoText': logoText,
+    'logoUrl': logoUrl,
     'heroKicker': heroKicker,
     'heroTitle': heroTitle,
     'heroBadgeText': heroBadgeText,
@@ -50,4 +66,5 @@ class AppConfig {
   };
 }
 
-num _number(Object? value) => value is num ? value : num.tryParse('$value') ?? 0;
+num _number(Object? value) =>
+    value is num ? value : num.tryParse('$value') ?? 0;

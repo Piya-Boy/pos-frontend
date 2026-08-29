@@ -69,8 +69,12 @@ class FakeApiClient implements ApiClient {
   Future<Map<String, dynamic>> bootstrap({required String tableToken}) async => {
     'setupRequired': false,
     'app': {
-      'name': 'Phius Order',
-      'tagline': '',
+      'appName': 'Phius Order',
+      'name': 'Phius Thai Kitchen',
+      'restaurantName': 'Phius Thai Kitchen',
+      'tagline': 'Modern Thai Vitality',
+      'logoText': 'ผ',
+      'logoUrl': '',
       'heroKicker': 'อิ่มอร่อยในแบบของคุณ',
       'heroTitle': 'เลือกเมนูโปรด\nแล้วส่งตรงถึงครัว',
       'heroBadgeText': 'อร่อย',

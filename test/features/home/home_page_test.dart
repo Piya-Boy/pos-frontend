@@ -1,0 +1,48 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:pos_frontend/app.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+
+void main() {
+  testWidgets('root route renders the Phius Order portal', (tester) async {
+    await tester.pumpWidget(PhiusApp(api: FakeApiClient()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Phius Order'), findsOneWidget);
+    expect(find.text('Phius Thai Kitchen'), findsOneWidget);
+    expect(find.text('รวมงานหน้าร้าน'), findsOneWidget);
+    expect(find.text('หน้าลูกค้าต้องเปิดผ่าน QR ประจำโต๊ะ'), findsOneWidget);
+  });
+
+  testWidgets('setup-required bootstrap does not expose the portal', (
+    tester,
+  ) async {
+    await tester.pumpWidget(PhiusApp(api: _SetupRequiredApi()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Phius Order ยังไม่พร้อมใช้งาน'), findsOneWidget);
+    expect(find.text('รวมงานหน้าร้าน'), findsNothing);
+  });
+
+  testWidgets('bootstrap failure exposes retry state instead of the portal', (
+    tester,
+  ) async {
+    await tester.pumpWidget(PhiusApp(api: _FailingBootstrapApi()));
+    await tester.pumpAndSettle();
+
+    expect(find.text('ไม่สามารถเปิดระบบ'), findsOneWidget);
+    expect(find.text('ลองอีกครั้ง'), findsOneWidget);
+    expect(find.text('รวมงานหน้าร้าน'), findsNothing);
+  });
+}
+
+class _SetupRequiredApi extends FakeApiClient {
+  @override
+  Future<Map<String, dynamic>> bootstrap({required String tableToken}) async =>
+      {'setupRequired': true};
+}
+
+class _FailingBootstrapApi extends FakeApiClient {
+  @override
+  Future<Map<String, dynamic>> bootstrap({required String tableToken}) =>
+      Future.error(StateError('offline'));
+}
