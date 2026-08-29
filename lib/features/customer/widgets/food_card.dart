@@ -56,15 +56,26 @@ class _FoodCardState extends State<FoodCard> {
               ),
               if (widget.item.isPopular || !widget.item.available)
                 Positioned(
-                  top: 8,
-                  left: 8,
-                  child: Text(
-                    widget.item.available ? 'เมนูยอดนิยม' : 'หมดชั่วคราว',
-                    style: TextStyle(
-                      color: Colors.white,
-                      backgroundColor: widget.item.available
+                  top: 9,
+                  left: 9,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: widget.item.available
                           ? PhiusTokens.green
                           : PhiusTokens.ink,
+                      borderRadius: BorderRadius.circular(99),
+                    ),
+                    child: Text(
+                      widget.item.available ? 'เมนูยอดนิยม' : 'หมดชั่วคราว',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -81,18 +92,30 @@ class _FoodCardState extends State<FoodCard> {
                     widget.item.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.w700),
+                    style: const TextStyle(
+                      fontSize: 15,
+                      height: 1.25,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
+                const SizedBox(height: 5),
                 ConstrainedBox(
                   constraints: const BoxConstraints(minHeight: 36),
                   child: Text(
-                    widget.item.description,
+                    widget.item.description.isEmpty
+                        ? 'เมนูแนะนำจากทางร้าน'
+                        : widget.item.description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: PhiusTokens.muted),
+                    style: const TextStyle(
+                      color: PhiusTokens.muted,
+                      fontSize: 11,
+                      height: 1.4,
+                    ),
                   ),
                 ),
+                const SizedBox(height: 11),
                 Row(
                   children: [
                     Expanded(
@@ -119,6 +142,9 @@ class _FoodCardState extends State<FoodCard> {
                           disabledBackgroundColor: PhiusTokens.surfaceSoft,
                           disabledForegroundColor: PhiusTokens.muted,
                           padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
                         ),
                       ),
                     ),
