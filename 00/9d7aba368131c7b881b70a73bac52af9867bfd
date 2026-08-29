@@ -1,0 +1,32 @@
+lib/features/customer/widgets/promotion_strip.dart
+  s_0936ccdd3f56a6::t_0ea50d264e7b1e 13-21,23-32,78,80,84
+  s_0936ccdd3f56a6::t_235810f7db8613 22,37,39,43-46
+lib/features/customer/widgets/customer_hero.dart
+  s_0936ccdd3f56a6::t_0ea50d264e7b1e 18-112
+  s_0936ccdd3f56a6::t_bd2437b11f2074 8-14,113-124
+test/features/customer/tracking_test.dart
+  s_0936ccdd3f56a6::t_6491db14ea486f 19-20,106-107
+test/features/customer/responsive_test.dart
+  s_0936ccdd3f56a6::t_2889009bf918d4 1-26
+  s_0936ccdd3f56a6::t_53faf91b2ef928 27-28
+test/features/customer/cart_test.dart
+  s_0936ccdd3f56a6::t_6491db14ea486f 18
+test/features/customer/menu_test.dart
+  s_0936ccdd3f56a6::t_ddd0e54fa6fd5c 12-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "009d7aba368131c7b881b70a73bac52af9867bfd",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
