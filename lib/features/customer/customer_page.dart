@@ -12,19 +12,52 @@ import 'package:pos_frontend/features/customer/widgets/customer_hero.dart';
 import 'package:pos_frontend/features/customer/widgets/promotion_strip.dart';
 import 'package:pos_frontend/features/customer/widgets/menu_toolbar.dart';
 import 'package:pos_frontend/features/customer/widgets/menu_section.dart';
+import 'package:pos_frontend/features/customer/widgets/bill_status_banner.dart';
+import 'package:pos_frontend/features/customer/widgets/order_tracking_section.dart';
 import 'package:pos_frontend/features/shared/widgets/app_footer.dart';
 import 'package:pos_frontend/state/customer_controller.dart';
 
 final _trackingAnchorKey = GlobalKey();
 
-class CustomerPage extends StatelessWidget {
+class CustomerPage extends StatefulWidget {
   const CustomerPage({super.key, required this.api, required this.tableToken});
   final ApiClient api;
   final String tableToken;
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (_) => CustomerController(api: api, tableToken: tableToken)..load(),
+  State<CustomerPage> createState() => _CustomerPageState();
+}
+
+class _CustomerPageState extends State<CustomerPage>
+    with WidgetsBindingObserver {
+  late final CustomerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _controller = CustomerController(
+      api: widget.api,
+      tableToken: widget.tableToken,
+    )..load();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) _controller.stopPolling();
+    if (state == AppLifecycleState.resumed) _controller.startPolling();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => ChangeNotifierProvider.value(
+    value: _controller,
     child: Consumer<CustomerController>(
       builder: (context, controller, _) {
         final app = controller.app;
@@ -112,8 +145,15 @@ class CustomerPage extends StatelessWidget {
                                         controller,
                                       ),
                                     ),
-                                    const AppFooter(),
                                     SizedBox(key: _trackingAnchorKey),
+                                    OrderTrackingSection(
+                                      session: controller.session,
+                                      paymentComplete:
+                                          controller.paymentComplete,
+                                      onRefresh: controller.refreshStatus,
+                                      onCallStaff: controller.callStaff,
+                                    ),
+                                    const AppFooter(),
                                   ],
                                 ),
                               ),
@@ -123,10 +163,27 @@ class CustomerPage extends StatelessWidget {
                         CartBar(
                           count: controller.cartCount(),
                           subtotal: controller.cartSubtotal(),
-                          sessionCount: controller.session?.items.where((item) => item.status != 'CANCELLED').fold<int>(0, (total, item) => total + item.qty) ?? 0,
+                          sessionCount:
+                              controller.session?.items
+                                  .where((item) => item.status != 'CANCELLED')
+                                  .fold<int>(
+                                    0,
+                                    (total, item) => total + item.qty,
+                                  ) ??
+                              0,
                           sessionTotal: controller.session?.session.total ?? 0,
-                          onTap: () { if (controller.cart.isNotEmpty) { openCartModal(context, controller); } else if (_trackingAnchorKey.currentContext != null) { Scrollable.ensureVisible(_trackingAnchorKey.currentContext!); } },
+                          onTap: () {
+                            if (controller.cart.isNotEmpty) {
+                              openCartModal(context, controller);
+                            } else if (_trackingAnchorKey.currentContext !=
+                                null) {
+                              Scrollable.ensureVisible(
+                                _trackingAnchorKey.currentContext!,
+                              );
+                            }
+                          },
                         ),
+                        BillStatusBanner(session: controller.session),
                       ],
                     ),
                   ),
