@@ -1,0 +1,19 @@
+PROGRESS.md
+  s_0936ccdd3f56a6::t_f4431bfea8c851 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f23571ec3af13ba92982c880301290435fb7406f",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
