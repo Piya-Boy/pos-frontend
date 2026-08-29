@@ -11,7 +11,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | T1 | Setup: deps, tokens, theme, Prompt font | luna | ✅ |
 | T2 | Models + ApiClient interface + FakeApiClient (seed) | luna | ✅ |
 | T3 | Shared widgets (brand, buttons, modal, toast, banner) | luna | ✅ |
-| T4 | Router + CustomerController + persistence | terra | ⬜ |
+| T4 | Router + CustomerController + persistence | terra | ✅ |
 | T5 | CustomerPage shell (header, guide, hero) | terra | ⬜ |
 | T6 | Menu (promotions, toolbar, grid, food card) | terra | ⬜ |
 | T7 | Item detail modal (options/addons/note/qty/price) | **sol** | ⬜ |
