@@ -26,7 +26,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 ## Phase 3 — Integration (frontend side) · plan `plan-integ.md`
 | Task | งาน | Model | สถานะ |
 |---|---|---|---|
-| P3-T1 | HttpApiClient (over Laravel) | terra | ⬜ |
+| P3-T1 | HttpApiClient (over Laravel) | terra | ✅ |
 | P3-T2 | switch Http vs Fake by config | terra | ⬜ |
 | P3-T4 | E2E smoke (needs backend running) | terra | ⬜ |
 
