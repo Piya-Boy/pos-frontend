@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pos_frontend/features/customer/widgets/food_card.dart';
 import 'package:pos_frontend/features/customer/widgets/item_detail_modal.dart';
 import 'package:provider/provider.dart';
 import 'package:pos_frontend/core/api/api_client.dart';
