@@ -1,0 +1,27 @@
+PROGRESS.md
+  s_ac235bdd8b9dc7::t_047818b9a8a70a 23-50
+AGENTS.md
+  s_ac235bdd8b9dc7::t_e29b6f2a1068f0 22-23,37-41
+plan-enhance.md
+  s_ac235bdd8b9dc7::t_863f0f8914b1f5 1-68
+plan-integ.md
+  s_ac235bdd8b9dc7::t_de4b8fa113f321 1-104
+plan-staff.md
+  s_ac235bdd8b9dc7::t_83a4fe9e493b7e 1-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d1b0f836c396f087879463bfb93fb190dd7f1012",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
