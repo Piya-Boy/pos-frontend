@@ -12,11 +12,11 @@ void main() {
       home: CustomerPage(api: FakeApiClient(), tableToken: 't'),
     ));
     await tester.pumpAndSettle();
-    // M001 กะเพราหมูสับ has required RADIO group ระดับความเผ็ด
-    final finder = find.byTooltip('เลือก กะเพราหมูสับ').first;
-    await tester.drag(find.byType(CustomScrollView), const Offset(0, -600));
+    // M001 กะเพราหมูสับ has required RADIO group ระดับความเผ็ด (first card)
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -700));
     await tester.pumpAndSettle();
-    await tester.tap(finder);
+    await tester.tap(find.byTooltip('เลือก กะเพราหมูสับ').first,
+        warnIfMissed: false);
     await tester.pumpAndSettle();
     expect(find.text('ระดับความเผ็ด'), findsOneWidget);
     expect(find.textContaining('เพิ่มลงตะกร้า'), findsOneWidget);

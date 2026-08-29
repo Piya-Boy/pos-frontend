@@ -53,10 +53,24 @@ class MenuToolbar extends StatelessWidget {
       child: ChoiceChip(
         label: Text(
           label,
-          style: TextStyle(color: selected ? Colors.white : PhiusTokens.ink),
+          softWrap: false,
+          overflow: TextOverflow.visible,
+          maxLines: 1,
+          style: TextStyle(
+            color: selected ? Colors.white : PhiusTokens.muted,
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+          ),
         ),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 4),
+        showCheckmark: false,
         selected: selected,
+        backgroundColor: PhiusTokens.surface,
         selectedColor: PhiusTokens.primary,
+        side: BorderSide(
+          color: selected ? PhiusTokens.primary : PhiusTokens.border,
+        ),
+        shape: const StadiumBorder(),
         onSelected: (_) => onSelectCategory(id),
       ),
     );

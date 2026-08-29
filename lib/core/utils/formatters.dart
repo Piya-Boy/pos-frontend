@@ -1,18 +1,15 @@
 import 'package:intl/intl.dart';
 
-final _moneyInt = NumberFormat.currency(
-  locale: 'th_TH',
-  symbol: '฿',
-  decimalDigits: 0,
-);
-final _moneyDec = NumberFormat.currency(
+// Ports App.html:1288 — Intl.NumberFormat('th-TH', {style:'currency',
+// currency:'THB', maximumFractionDigits:2}). Intl currency defaults
+// minimumFractionDigits to 2, so amounts ALWAYS show 2 decimals: ฿85.00.
+final _money = NumberFormat.currency(
   locale: 'th_TH',
   symbol: '฿',
   decimalDigits: 2,
 );
 
-String formatMoney(num value) =>
-    value == value.roundToDouble() ? _moneyInt.format(value) : _moneyDec.format(value);
+String formatMoney(num value) => _money.format(value);
 
 String placeholderImage(String label) {
   final text = Uri.encodeComponent(label.isEmpty ? 'Menu' : label);
