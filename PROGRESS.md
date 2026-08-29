@@ -8,7 +8,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | Task | งาน | Model | สถานะ |
 |---|---|---|---|
 | T0 | git branch + baseline commit | luna | ✅ (b48a84d) |
-| T1 | Setup: deps, tokens, theme, Prompt font | luna | ⬜ |
+| T1 | Setup: deps, tokens, theme, Prompt font | luna | ✅ |
 | T2 | Models + ApiClient interface + FakeApiClient (seed) | luna | ⬜ |
 | T3 | Shared widgets (brand, buttons, modal, toast, banner) | luna | ⬜ |
 | T4 | Router + CustomerController + persistence | terra | ⬜ |
