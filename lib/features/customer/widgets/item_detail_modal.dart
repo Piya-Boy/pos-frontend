@@ -190,19 +190,22 @@ class _ItemDetailContentState extends State<_ItemDetailContent> {
                       ),
                       ...options.map((opt) {
                         final isOptSelected = selected.contains(opt);
-                        return CheckboxListTile(
-                          title: Text(opt.label),
-                          secondary: opt.price > 0 ? Text('+${formatMoney(opt.price)}') : null,
-                          value: isOptSelected,
-                          onChanged: (val) {
+                        return _ChoiceRow(
+                          label: opt.label,
+                          priceLabel: opt.price > 0
+                              ? '+${formatMoney(opt.price)}'
+                              : 'ไม่เพิ่มราคา',
+                          selected: isOptSelected,
+                          isRadio: isRadio,
+                          onTap: () {
                             setState(() {
                               if (isRadio) {
                                 _selectedOptions[groupName] = [opt];
                               } else {
-                                if (val == true) {
-                                  selected.add(opt);
-                                } else {
+                                if (isOptSelected) {
                                   selected.remove(opt);
+                                } else {
+                                  selected.add(opt);
                                 }
                                 _selectedOptions[groupName] = selected;
                               }
@@ -223,16 +226,17 @@ class _ItemDetailContentState extends State<_ItemDetailContent> {
                   ),
                   ...widget.item.addOns.map((addOn) {
                     final selected = _selectedAddOns.contains(addOn);
-                    return CheckboxListTile(
-                      title: Text(addOn.name),
-                      secondary: Text('+${formatMoney(addOn.price)}'),
-                      value: selected,
-                      onChanged: (val) {
+                    return _ChoiceRow(
+                      label: addOn.name,
+                      priceLabel: '+${formatMoney(addOn.price)}',
+                      selected: selected,
+                      isRadio: false,
+                      onTap: () {
                         setState(() {
-                          if (val == true) {
-                            _selectedAddOns.add(addOn);
-                          } else {
+                          if (selected) {
                             _selectedAddOns.remove(addOn);
+                          } else {
+                            _selectedAddOns.add(addOn);
                           }
                         });
                       },
@@ -285,6 +289,78 @@ class _ItemDetailContentState extends State<_ItemDetailContent> {
           ],
         ),
       ],
+    );
+  }
+}
+
+/// One selectable option/add-on row — ports CSS `.choice-row`
+/// (`Styles.html:205-208`): `[control] label(flex) price(muted, right)`.
+class _ChoiceRow extends StatelessWidget {
+  const _ChoiceRow({
+    required this.label,
+    required this.priceLabel,
+    required this.selected,
+    required this.isRadio,
+    required this.onTap,
+  });
+
+  final String label;
+  final String priceLabel;
+  final bool selected;
+  final bool isRadio;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(13),
+        onTap: onTap,
+        child: Container(
+          constraints: const BoxConstraints(minHeight: 48),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            color: PhiusTokens.surface,
+            border: Border.all(
+              color: selected ? PhiusTokens.primary : PhiusTokens.border,
+            ),
+            borderRadius: BorderRadius.circular(13),
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 20,
+                height: 20,
+                child: isRadio
+                    ? Icon(
+                        selected
+                            ? Icons.radio_button_checked
+                            : Icons.radio_button_unchecked,
+                        size: 20,
+                        color: selected ? PhiusTokens.primary : PhiusTokens.muted,
+                      )
+                    : Icon(
+                        selected
+                            ? Icons.check_box
+                            : Icons.check_box_outline_blank,
+                        size: 20,
+                        color: selected ? PhiusTokens.primary : PhiusTokens.muted,
+                      ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(child: Text(label)),
+              Text(
+                priceLabel,
+                style: const TextStyle(
+                  color: PhiusTokens.muted,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
