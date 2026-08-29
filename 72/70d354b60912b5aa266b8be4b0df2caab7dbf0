@@ -1,0 +1,32 @@
+lib/core/router/app_router.dart
+  s_0936ccdd3f56a6::t_5be9f8d8512d4f 10,14-16
+  s_0936ccdd3f56a6::t_ec7aee1a91bdbb 1-9,11-13
+test/state/customer_controller_test.dart
+  s_0936ccdd3f56a6::t_176d0bcc49edbe 1-29
+lib/main.dart
+  s_0936ccdd3f56a6::t_ec7aee1a91bdbb 4,6
+lib/state/customer_controller.dart
+  s_0936ccdd3f56a6::t_46206f50fc2efb 44
+  s_0936ccdd3f56a6::t_748e0dfbfd71f8 79
+  s_0936ccdd3f56a6::t_be2f41ccbe7bca 1-27,30-38,42-43,45-68,72-75,82-83,85-91
+  s_0936ccdd3f56a6::t_d5cbd103ca6834 84
+  s_0936ccdd3f56a6::t_5be9f8d8512d4f 28-29,39-41,69-71,76-78,80-81
+lib/app.dart
+  s_0936ccdd3f56a6::t_ec7aee1a91bdbb 3-4,8-10,14,18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "7270d354b60912b5aa266b8be4b0df2caab7dbf0",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
