@@ -1,0 +1,62 @@
+lib/core/api/app_error.dart
+  s_0936ccdd3f56a6::t_2ba7b7e8b4f12d 1-11
+lib/models/call_log.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-31
+test/models/menu_item_test.dart
+  s_0936ccdd3f56a6::t_8b03ca6d8d22f0 1-37
+lib/models/promotion.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-45
+lib/models/totals.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-41
+lib/core/api/api_result.dart
+  s_0936ccdd3f56a6::t_2ba7b7e8b4f12d 1-9
+test/core/api/api_client_dto_test.dart
+  s_0936ccdd3f56a6::t_d175e788048253 1-24
+lib/models/app_config.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-53
+lib/models/order_item.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-53,56-66
+  s_0936ccdd3f56a6::t_ff01e60a4014ce 54-55
+lib/models/session_bundle.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-31
+lib/models/order_session.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-49
+lib/models/add_on.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-33
+lib/models/category.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-29
+lib/models/menu_item.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-63
+lib/core/api/fake_api_client.dart
+  s_0936ccdd3f56a6::t_2ba7b7e8b4f12d 1-173
+lib/core/utils/client_id.dart
+  s_0936ccdd3f56a6::t_2ba7b7e8b4f12d 1-7
+test/core/api/fake_api_client_test.dart
+  s_0936ccdd3f56a6::t_2d66919682adba 1-42
+lib/core/api/api_client.dart
+  s_0936ccdd3f56a6::t_2ba7b7e8b4f12d 1-46,71-86,103-118,138-144,152
+  s_0936ccdd3f56a6::t_950e2ca7e60521 47-70,87-102,119-137,145-151,153-157
+test/models/order_item_test.dart
+  s_0936ccdd3f56a6::t_34ab89d8cb2656 1-28
+lib/models/option.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-44
+lib/models/cart_line.dart
+  s_0936ccdd3f56a6::t_d58ed813520e06 1-39,46-72
+  s_0936ccdd3f56a6::t_f2e90ca27061d3 40-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "8ea83740022bc8670afc61fb47fab4f442b0bda4",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
