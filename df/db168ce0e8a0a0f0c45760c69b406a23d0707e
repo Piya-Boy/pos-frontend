@@ -1,0 +1,37 @@
+lib/core/utils/formatters.dart
+  s_0936ccdd3f56a6::t_f78ae8ee78b91a 1-20
+test/features/shared/brand_mark_test.dart
+  s_0936ccdd3f56a6::t_1325cb28e50267 1-13
+lib/features/shared/widgets/modal_sheet.dart
+  s_0936ccdd3f56a6::t_0529a4d36b18a6 1-15
+lib/features/shared/widgets/app_buttons.dart
+  s_0936ccdd3f56a6::t_0529a4d36b18a6 1-86
+lib/features/shared/widgets/status_capsule.dart
+  s_0936ccdd3f56a6::t_0529a4d36b18a6 1-36
+lib/features/shared/widgets/brand_mark.dart
+  s_0936ccdd3f56a6::t_0529a4d36b18a6 1-37
+lib/features/shared/widgets/network_banner.dart
+  s_0936ccdd3f56a6::t_0529a4d36b18a6 1-19
+lib/features/shared/widgets/app_footer.dart
+  s_0936ccdd3f56a6::t_0529a4d36b18a6 1-17
+test/core/utils/formatters_test.dart
+  s_0936ccdd3f56a6::t_a0f230f2a82d30 1-19
+lib/features/shared/widgets/eyebrow_text.dart
+  s_0936ccdd3f56a6::t_0529a4d36b18a6 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "dfdb168ce0e8a0a0f0c45760c69b406a23d0707e",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
