@@ -12,15 +12,16 @@
 
 ## Global Constraints
 
-- Flutter SDK floor: `^3.13.2` (existing `pubspec.yaml`).
-- Working dir for all Flutter commands: ``.
+- Flutter SDK floor: `^3.13.2` (existing `pos-frontend/pubspec.yaml`).
+- **Dart package name = `pos_frontend`** (set in `pubspec.yaml`; Dart names use `_`, never `-`). All intra-project imports are `package:pos_frontend/...`. In Task 1 confirm `pubspec.yaml` has `name: pos_frontend` before running any test (the default scaffold shipped `name: frontend`; it was renamed). The stale `test/widget_test.dart` (imports `package:frontend/main.dart`) is deleted in T1 Step 7 — until then, only run the specific test file each step names, not the whole suite.
+- Working dir for all Flutter commands: `pos-frontend/`.
 - Thai UI strings copied **verbatim** from `cp-pos/Pages.html` + `App.html`. Never translate/edit. All code/comments in English.
 - Design tokens copied **exactly** from `cp-pos/Styles.html:2-24` (see `front.md` §2). No guessed values.
 - No Apps Script (`google.script.run`) anywhere. All backend access through `ApiClient`.
 - Money format: `NumberFormat.currency(locale: 'th_TH', symbol: '฿', decimalDigits: 0)` → matches `฿85`, `฿1,234` (source `App.html:1288`).
 - Poll interval: `max(5, pollSeconds)` seconds (source `App.html:1217`).
 - Commit style: Conventional Commits (`feat:`/`test:`/`chore:`). Branch off non-main. No `Co-Authored-By`.
-- **This repo lives in `` (separate from backend).** git AND flutter both run from ``. All paths are relative to ``. Task bodies below sometimes write `lib/...` for clarity — when running commands you are already inside ``, so `git add lib test` (drop the `` prefix). Never `cd` to a parent repo; there isn't one.
+- **This repo lives in `pos-frontend/` (separate from backend).** git AND flutter both run from `pos-frontend/`. All paths are relative to `pos-frontend/`. Task bodies below sometimes write `pos-frontend/lib/...` for clarity — when running commands you are already inside `pos-frontend/`, so `git add lib test` (drop the `pos-frontend/` prefix). Never `cd` to a parent repo; there isn't one.
 - Each task: write failing test → confirm fail → implement → confirm pass → commit.
 - **When unsure about any Flutter/Dart API, widget, or package usage, look it up at https://docs.flutter.dev/ (and pub.dev for package APIs).** Do not guess API signatures.
 
@@ -28,9 +29,9 @@
 
 ### Task 0: Git branch (repo already inited)
 
-**This is a SEPARATE git repo living in ``.** It was already `git init`'d (main branch) with a Flutter `.gitignore`. Do NOT init at repo parent — frontend and backend are two independent repos.
+**This is a SEPARATE git repo living in `pos-frontend/`.** It was already `git init`'d (main branch) with a Flutter `.gitignore`. Do NOT init at repo parent — frontend and backend are two independent repos.
 
-**Paths in every task below are relative to ``** (this repo's root). git + flutter both run from ``. So `git add lib test pubspec.yaml` — NOT `lib`.
+**Paths in every task below are relative to `pos-frontend/`** (this repo's root). git + flutter both run from `pos-frontend/`. So `git add lib test pubspec.yaml` — NOT `pos-frontend/lib`.
 
 **Files:** none new (`.gitignore` already present).
 
@@ -56,19 +57,19 @@ git commit -m "chore: baseline Flutter scaffold"
 ### Task 1: Project setup — deps, folders, tokens, theme, font
 
 **Files:**
-- Modify: `pubspec.yaml`
-- Create: `lib/core/theme/tokens.dart`
-- Create: `lib/core/theme/phius_theme.dart`
-- Create: `lib/app.dart`
-- Modify: `lib/main.dart`
-- Test: `test/core/theme/tokens_test.dart`
+- Modify: `pos-frontend/pubspec.yaml`
+- Create: `pos-frontend/lib/core/theme/tokens.dart`
+- Create: `pos-frontend/lib/core/theme/phius_theme.dart`
+- Create: `pos-frontend/lib/app.dart`
+- Modify: `pos-frontend/lib/main.dart`
+- Test: `pos-frontend/test/core/theme/tokens_test.dart`
 
 **Interfaces:**
 - Produces: `PhiusTokens` (static color/double consts), `phiusTheme()` → `ThemeData`, `PhiusApp` widget.
 
 - [ ] **Step 1: Add dependencies**
 
-Edit `pubspec.yaml` `dependencies:` block (keep `flutter`, `cupertino_icons`):
+Edit `pos-frontend/pubspec.yaml` `dependencies:` block (keep `flutter`, `cupertino_icons`):
 ```yaml
   provider: ^6.1.2
   go_router: ^14.0.0
@@ -83,11 +84,11 @@ Expected: resolves, no version conflict.
 
 - [ ] **Step 2: Write failing test for tokens**
 
-Create `test/core/theme/tokens_test.dart`:
+Create `pos-frontend/test/core/theme/tokens_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:core/theme/tokens.dart';
+import 'package:pos_frontend/core/theme/tokens.dart';
 
 void main() {
   test('core colors match cp-pos Styles.html :root', () {
@@ -114,7 +115,7 @@ Expected: FAIL — `tokens.dart` / `PhiusTokens` not found.
 
 - [ ] **Step 4: Implement tokens**
 
-Create `lib/core/theme/tokens.dart` (values from `Styles.html:2-24`):
+Create `pos-frontend/lib/core/theme/tokens.dart` (values from `Styles.html:2-24`):
 ```dart
 import 'package:flutter/material.dart';
 
@@ -165,7 +166,7 @@ Expected: PASS.
 
 - [ ] **Step 6: Implement theme + app shell**
 
-Create `lib/core/theme/phius_theme.dart`:
+Create `pos-frontend/lib/core/theme/phius_theme.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -188,7 +189,7 @@ ThemeData phiusTheme() {
 }
 ```
 
-Create `lib/app.dart` (router wired in Task 4; temporary home for now):
+Create `pos-frontend/lib/app.dart` (router wired in Task 4; temporary home for now):
 ```dart
 import 'package:flutter/material.dart';
 import 'core/theme/phius_theme.dart';
@@ -208,7 +209,7 @@ class PhiusApp extends StatelessWidget {
 }
 ```
 
-Replace `lib/main.dart`:
+Replace `pos-frontend/lib/main.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'app.dart';
@@ -218,13 +219,13 @@ void main() => runApp(const PhiusApp());
 
 - [ ] **Step 7: Verify build + delete stale default test**
 
-Delete `test/widget_test.dart` (references removed counter demo).
+Delete `pos-frontend/test/widget_test.dart` (references removed counter demo).
 Run: `cd pos-frontend && flutter analyze && flutter test`
 Expected: analyze clean, tokens test passes.
 
 - [ ] **Step 8: Commit**
 ```bash
-git add pubspec.yaml lib test
+git add pos-frontend/pubspec.yaml pos-frontend/lib pos-frontend/test
 git commit -m "chore: setup Flutter deps, design tokens, Prompt theme"
 ```
 
@@ -233,10 +234,10 @@ git commit -m "chore: setup Flutter deps, design tokens, Prompt theme"
 ### Task 2: Models + API interface + FakeApiClient
 
 **Files:**
-- Create: `lib/models/` — `app_config.dart`, `category.dart`, `option.dart`, `add_on.dart`, `menu_item.dart`, `promotion.dart`, `cart_line.dart`, `order_session.dart`, `order_item.dart`, `call_log.dart`, `session_bundle.dart`, `totals.dart`
-- Create: `lib/core/api/app_error.dart`, `api_result.dart`, `api_client.dart`, `fake_api_client.dart`
-- Create: `lib/core/utils/client_id.dart`
-- Test: `test/models/menu_item_test.dart`, `test/core/api/fake_api_client_test.dart`
+- Create: `pos-frontend/lib/models/` — `app_config.dart`, `category.dart`, `option.dart`, `add_on.dart`, `menu_item.dart`, `promotion.dart`, `cart_line.dart`, `order_session.dart`, `order_item.dart`, `call_log.dart`, `session_bundle.dart`, `totals.dart`
+- Create: `pos-frontend/lib/core/api/app_error.dart`, `api_result.dart`, `api_client.dart`, `fake_api_client.dart`
+- Create: `pos-frontend/lib/core/utils/client_id.dart`
+- Test: `pos-frontend/test/models/menu_item_test.dart`, `pos-frontend/test/core/api/fake_api_client_test.dart`
 
 **Interfaces:**
 - Produces:
@@ -254,10 +255,10 @@ git commit -m "chore: setup Flutter deps, design tokens, Prompt theme"
 
 - [ ] **Step 1: Write failing model test**
 
-Create `test/models/menu_item_test.dart`:
+Create `pos-frontend/test/models/menu_item_test.dart`:
 ```dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:models/menu_item.dart';
+import 'package:pos_frontend/models/menu_item.dart';
 
 void main() {
   test('MenuItem.fromJson maps sheet headers + nested', () {
@@ -293,7 +294,7 @@ Expected: FAIL — `menu_item.dart` not found.
 
 - [ ] **Step 3: Implement models**
 
-Create each model. Example `lib/models/option.dart`:
+Create each model. Example `pos-frontend/lib/models/option.dart`:
 ```dart
 class Option {
   final String optionId;
@@ -384,10 +385,10 @@ Expected: PASS.
 
 - [ ] **Step 5: Write failing FakeApiClient test**
 
-Create `test/core/api/fake_api_client_test.dart`:
+Create `pos-frontend/test/core/api/fake_api_client_test.dart`:
 ```dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:core/api/fake_api_client.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
 
 void main() {
   test('getCustomerData returns seeded catalog', () async {
@@ -437,7 +438,7 @@ Expected: PASS.
 
 - [ ] **Step 9: Commit**
 ```bash
-git add lib/models lib/core test
+git add pos-frontend/lib/models pos-frontend/lib/core pos-frontend/test
 git commit -m "feat: models, ApiClient interface, seeded FakeApiClient"
 ```
 
@@ -446,19 +447,19 @@ git commit -m "feat: models, ApiClient interface, seeded FakeApiClient"
 ### Task 3: Shared widgets
 
 **Files:**
-- Create: `lib/features/shared/widgets/` — `brand_mark.dart`, `app_buttons.dart`, `status_capsule.dart`, `network_banner.dart`, `modal_sheet.dart`, `eyebrow_text.dart`, `app_footer.dart`
-- Create: `lib/core/utils/formatters.dart`
-- Test: `test/core/utils/formatters_test.dart`, `test/features/shared/brand_mark_test.dart`
+- Create: `pos-frontend/lib/features/shared/widgets/` — `brand_mark.dart`, `app_buttons.dart`, `status_capsule.dart`, `network_banner.dart`, `modal_sheet.dart`, `eyebrow_text.dart`, `app_footer.dart`
+- Create: `pos-frontend/lib/core/utils/formatters.dart`
+- Test: `pos-frontend/test/core/utils/formatters_test.dart`, `pos-frontend/test/features/shared/brand_mark_test.dart`
 
 **Interfaces:**
 - Produces: `formatMoney(num)` → String; `placeholderImage(String label)` → String URL; `BrandMark({small, logoUrl, logoText})`; `PrimaryButton`/`SecondaryButton`/`OutlineButton`/`GhostButton`/`AppIconButton`; `showPhiusModal(context, {child, className})` → bottom-sheet; `StatusCapsule` + `showToast(context, msg, {isError})`; `NetworkBanner`; `EyebrowText`; `AppFooter`.
 
 - [ ] **Step 1: Write failing formatter test**
 
-Create `test/core/utils/formatters_test.dart`:
+Create `pos-frontend/test/core/utils/formatters_test.dart`:
 ```dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:core/utils/formatters.dart';
+import 'package:pos_frontend/core/utils/formatters.dart';
 
 void main() {
   test('formatMoney matches th-TH baht (maxFractionDigits 2)', () {
@@ -483,7 +484,7 @@ Expected: FAIL — `formatters.dart` not found.
 
 - [ ] **Step 3: Implement formatters**
 
-Create `lib/core/utils/formatters.dart`:
+Create `pos-frontend/lib/core/utils/formatters.dart`:
 ```dart
 import 'package:intl/intl.dart';
 
@@ -508,11 +509,11 @@ Expected: PASS. (If locale data missing, first line of test file: call is fine �
 
 - [ ] **Step 5: Write failing BrandMark widget test**
 
-Create `test/features/shared/brand_mark_test.dart`:
+Create `pos-frontend/test/features/shared/brand_mark_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:features/shared/widgets/brand_mark.dart';
+import 'package:pos_frontend/features/shared/widgets/brand_mark.dart';
 
 void main() {
   testWidgets('BrandMark shows logo text when no image', (tester) async {
@@ -546,7 +547,7 @@ Expected: PASS, analyze clean.
 
 - [ ] **Step 9: Commit**
 ```bash
-git add lib/features/shared lib/core/utils test
+git add pos-frontend/lib/features/shared pos-frontend/lib/core/utils pos-frontend/test
 git commit -m "feat: shared widgets (brand, buttons, modal, toast, banner)"
 ```
 
@@ -555,10 +556,10 @@ git commit -m "feat: shared widgets (brand, buttons, modal, toast, banner)"
 ### Task 4: Router + CustomerController + persistence
 
 **Files:**
-- Create: `lib/core/router/app_router.dart`
-- Create: `lib/state/customer_controller.dart`
-- Modify: `lib/app.dart`, `lib/main.dart`
-- Test: `test/state/customer_controller_test.dart`
+- Create: `pos-frontend/lib/core/router/app_router.dart`
+- Create: `pos-frontend/lib/state/customer_controller.dart`
+- Modify: `pos-frontend/lib/app.dart`, `pos-frontend/lib/main.dart`
+- Test: `pos-frontend/test/state/customer_controller_test.dart`
 
 **Interfaces:**
 - Consumes: `ApiClient`, models (Task 2).
@@ -566,13 +567,13 @@ git commit -m "feat: shared widgets (brand, buttons, modal, toast, banner)"
 
 - [ ] **Step 1: Write failing controller test**
 
-Create `test/state/customer_controller_test.dart`:
+Create `pos-frontend/test/state/customer_controller_test.dart`:
 ```dart
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:core/api/fake_api_client.dart';
-import 'package:state/customer_controller.dart';
-import 'package:models/cart_line.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+import 'package:pos_frontend/state/customer_controller.dart';
+import 'package:pos_frontend/models/cart_line.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -609,7 +610,7 @@ Expected: FAIL — `customer_controller.dart` not found.
 
 - [ ] **Step 3: Implement controller**
 
-Create `lib/state/customer_controller.dart`. Port logic from `App.html`:
+Create `pos-frontend/lib/state/customer_controller.dart`. Port logic from `App.html`:
 - `filteredMenu()` = `App.html:402` (category match + lowercase search in name+description).
 - `addToCart`/`removeLine`/`changeQty` mutate `cart`, then `_saveCart()` + `notifyListeners()`.
 - persistence: `shared_preferences` keys `phius-cart-$tableToken`, `phius-session-$tableToken` (`App.html:672-673`); on `load()`, restore cart filtered to available items (`App.html:667`).
@@ -625,7 +626,7 @@ Expected: PASS.
 
 - [ ] **Step 5: Implement router + wire app**
 
-Create `lib/core/router/app_router.dart`:
+Create `pos-frontend/lib/core/router/app_router.dart`:
 ```dart
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
@@ -660,7 +661,7 @@ Expected: analyze clean, all tests pass.
 
 - [ ] **Step 7: Commit**
 ```bash
-git add lib test
+git add pos-frontend/lib pos-frontend/test
 git commit -m "feat: go_router + CustomerController with persistence"
 ```
 
@@ -669,10 +670,10 @@ git commit -m "feat: go_router + CustomerController with persistence"
 ### Task 5: CustomerPage shell — Header, Guide, Hero
 
 **Files:**
-- Create: `lib/features/customer/customer_page.dart`
-- Create: `lib/features/customer/widgets/customer_header.dart`, `customer_guide.dart`, `customer_hero.dart`
-- Modify: `lib/core/router/app_router.dart`
-- Test: `test/features/customer/customer_page_test.dart`
+- Create: `pos-frontend/lib/features/customer/customer_page.dart`
+- Create: `pos-frontend/lib/features/customer/widgets/customer_header.dart`, `customer_guide.dart`, `customer_hero.dart`
+- Modify: `pos-frontend/lib/core/router/app_router.dart`
+- Test: `pos-frontend/test/features/customer/customer_page_test.dart`
 
 **Interfaces:**
 - Consumes: `CustomerController`, `AppConfig`, shared widgets.
@@ -680,13 +681,13 @@ git commit -m "feat: go_router + CustomerController with persistence"
 
 - [ ] **Step 1: Write failing widget test**
 
-Create `test/features/customer/customer_page_test.dart`:
+Create `pos-frontend/test/features/customer/customer_page_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:core/api/fake_api_client.dart';
-import 'package:features/customer/customer_page.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+import 'package:pos_frontend/features/customer/customer_page.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -722,7 +723,7 @@ Expected: PASS.
 
 - [ ] **Step 5: Commit**
 ```bash
-git add lib/features/customer lib/core/router test
+git add pos-frontend/lib/features/customer pos-frontend/lib/core/router pos-frontend/test
 git commit -m "feat: customer page shell (header, guide, hero)"
 ```
 
@@ -731,9 +732,9 @@ git commit -m "feat: customer page shell (header, guide, hero)"
 ### Task 6: Menu — PromotionStrip, MenuToolbar, MenuSection, FoodCard
 
 **Files:**
-- Create: `lib/features/customer/widgets/promotion_strip.dart`, `menu_toolbar.dart`, `menu_section.dart`, `food_card.dart`
-- Modify: `lib/features/customer/customer_page.dart`
-- Test: `test/features/customer/menu_test.dart`
+- Create: `pos-frontend/lib/features/customer/widgets/promotion_strip.dart`, `menu_toolbar.dart`, `menu_section.dart`, `food_card.dart`
+- Modify: `pos-frontend/lib/features/customer/customer_page.dart`
+- Test: `pos-frontend/test/features/customer/menu_test.dart`
 
 **Interfaces:**
 - Consumes: `CustomerController` (filteredMenu, search, activeCategory), `MenuItem`, `Promotion`, `Category`.
@@ -741,14 +742,14 @@ git commit -m "feat: customer page shell (header, guide, hero)"
 
 - [ ] **Step 1: Write failing test**
 
-Create `test/features/customer/menu_test.dart`:
+Create `pos-frontend/test/features/customer/menu_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:core/api/fake_api_client.dart';
-import 'package:features/customer/customer_page.dart';
-import 'package:features/customer/widgets/menu_section.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+import 'package:pos_frontend/features/customer/customer_page.dart';
+import 'package:pos_frontend/features/customer/widgets/menu_section.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -791,7 +792,7 @@ Expected: PASS.
 
 - [ ] **Step 5: Commit**
 ```bash
-git add lib/features/customer test
+git add pos-frontend/lib/features/customer pos-frontend/test
 git commit -m "feat: menu (promotions, toolbar, grid, food card)"
 ```
 
@@ -800,9 +801,9 @@ git commit -m "feat: menu (promotions, toolbar, grid, food card)"
 ### Task 7: ItemDetailModal
 
 **Files:**
-- Create: `lib/features/customer/widgets/item_detail_modal.dart`
-- Modify: `lib/features/customer/widgets/menu_section.dart` (wire onQuickAdd)
-- Test: `test/features/customer/item_modal_test.dart`
+- Create: `pos-frontend/lib/features/customer/widgets/item_detail_modal.dart`
+- Modify: `pos-frontend/lib/features/customer/widgets/menu_section.dart` (wire onQuickAdd)
+- Test: `pos-frontend/test/features/customer/item_modal_test.dart`
 
 **Interfaces:**
 - Consumes: `MenuItem`, `CustomerController.addToCart`, `showPhiusModal`, `showToast`.
@@ -810,13 +811,13 @@ git commit -m "feat: menu (promotions, toolbar, grid, food card)"
 
 - [ ] **Step 1: Write failing test**
 
-Create `test/features/customer/item_modal_test.dart`:
+Create `pos-frontend/test/features/customer/item_modal_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:core/api/fake_api_client.dart';
-import 'package:features/customer/customer_page.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+import 'package:pos_frontend/features/customer/customer_page.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -858,7 +859,7 @@ Expected: PASS.
 
 - [ ] **Step 5: Commit**
 ```bash
-git add lib/features/customer test
+git add pos-frontend/lib/features/customer pos-frontend/test
 git commit -m "feat: item detail modal (options, addons, note, qty, live price)"
 ```
 
@@ -867,9 +868,9 @@ git commit -m "feat: item detail modal (options, addons, note, qty, live price)"
 ### Task 8: Cart — CartBar + CartModal + submit
 
 **Files:**
-- Create: `lib/features/customer/widgets/cart_bar.dart`, `cart_modal.dart`
-- Modify: `lib/features/customer/customer_page.dart`
-- Test: `test/features/customer/cart_test.dart`
+- Create: `pos-frontend/lib/features/customer/widgets/cart_bar.dart`, `cart_modal.dart`
+- Modify: `pos-frontend/lib/features/customer/customer_page.dart`
+- Test: `pos-frontend/test/features/customer/cart_test.dart`
 
 **Interfaces:**
 - Consumes: `CustomerController` (cart, cartCount, cartSubtotal, session, submit, removeLine, changeQty), `Promotion`.
@@ -877,13 +878,13 @@ git commit -m "feat: item detail modal (options, addons, note, qty, live price)"
 
 - [ ] **Step 1: Write failing test**
 
-Create `test/features/customer/cart_test.dart`:
+Create `pos-frontend/test/features/customer/cart_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:core/api/fake_api_client.dart';
-import 'package:features/customer/customer_page.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+import 'package:pos_frontend/features/customer/customer_page.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -924,7 +925,7 @@ Expected: PASS.
 
 - [ ] **Step 5: Commit**
 ```bash
-git add lib/features/customer test
+git add pos-frontend/lib/features/customer pos-frontend/test
 git commit -m "feat: cart bar + cart modal + order submit"
 ```
 
@@ -933,9 +934,9 @@ git commit -m "feat: cart bar + cart modal + order submit"
 ### Task 9: OrderTrackingSection + BillStatusBanner + status meta + polling
 
 **Files:**
-- Create: `lib/features/customer/widgets/order_tracking_section.dart`, `bill_status_banner.dart`, `status_meta.dart`
-- Modify: `lib/features/customer/customer_page.dart`
-- Test: `test/features/customer/tracking_test.dart`, `test/features/customer/status_meta_test.dart`
+- Create: `pos-frontend/lib/features/customer/widgets/order_tracking_section.dart`, `bill_status_banner.dart`, `status_meta.dart`
+- Modify: `pos-frontend/lib/features/customer/customer_page.dart`
+- Test: `pos-frontend/test/features/customer/tracking_test.dart`, `pos-frontend/test/features/customer/status_meta_test.dart`
 
 **Interfaces:**
 - Consumes: `CustomerController` (session, paymentComplete, callStaff, refreshStatus), `OrderItem`, `SessionBundle`.
@@ -943,10 +944,10 @@ git commit -m "feat: cart bar + cart modal + order submit"
 
 - [ ] **Step 1: Write failing status meta test**
 
-Create `test/features/customer/status_meta_test.dart`:
+Create `pos-frontend/test/features/customer/status_meta_test.dart`:
 ```dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:features/customer/widgets/status_meta.dart';
+import 'package:pos_frontend/features/customer/widgets/status_meta.dart';
 
 void main() {
   test('statusMeta ports App.html:1295 customer states', () {
@@ -998,13 +999,13 @@ Expected: PASS.
 
 - [ ] **Step 5: Write failing tracking widget test**
 
-Create `test/features/customer/tracking_test.dart`:
+Create `pos-frontend/test/features/customer/tracking_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:core/api/fake_api_client.dart';
-import 'package:features/customer/customer_page.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+import 'package:pos_frontend/features/customer/customer_page.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -1043,7 +1044,7 @@ Expected: PASS.
 
 - [ ] **Step 9: Commit**
 ```bash
-git add lib/features/customer test
+git add pos-frontend/lib/features/customer pos-frontend/test
 git commit -m "feat: order tracking, bill banner, status meta, polling"
 ```
 
@@ -1053,20 +1054,20 @@ git commit -m "feat: order tracking, bill banner, status meta, polling"
 
 **Files:**
 - Modify: customer widgets as needed for breakpoints.
-- Create: `test/features/customer/responsive_test.dart`
+- Create: `pos-frontend/test/features/customer/responsive_test.dart`
 
 **Interfaces:**
 - Consumes: all prior. No new public API.
 
 - [ ] **Step 1: Write failing responsive test**
 
-Create `test/features/customer/responsive_test.dart`:
+Create `pos-frontend/test/features/customer/responsive_test.dart`:
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:core/api/fake_api_client.dart';
-import 'package:features/customer/customer_page.dart';
+import 'package:pos_frontend/core/api/fake_api_client.dart';
+import 'package:pos_frontend/features/customer/customer_page.dart';
 
 void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
@@ -1108,7 +1109,7 @@ Compare side-by-side with the cp-pos customer screen (open old deployment or `Ap
 - [ ] **Step 6: Final analyze + commit**
 ```bash
 cd pos-frontend && flutter analyze
-git add lib test
+git add pos-frontend/lib pos-frontend/test
 git commit -m "feat: responsive breakpoints + parity pass for customer flow"
 ```
 
