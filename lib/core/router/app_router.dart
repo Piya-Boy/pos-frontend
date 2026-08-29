@@ -9,11 +9,16 @@ GoRouter appRouter(ApiClient api) => GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => _routeFor(
-        api,
-        state.uri.queryParameters['page'] ?? 'home',
-        state.uri.queryParameters['table'] ?? '',
-      ),
+      builder: (context, state) {
+        // On Flutter web the query string can live before the hash (`/?page=..`),
+        // which go_router's `state.uri` may not carry on first load. Fall back to
+        // the real browser URL so `?page=order&table=..` (QR deep link) works.
+        final q = {
+          ...Uri.base.queryParameters,
+          ...state.uri.queryParameters,
+        };
+        return _routeFor(api, q['page'] ?? 'home', q['table'] ?? '');
+      },
     ),
   ],
 );
