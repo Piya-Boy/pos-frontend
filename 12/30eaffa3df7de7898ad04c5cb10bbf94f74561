@@ -1,0 +1,49 @@
+test/features/customer/status_meta_test.dart
+  s_0936ccdd3f56a6::t_3953ed281488f9 1-11
+lib/features/customer/widgets/status_meta.dart
+  s_0936ccdd3f56a6::t_517bf391f2c8a9 1-18
+  s_0936ccdd3f56a6::t_6062a2e966e8cb 19-48
+lib/features/customer/widgets/order_tracking_section.dart
+  s_0936ccdd3f56a6::t_5b2cf40d29a8ec 12,27-34,36,38,44,79-80,86,89,91,117-119,123,125,137-152,167-175
+  s_0936ccdd3f56a6::t_a7a7bf06abb394 1,3-8,10-11,13-23,25-26,35,45-69,74-78,81-85,87-88,90,92-98,106-110,116,121-122,124,130-131,178,193-206,211,216-222,227-247,252-266,269,273-286,291-297,308-309,320-325,338-346,348-356,361-367,374,387-395
+  s_0936ccdd3f56a6::t_498786ce2e816c 2,24,39-43,153-166,176-177
+  s_0936ccdd3f56a6::t_575525841b7c8b 37,70-73,99-105,111-115,120,126-129,132-136,179-192,207-210,212-215,223-226,248-251,267-268,270-272,287-290,298-307,310-319,326-337,357-360,368-373,375-386
+  s_0936ccdd3f56a6::t_ba00efd2ed9180 9,347
+test/features/customer/tracking_test.dart
+  s_0936ccdd3f56a6::t_f72257cb9a1038 5,14-16,45-74
+  s_0936ccdd3f56a6::t_3023a6db77612e 76-94,98-99,103-104,107-112,114-118
+  s_0936ccdd3f56a6::t_d9957fc9587984 6,24-41
+  s_0936ccdd3f56a6::t_79559e355fac63 95-97,100-102,106
+  s_0936ccdd3f56a6::t_04a69bc73ff237 23,42-44
+  s_0936ccdd3f56a6::t_91930077baefab 105
+  s_0936ccdd3f56a6::t_ee6d86c04c81b6 1-4,7-13,17-22,75,119
+  s_0936ccdd3f56a6::t_65be409a60f35c 113
+lib/features/customer/widgets/bill_status_banner.dart
+  s_0936ccdd3f56a6::t_a7a7bf06abb394 1-68
+lib/features/customer/customer_page.dart
+  s_0936ccdd3f56a6::t_3151fcd453a1df 22,28-60,151-152,166-173,175-184
+  s_0936ccdd3f56a6::t_a7a7bf06abb394 15-16,149-150,153-156,186
+lib/state/customer_controller.dart
+  s_0936ccdd3f56a6::t_498786ce2e816c 121-132
+  s_0936ccdd3f56a6::t_ab08027a4d6a46 36-38,40-43,45-54,57-60,65-66,68-71,74-95,97-105,107,109-110,117-120,133-142,144-157,159-166,168-181,183-193,196-227,230-243
+lib/core/api/fake_api_client.dart
+  s_0936ccdd3f56a6::t_53ce3c49673145 334-336
+  s_0936ccdd3f56a6::t_3db64d58ad5112 22-51,55-75,80-83,86-87,89-115,120-159,162-219,224-233,237-256,259-271,274-279,284-286,299-303,317-320,327-331,339-345,348,360-372,384-402,408-427
+  s_0936ccdd3f56a6::t_ba00efd2ed9180 349-355
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "1230eaffa3df7de7898ad04c5cb10bbf94f74561",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
