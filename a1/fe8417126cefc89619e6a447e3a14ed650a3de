@@ -1,0 +1,44 @@
+lib/features/customer/widgets/menu_toolbar.dart
+  s_0936ccdd3f56a6::t_8e94ff7fedecbc 7-13,24-30,32-45,53-61
+  s_0936ccdd3f56a6::t_8743b6356d67c2 2,5-6,14-23,31,46-52,62-64
+  s_0936ccdd3f56a6::t_d87b8510010ae7 1,3-4
+lib/features/customer/widgets/promotion_strip.dart
+  s_0936ccdd3f56a6::t_1787b3a997f90c 2,4-8,91-92
+  s_0936ccdd3f56a6::t_8e94ff7fedecbc 16
+  s_0936ccdd3f56a6::t_8743b6356d67c2 1,3,9-10,24-33
+  s_0936ccdd3f56a6::t_51eaf36fa03dd7 11-15,17-23,34-90
+lib/features/customer/widgets/food_card.dart
+  s_0936ccdd3f56a6::t_8c0696a307e465 6-122
+  s_0936ccdd3f56a6::t_d87b8510010ae7 1-5,123
+  s_0936ccdd3f56a6::t_b628d15f1417d0 124-125
+test/features/customer/menu_test.dart
+  s_0936ccdd3f56a6::t_b19b71c247f6f3 1-6
+  s_0936ccdd3f56a6::t_d4960e20b1b303 7-12,16-25
+  s_0936ccdd3f56a6::t_a3e9f208de0353 13-15
+lib/features/customer/widgets/menu_section.dart
+  s_0936ccdd3f56a6::t_55ca5677b1d64f 5
+  s_0936ccdd3f56a6::t_d87b8510010ae7 1-4
+  s_0936ccdd3f56a6::t_f32501e7be8d03 6-54
+lib/features/customer/customer_page.dart
+  s_0936ccdd3f56a6::t_7ad2a7386d0010 25-46,48-75,77-88,90-107,109-113,115-117,119,132,135,138-142,149-150
+  s_0936ccdd3f56a6::t_d87b8510010ae7 7-9
+  s_0936ccdd3f56a6::t_55f965e750eed7 76,89,108,124-131,133-134,136-137,143-148
+  s_0936ccdd3f56a6::t_b6dedc6dfc5041 21-24,47,114,118,120-121
+  s_0936ccdd3f56a6::t_e1aa167fee17f9 151
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "a1fe8417126cefc89619e6a447e3a14ed650a3de",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
