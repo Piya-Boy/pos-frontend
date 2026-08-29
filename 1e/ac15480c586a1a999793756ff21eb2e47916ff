@@ -1,0 +1,27 @@
+lib/features/customer/customer_page.dart
+  s_0936ccdd3f56a6::t_08095568629418 1-2,149-157
+lib/features/customer/widgets/food_card.dart
+  s_0936ccdd3f56a6::t_08095568629418 80-85,89-94
+  s_0936ccdd3f56a6::t_3aa12b544be497 78-79,87-88
+lib/features/customer/widgets/promotion_strip.dart
+  s_0936ccdd3f56a6::t_08095568629418 16,26-31,34-35,40,43,61
+  s_0936ccdd3f56a6::t_8d6e905e16bc89 32-33,36-39,45,48-60
+  s_0936ccdd3f56a6::t_3aa12b544be497 41-42,44,46-47
+  s_0936ccdd3f56a6::t_4b8ade9aef8807 62-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "1eac15480c586a1a999793756ff21eb2e47916ff",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
