@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'core/api/fake_api_client.dart';
+import 'core/router/app_router.dart';
 import 'core/theme/phius_theme.dart';
 
 class PhiusApp extends StatelessWidget {
-  const PhiusApp({super.key});
+  PhiusApp({super.key, ApiClient? api}) : _api = api ?? FakeApiClient();
+
+  final ApiClient _api;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Phius Order',
       debugShowCheckedModeBanner: false,
       theme: phiusTheme(),
-      home: const Scaffold(body: Center(child: Text('Phius Order'))),
+      routerConfig: appRouter(_api),
     );
   }
 }
