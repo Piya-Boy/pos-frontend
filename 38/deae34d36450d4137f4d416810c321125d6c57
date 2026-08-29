@@ -1,0 +1,23 @@
+lib/core/router/app_router.dart
+  s_59a6783ef98fe2::t_d3d7964b7745c4 12-21
+pubspec.yaml
+  s_59a6783ef98fe2::t_9e1d3d4e6ba83c 33-34
+lib/main.dart
+  s_59a6783ef98fe2::t_2fa130e7f8aa48 2,7-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "38deae34d36450d4137f4d416810c321125d6c57",
+  "prompts": {},
+  "sessions": {
+    "s_59a6783ef98fe2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "08bb25e9-ca7c-4f46-8956-2277701a0e62",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
