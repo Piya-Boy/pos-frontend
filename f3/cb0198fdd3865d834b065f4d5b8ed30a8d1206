@@ -1,0 +1,21 @@
+AGENTS.md
+  s_ac235bdd8b9dc7::t_80ff8e129ac1d8 28-29
+prompt-frontend.md
+  s_ac235bdd8b9dc7::t_fad6ad4ae503e6 1-26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "f3cb0198fdd3865d834b065f4d5b8ed30a8d1206",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
