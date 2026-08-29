@@ -1,0 +1,25 @@
+lib/features/customer/widgets/menu_toolbar.dart
+  s_59a6783ef98fe2::t_eed86554ea16c0 56-63,65-66,68,70-73
+lib/core/utils/formatters.dart
+  s_59a6783ef98fe2::t_20740a51645ed3 3-6,12
+test/core/utils/formatters_test.dart
+  s_59a6783ef98fe2::t_ae289daed3d396 5-8,10
+test/features/customer/item_modal_test.dart
+  s_59a6783ef98fe2::t_a1c72eb4373eee 15-16,18-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "1f4935f016f97fb7f1bef8a0b349f3da991612c9",
+  "prompts": {},
+  "sessions": {
+    "s_59a6783ef98fe2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "08bb25e9-ca7c-4f46-8956-2277701a0e62",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
