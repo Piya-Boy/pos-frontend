@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../api/api_client.dart';
+import '../../features/customer/customer_page.dart';
 
 GoRouter appRouter(ApiClient api) => GoRouter(
   routes: [
@@ -12,5 +13,6 @@ GoRouter appRouter(ApiClient api) => GoRouter(
   ],
 );
 
-Widget _routeFor(ApiClient api, String page, String table) =>
-    const Scaffold(body: Center(child: Text('Phius Order')));
+Widget _routeFor(ApiClient api, String page, String table) => page == 'order'
+    ? CustomerPage(api: api, tableToken: table)
+    : const Scaffold(body: Center(child: Text('Phius Order')));
