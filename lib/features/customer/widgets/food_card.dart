@@ -100,6 +100,7 @@ class _FoodCardState extends State<FoodCard> {
                       width: 40,
                       height: 40,
                       child: IconButton(
+                        tooltip: 'เลือก ${widget.item.name}',
                         onPressed: widget.item.available
                             ? widget.onQuickAdd
                             : null,
