@@ -15,7 +15,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    await tester.drag(find.byType(CustomScrollView), const Offset(0, -850));
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -1200));
     await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('เลือก ชาไทยเย็น').first);
     await tester.pumpAndSettle();

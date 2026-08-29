@@ -16,11 +16,12 @@ void main() {
       ),
     );
     await tester.pumpAndSettle();
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -2000));
+    await tester.pumpAndSettle();
 
     expect(find.text('พร้อมรับออเดอร์'), findsOneWidget);
     expect(find.text('เรียกพนักงาน'), findsOneWidget);
     expect(find.text('เรียกเก็บเงิน'), findsOneWidget);
-
   });
 
   testWidgets('bill request without a session explains why it cannot be sent', (
@@ -101,6 +102,8 @@ void main() {
         home: CustomerPage(api: api, tableToken: 't'),
       ),
     );
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -2000));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('เรียกเก็บเงิน'));
     await tester.pumpAndSettle();

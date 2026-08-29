@@ -9,9 +9,13 @@ void main() {
   setUp(() => SharedPreferences.setMockInitialValues({}));
 
   testWidgets('menu shows count and food cards', (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: CustomerPage(api: FakeApiClient(), tableToken: 't'),
-    ));
+    await tester.pumpWidget(
+      MaterialApp(
+        home: CustomerPage(api: FakeApiClient(), tableToken: 't'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(CustomScrollView), const Offset(0, -1000));
     await tester.pumpAndSettle();
     expect(find.text('8 เมนู'), findsOneWidget);
     expect(find.text('กะเพราหมูสับ'), findsWidgets);

@@ -10,27 +10,40 @@ class PromotionStrip extends StatelessWidget {
   @override
   Widget build(BuildContext context) => promotions.isEmpty
       ? const SizedBox.shrink()
-      : SizedBox(
-          height: 144,
-          child: ListView.separated(
-            physics: const PromotionSnapScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: promotions.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
-            itemBuilder: (_, index) =>
-                _PromotionCard(promotion: promotions[index]),
-          ),
+      : LayoutBuilder(
+          builder: (context, constraints) {
+            final wide = constraints.maxWidth >= 640;
+            final cardWidth = wide
+                ? (constraints.maxWidth * .45).clamp(320, 520).toDouble()
+                : (constraints.maxWidth * .82).clamp(260, 420).toDouble();
+            return SizedBox(
+              height: 144,
+              child: ListView.separated(
+                physics: PromotionSnapScrollPhysics(itemExtent: cardWidth + 12),
+                scrollDirection: Axis.horizontal,
+                itemCount: promotions.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 12),
+                itemBuilder: (_, index) => _PromotionCard(
+                  promotion: promotions[index],
+                  width: cardWidth,
+                ),
+              ),
+            );
+          },
         );
 }
 
 class PromotionSnapScrollPhysics extends ScrollPhysics {
-  const PromotionSnapScrollPhysics({super.parent});
+  const PromotionSnapScrollPhysics({required this.itemExtent, super.parent});
 
-  static const itemExtent = 292.0;
+  final double itemExtent;
 
   @override
   PromotionSnapScrollPhysics applyTo(ScrollPhysics? ancestor) =>
-      PromotionSnapScrollPhysics(parent: buildParent(ancestor));
+      PromotionSnapScrollPhysics(
+        itemExtent: itemExtent,
+        parent: buildParent(ancestor),
+      );
 
   @override
   Simulation? createBallisticSimulation(
@@ -62,12 +75,13 @@ class PromotionSnapScrollPhysics extends ScrollPhysics {
 }
 
 class _PromotionCard extends StatelessWidget {
-  const _PromotionCard({required this.promotion});
+  const _PromotionCard({required this.promotion, required this.width});
   final Promotion promotion;
+  final double width;
 
   @override
   Widget build(BuildContext context) => Container(
-    width: 280,
+    width: width,
     clipBehavior: Clip.antiAlias,
     decoration: BoxDecoration(
       color: PhiusTokens.green,
