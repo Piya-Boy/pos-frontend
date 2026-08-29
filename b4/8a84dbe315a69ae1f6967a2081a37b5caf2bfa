@@ -1,0 +1,200 @@
+.gitignore
+  h_f820d1ed52287e 1-48
+.metadata
+  h_f820d1ed52287e 1-45
+README.md
+  h_f820d1ed52287e 1-17
+analysis_options.yaml
+  h_f820d1ed52287e 1-38
+android/.gitignore
+  h_f820d1ed52287e 1-14
+android/app/build.gradle.kts
+  h_f820d1ed52287e 1-49
+android/app/src/debug/AndroidManifest.xml
+  h_f820d1ed52287e 1-7
+android/app/src/main/AndroidManifest.xml
+  h_f820d1ed52287e 1-45
+android/app/src/main/kotlin/com/example/frontend/MainActivity.kt
+  h_f820d1ed52287e 1-5
+android/app/src/main/res/drawable-v21/launch_background.xml
+  h_f820d1ed52287e 1-12
+android/app/src/main/res/drawable/launch_background.xml
+  h_f820d1ed52287e 1-12
+android/app/src/main/res/values-night/styles.xml
+  h_f820d1ed52287e 1-18
+android/app/src/main/res/values/styles.xml
+  h_f820d1ed52287e 1-18
+android/app/src/profile/AndroidManifest.xml
+  h_f820d1ed52287e 1-7
+android/build.gradle.kts
+  h_f820d1ed52287e 1-24
+android/gradle.properties
+  h_f820d1ed52287e 1-6
+android/gradle/wrapper/gradle-wrapper.properties
+  h_f820d1ed52287e 1-5
+android/settings.gradle.kts
+  h_f820d1ed52287e 1-26
+ios/.gitignore
+  h_f820d1ed52287e 1-34
+ios/Flutter/AppFrameworkInfo.plist
+  h_f820d1ed52287e 1-24
+ios/Flutter/Debug.xcconfig
+  h_f820d1ed52287e 1
+ios/Flutter/Release.xcconfig
+  h_f820d1ed52287e 1
+ios/Runner.xcodeproj/project.pbxproj
+  h_f820d1ed52287e 1-647
+ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+  h_f820d1ed52287e 1-7
+ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  h_f820d1ed52287e 1-8
+ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+  h_f820d1ed52287e 1-8
+ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
+  h_f820d1ed52287e 1-119
+ios/Runner.xcworkspace/contents.xcworkspacedata
+  h_f820d1ed52287e 1-7
+ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  h_f820d1ed52287e 1-8
+ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+  h_f820d1ed52287e 1-8
+ios/Runner/AppDelegate.swift
+  h_f820d1ed52287e 1-16
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json
+  h_f820d1ed52287e 1-122
+ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json
+  h_f820d1ed52287e 1-23
+ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md
+  h_f820d1ed52287e 1-5
+ios/Runner/Base.lproj/LaunchScreen.storyboard
+  h_f820d1ed52287e 1-37
+ios/Runner/Base.lproj/Main.storyboard
+  h_f820d1ed52287e 1-26
+ios/Runner/Info.plist
+  h_f820d1ed52287e 1-70
+ios/Runner/Runner-Bridging-Header.h
+  h_f820d1ed52287e 1
+ios/Runner/SceneDelegate.swift
+  h_f820d1ed52287e 1-6
+ios/RunnerTests/RunnerTests.swift
+  h_f820d1ed52287e 1-12
+lib/main.dart
+  h_f820d1ed52287e 1-122
+linux/.gitignore
+  h_f820d1ed52287e 1
+linux/CMakeLists.txt
+  h_f820d1ed52287e 1-128
+linux/flutter/CMakeLists.txt
+  h_f820d1ed52287e 1-88
+linux/flutter/generated_plugin_registrant.cc
+  h_f820d1ed52287e 1-11
+linux/flutter/generated_plugin_registrant.h
+  h_f820d1ed52287e 1-15
+linux/flutter/generated_plugins.cmake
+  h_f820d1ed52287e 1-23
+linux/runner/CMakeLists.txt
+  h_f820d1ed52287e 1-26
+linux/runner/main.cc
+  h_f820d1ed52287e 1-6
+linux/runner/my_application.cc
+  h_f820d1ed52287e 1-148
+linux/runner/my_application.h
+  h_f820d1ed52287e 1-21
+macos/.gitignore
+  h_f820d1ed52287e 1-7
+macos/Flutter/Flutter-Debug.xcconfig
+  h_f820d1ed52287e 1
+macos/Flutter/Flutter-Release.xcconfig
+  h_f820d1ed52287e 1
+macos/Flutter/GeneratedPluginRegistrant.swift
+  h_f820d1ed52287e 1-10
+macos/Runner.xcodeproj/project.pbxproj
+  h_f820d1ed52287e 1-729
+macos/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  h_f820d1ed52287e 1-8
+macos/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
+  h_f820d1ed52287e 1-117
+macos/Runner.xcworkspace/contents.xcworkspacedata
+  h_f820d1ed52287e 1-7
+macos/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+  h_f820d1ed52287e 1-8
+macos/Runner/AppDelegate.swift
+  h_f820d1ed52287e 1-13
+macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json
+  h_f820d1ed52287e 1-68
+macos/Runner/Base.lproj/MainMenu.xib
+  h_f820d1ed52287e 1-343
+macos/Runner/Configs/AppInfo.xcconfig
+  h_f820d1ed52287e 1-14
+macos/Runner/Configs/Debug.xcconfig
+  h_f820d1ed52287e 1-2
+macos/Runner/Configs/Release.xcconfig
+  h_f820d1ed52287e 1-2
+macos/Runner/Configs/Warnings.xcconfig
+  h_f820d1ed52287e 1-13
+macos/Runner/DebugProfile.entitlements
+  h_f820d1ed52287e 1-12
+macos/Runner/Info.plist
+  h_f820d1ed52287e 1-32
+macos/Runner/MainFlutterWindow.swift
+  h_f820d1ed52287e 1-15
+macos/Runner/Release.entitlements
+  h_f820d1ed52287e 1-8
+macos/RunnerTests/RunnerTests.swift
+  h_f820d1ed52287e 1-12
+pubspec.lock
+  h_f820d1ed52287e 1-213
+pubspec.yaml
+  h_f820d1ed52287e 1-89
+test/widget_test.dart
+  h_f820d1ed52287e 1-30
+web/index.html
+  h_f820d1ed52287e 1-46
+web/manifest.json
+  h_f820d1ed52287e 1-35
+windows/.gitignore
+  h_f820d1ed52287e 1-17
+windows/CMakeLists.txt
+  h_f820d1ed52287e 1-108
+windows/flutter/CMakeLists.txt
+  h_f820d1ed52287e 1-109
+windows/flutter/generated_plugin_registrant.cc
+  h_f820d1ed52287e 1-11
+windows/flutter/generated_plugin_registrant.h
+  h_f820d1ed52287e 1-15
+windows/flutter/generated_plugins.cmake
+  h_f820d1ed52287e 1-23
+windows/runner/CMakeLists.txt
+  h_f820d1ed52287e 1-40
+windows/runner/Runner.rc
+  h_f820d1ed52287e 1-121
+windows/runner/flutter_window.cpp
+  h_f820d1ed52287e 1-71
+windows/runner/flutter_window.h
+  h_f820d1ed52287e 1-33
+windows/runner/main.cpp
+  h_f820d1ed52287e 1-43
+windows/runner/resource.h
+  h_f820d1ed52287e 1-16
+windows/runner/runner.exe.manifest
+  h_f820d1ed52287e 1-14
+windows/runner/utils.cpp
+  h_f820d1ed52287e 1-69
+windows/runner/utils.h
+  h_f820d1ed52287e 1-19
+windows/runner/win32_window.cpp
+  h_f820d1ed52287e 1-288
+windows/runner/win32_window.h
+  h_f820d1ed52287e 1-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b48a84dbe315a69ae1f6967a2081a37b5caf2bfa",
+  "prompts": {},
+  "humans": {
+    "h_f820d1ed52287e": {
+      "author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
