@@ -1,0 +1,21 @@
+lib/features/customer/widgets/item_detail_modal.dart
+  s_59a6783ef98fe2::t_5c9b69e0138d8e 193-200,205,207-208
+  s_59a6783ef98fe2::t_23a446c20cb0ab 295-366
+  s_59a6783ef98fe2::t_450a86af619678 229-234,236,238-239
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "4d882bef11dc00e4828920566d10c237e4f9825c",
+  "prompts": {},
+  "sessions": {
+    "s_59a6783ef98fe2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "08bb25e9-ca7c-4f46-8956-2277701a0e62",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
