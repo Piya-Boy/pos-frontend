@@ -1,0 +1,26 @@
+test/core/api/http_api_client_test.dart
+  s_0936ccdd3f56a6::t_18c311d62d8208 60-73,76-82,84,86-138,140-141,143-153,155-164
+  s_0936ccdd3f56a6::t_d40f2332ced749 7,12-28,57-59,74-75,83,139,142,154
+  s_0936ccdd3f56a6::t_1d9841a3806458 1-6,8-11,29-56,85
+lib/core/api/api_config.dart
+  s_0936ccdd3f56a6::t_160b4b0ff4b0b5 1-5
+lib/core/api/http_api_client.dart
+  s_0936ccdd3f56a6::t_160b4b0ff4b0b5 1-77,82-95,99,103-139
+  s_0936ccdd3f56a6::t_3b7bb4e44ac224 78-81,96-98,100-102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "5017147dcf6ec726a4eba152492bedf65d6fb4a7",
+  "prompts": {},
+  "sessions": {
+    "s_0936ccdd3f56a6": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a04cd4-5683-74a1-99e5-d913548e9ca4",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
