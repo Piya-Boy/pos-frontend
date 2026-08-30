@@ -33,7 +33,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 ## Phase 4 — Staff & Admin UI · plan `plan-staff.md`
 | Task | งาน | Model | สถานะ |
 |---|---|---|---|
-| P4-T1 | Extend ApiClient + FakeApiClient (auth/ops/admin) | terra | ⬜ |
+| P4-T1 | Extend ApiClient + FakeApiClient (auth/ops/admin) | terra | ✅ |
 | P4-T2 | Login + token store + AuthController | **sol** | ⬜ |
 | P4-T3 | Ops shell + summary + tabs + polling | terra | ⬜ |
 | P4-T4 | Kitchen board (kanban) | terra | ⬜ |
