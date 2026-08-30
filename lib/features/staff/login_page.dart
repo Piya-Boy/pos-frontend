@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/tokens.dart';
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     if (!changingPin) ...[
                       TextButton.icon(
-                        onPressed: () => Navigator.of(context).maybePop(),
+                        onPressed: () => context.go('/'),
                         icon: const Text('←'),
                         label: const Text('กลับหน้าหลัก'),
                       ),

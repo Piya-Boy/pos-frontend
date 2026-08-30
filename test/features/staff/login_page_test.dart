@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pos_frontend/core/api/fake_api_client.dart';
 import 'package:pos_frontend/features/staff/login_page.dart';
 import 'package:pos_frontend/state/auth_controller.dart';
@@ -48,5 +49,31 @@ void main() {
     final preferences = await SharedPreferences.getInstance();
     expect(preferences.getString('pos-auth-kitchen'), isNotEmpty);
     expect(preferences.getString('pos-auth-kitchen-pin'), isNull);
+  });
+
+  testWidgets('back to home replaces a direct staff route', (tester) async {
+    final controller = AuthController(
+      api: FakeApiClient(),
+      route: StaffRoute.kitchen,
+    );
+    final router = GoRouter(
+      initialLocation: '/kitchen',
+      routes: [
+        GoRoute(path: '/', builder: (_, _) => const Text('home')),
+        GoRoute(
+          path: '/kitchen',
+          builder: (_, _) => ChangeNotifierProvider.value(
+            value: controller,
+            child: LoginPage(onAuthenticated: () => const SizedBox()),
+          ),
+        ),
+      ],
+    );
+    await tester.pumpWidget(MaterialApp.router(routerConfig: router));
+
+    await tester.tap(find.text('กลับหน้าหลัก'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('home'), findsOneWidget);
   });
 }
