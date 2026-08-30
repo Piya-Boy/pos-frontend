@@ -48,5 +48,9 @@
 **Use skills:** `flutter-setup-declarative-routing`.
 **Verify:** from home → kitchen → back to home (via on-screen back AND browser Back); repeat for each finished role.
 
+## F4a — 4px vertical overflow after adding back link (fix, don't skip)
+
+Adding the back link pushed the ops header past the test viewport by 4px (RenderFlex overflow). This is exactly what **`flutter-fix-layout-issues`** is for — invoke it. Likely fixes: wrap the header row/column so it can shrink (`Flexible`/`Expanded`, or make the outer body scrollable with `SingleChildScrollView`/`CustomScrollView`), reduce header vertical padding, or put back-link + title in a compact `AppBar`/row that fits. Do NOT silence the test by enlarging the test viewport or removing the overflow assertion — fix the layout so it fits real small screens (cp-pos ops header is compact). Re-run the widget test until green, then commit F3+F4 together.
+
 ## Note on layout
 The page IS centered (max-width 1120). On very wide screens it looks left-biased only because the single promo card + empty right gutter — that matches cp-pos mobile-first behavior. No change needed. If you later add a desktop-specific treatment, spec it first (don't改 silently).
