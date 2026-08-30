@@ -1,0 +1,30 @@
+lib/features/staff/widgets/kitchen_board.dart
+  s_1777e3b50195d9::t_9ce15145584feb 35,53,59,111-116
+  s_1777e3b50195d9::t_522f7366d1054f 1-34,36-52,60-94,96-99,106-110,117,127-134,140-152,159-169,184,194-202,206-218
+  s_1777e3b50195d9::t_9aa31210715592 54-58,95,100-105,118-126,135-139,153-158,170-183,185-193,203-205
+lib/state/ops_controller.dart
+  s_1777e3b50195d9::t_d46ee3fdb03ba5 71-79
+test/features/staff/kitchen_board_test.dart
+  s_1777e3b50195d9::t_a410c36bced89c 34-35
+  s_1777e3b50195d9::t_8c69698e131e50 1-30,32,37-40,45-48
+  s_1777e3b50195d9::t_91ae6963cd47a8 31,33,41-44
+  s_1777e3b50195d9::t_3cdaab6899285c 36
+lib/features/staff/ops_page.dart
+  s_1777e3b50195d9::t_d46ee3fdb03ba5 9,92-93,149-154
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "acf510e9dbb4ab13212594f2cabf9b24b22c1827",
+  "prompts": {},
+  "sessions": {
+    "s_1777e3b50195d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05257-2d8d-7e01-8699-fcd16b4cac62",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
