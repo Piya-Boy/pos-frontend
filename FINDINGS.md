@@ -10,6 +10,8 @@
 **Search box extra** (`Styles.html:143`): radius **16** + `shadowSm` + left padding for the icon — override in `MenuToolbar`, don't rely on theme radius 13.
 **Test:** add to `test/core/theme/*` a pump of a `TextField` under `phiusTheme()` asserting the decoration is filled with `surface` and an `OutlineInputBorder`. Then re-run the app and confirm the search box shows a bordered field.
 
+**Use installed skills:** `flutter-add-widget-test` for the decoration test, `flutter-fix-layout-issues` if any field overflows, `dart-run-static-analysis` before commit. (Full skill list in `AGENTS.md §4`.)
+
 ## Re-verify after fixing
 1. `flutter test && flutter analyze` green.
 2. `flutter build web` → serve → open `?page=order&table=demo` → search box is a visible bordered field; item modal note + cart promo fields look like cp-pos.
