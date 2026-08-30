@@ -1,0 +1,24 @@
+lib/state/auth_controller.dart
+  s_1777e3b50195d9::t_3bee915813d389 5,65-68,80-84,95-96,123-130
+test/features/staff/login_page_test.dart
+  s_1777e3b50195d9::t_3bee915813d389 34-40
+  s_1777e3b50195d9::t_8a6a9c5c32d513 41
+lib/features/staff/login_page.dart
+  s_1777e3b50195d9::t_3bee915813d389 65-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "144c4797aaad476a4de51e99624a2fee5e543e61",
+  "prompts": {},
+  "sessions": {
+    "s_1777e3b50195d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05257-2d8d-7e01-8699-fcd16b4cac62",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
