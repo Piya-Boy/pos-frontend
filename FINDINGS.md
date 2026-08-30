@@ -52,5 +52,18 @@
 
 Adding the back link pushed the ops header past the test viewport by 4px (RenderFlex overflow). This is exactly what **`flutter-fix-layout-issues`** is for — invoke it. Likely fixes: wrap the header row/column so it can shrink (`Flexible`/`Expanded`, or make the outer body scrollable with `SingleChildScrollView`/`CustomScrollView`), reduce header vertical padding, or put back-link + title in a compact `AppBar`/row that fits. Do NOT silence the test by enlarging the test viewport or removing the overflow assertion — fix the layout so it fits real small screens (cp-pos ops header is compact). Re-run the widget test until green, then commit F3+F4 together.
 
+## F5 — Kitchen layout wrong: summary cards huge, kanban board missing — HIGH (live-repro)
+
+**Repro:** login to kitchen → you see FOUR giant summary cards (โต๊ะเปิด/ออเดอร์ใหม่/กำลังทำ/พร้อมเสิร์ฟ) filling the whole screen in a 2×2 grid; the actual kanban board (3 columns of order cards) is not visible even though "ออเดอร์ใหม่ 1" says there's an order.
+**cp-pos reference** (`renderOpsContent`/`renderKitchen` App.html:693-732, CSS `.summary-grid` Styles.html:237/356, `.kanban` :246/378):
+- Summary is a **compact top strip** — 4 short cards, 2 cols on mobile, **4 cols ≥640px**, each just a small `.summary-card` (padding 16, number 27px). NOT full-height.
+- The **kanban is the main content**: 3 columns (NEW/PREPARING/READY), each a `.kanban-column` holding `.order-card`s (table name, elapsed, qty×item, action button). 1 col mobile, 3 cols ≥900px.
+**Bugs in `ops_page.dart`:**
+1. `_SummaryGrid` uses `GridView.count(crossAxisCount: 2, childAspectRatio: 2.4)` always → on wide screens 2 huge cards per row. Make it 4 cols ≥640 (2 on mobile) and give cards a small fixed height, `shrinkWrap: true`, `NeverScrollableScrollPhysics`, NOT `Expanded`.
+2. The summary seems to be taking an `Expanded`/large slice while the KitchenBoard (line ~183) gets squeezed. Summary must be intrinsic-height at the top; the kanban gets the remaining space (`Expanded`).
+3. Order card not showing — once the board has room, verify the seeded NEW order renders in the first column.
+**Use skills:** `flutter-fix-layout-issues`, `flutter-build-responsive-layout`, `flutter-add-widget-test` (assert summary is 4-wide ≥640 and the order card is present).
+**Verify:** login kitchen → compact summary strip on top + a 3-column board with the seeded order card below.
+
 ## Note on layout
 The page IS centered (max-width 1120). On very wide screens it looks left-biased only because the single promo card + empty right gutter — that matches cp-pos mobile-first behavior. No change needed. If you later add a desktop-specific treatment, spec it first (don't改 silently).
