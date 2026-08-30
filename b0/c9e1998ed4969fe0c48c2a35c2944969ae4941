@@ -1,0 +1,38 @@
+lib/state/ops_controller.dart
+  s_1777e3b50195d9::t_75b7e3952c5d9c 85-101
+test/features/staff/cashier_bills_test.dart
+  s_1777e3b50195d9::t_bfaa80153e904a 1-57,61-67
+  s_1777e3b50195d9::t_7869540e77e9b4 58-60
+  s_1777e3b50195d9::t_a01a0f20d25780 68-71
+lib/core/router/app_router.dart
+  s_1777e3b50195d9::t_ebc5a0fa93e2de 33-36,44
+lib/features/staff/ops_page.dart
+  s_1777e3b50195d9::t_ebc5a0fa93e2de 10,116-117,194-197
+  s_1777e3b50195d9::t_006b5fc700cb20 198
+lib/features/home/home_page.dart
+  s_1777e3b50195d9::t_ebc5a0fa93e2de 275
+  s_1777e3b50195d9::t_8eae4e5aec515d 273-274,276
+lib/features/staff/widgets/cashier_bills.dart
+  s_1777e3b50195d9::t_1139a5e51ee1d5 9-13,15-23,25,29,42,55,125-126,132-133,135-136,138-139,142-143,149-150,152-157,159-169,230,334,342-343,360,396,401-403
+  s_1777e3b50195d9::t_bc0402f5d1e8bb 5,60-61,99-100,119,170-172,220-222,303-304,338,382
+  s_1777e3b50195d9::t_ca6b8824ea9170 1-3,7-8,14,24,26,120,140-141
+  s_1777e3b50195d9::t_e6a61864f74c5a 227,231-232
+  s_1777e3b50195d9::t_49d1daaad50203 4,6,30-41,43-54,56-59,62-98,101-118,137,158,173-219,223-226,228-229,233-271,273-302,305-333,335-337,339-341,344-359,361-381,383-395,397-400,404-413
+  s_1777e3b50195d9::t_bc45cbf40fa8f8 27-28,121-124,127-131,134,144-148,151,272
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b0c9e1998ed4969fe0c48c2a35c2944969ae4941",
+  "prompts": {},
+  "sessions": {
+    "s_1777e3b50195d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05257-2d8d-7e01-8699-fcd16b4cac62",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
