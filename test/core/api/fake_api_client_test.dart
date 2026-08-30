@@ -84,6 +84,30 @@ void main() {
     );
   });
 
+  test('category in use cannot be archived', () async {
+    final api = FakeApiClient();
+    final admin = await api.login(pin: 'zaq1234', expectedRole: 'ADMIN');
+    final data = await api.adminData(token: admin.token);
+    final categoryId = data.entity('Categories').first['CategoryID'] as String;
+
+    expect(
+      () => api.adminArchiveEntity(
+        token: admin.token,
+        entity: 'category',
+        id: categoryId,
+      ),
+      throwsA(
+        isA<AppError>()
+            .having((error) => error.code, 'code', 'CATEGORY_IN_USE')
+            .having(
+              (error) => error.message,
+              'message',
+              'ย้ายหรือลบเมนูในหมวดนี้ก่อน แล้วจึงลบหมวดหมู่',
+            ),
+      ),
+    );
+  });
+
   test(
     "changing a PIN enables the staff member's new fake credential",
     () async {

@@ -77,6 +77,36 @@ class AdminController extends ChangeNotifier {
     _pollTimer = null;
   }
 
+  Future<void> saveEntity(String entity, Map<String, dynamic> data) async {
+    await _mutate(
+      () => _api.adminSaveEntity(token: _token, entity: entity, data: data),
+    );
+  }
+
+  Future<void> archiveEntity(String entity, String id) async {
+    await _mutate(
+      () => _api.adminArchiveEntity(token: _token, entity: entity, id: id),
+    );
+  }
+
+  Future<void> rotateTableToken(String tableId) async {
+    await _mutate(() => _api.adminRotateToken(token: _token, tableId: tableId));
+  }
+
+  Future<void> _mutate(Future<Object?> Function() action) async {
+    final resumePolling = _pollTimer != null;
+    setEditing(true);
+    try {
+      await action();
+      _editing = false;
+      await load();
+    } finally {
+      _editing = false;
+      if (resumePolling) startPolling();
+      notifyListeners();
+    }
+  }
+
   Future<void> _load() async {
     _loading = true;
     _error = null;

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pos_frontend/core/api/fake_api_client.dart';
 import 'package:pos_frontend/features/admin/admin_page.dart';
+import 'package:pos_frontend/features/admin/widgets/admin_catalog.dart';
+import 'package:pos_frontend/features/admin/widgets/admin_tables.dart';
 import 'package:pos_frontend/state/admin_controller.dart';
 import 'package:pos_frontend/state/auth_controller.dart';
 import 'package:provider/provider.dart';
@@ -72,5 +74,110 @@ void main() {
     await tester.tap(find.byTooltip('เปิดเมนู'));
     await tester.pumpAndSettle();
     expect(find.text('โต๊ะและ QR'), findsOneWidget);
+  });
+
+  testWidgets('catalog renders menu and saves a new category', (tester) async {
+    final api = FakeApiClient();
+    final admin = await api.login(pin: 'zaq1234', expectedRole: 'ADMIN');
+    final controller = AdminController(api: api, token: admin.token);
+    await controller.load();
+    final data = controller.data!;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: AdminCatalog(
+            categories: data.entity('Categories'),
+            menu: data.entity('MenuItems'),
+            options: data.entity('Options'),
+            addOns: data.entity('AddOns'),
+            controller: controller,
+          ),
+        ),
+      ),
+    );
+    expect(find.text('กะเพราหมูสับ'), findsOneWidget);
+
+    await tester.tap(find.widgetWithText(FilledButton, 'เพิ่มข้อมูล').first);
+    await tester.pumpAndSettle();
+    final fields = find.byType(TextFormField);
+    await tester.enterText(fields.at(0), 'ของหวาน');
+    await tester.enterText(fields.at(1), '🍰');
+    await tester.enterText(fields.at(2), '9');
+    await tester.tap(find.byKey(const Key('admin-field-Status')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('ACTIVE').last);
+    await tester.pumpAndSettle();
+    final saveButton = find.widgetWithText(FilledButton, 'บันทึกข้อมูล');
+    await tester.ensureVisible(saveButton);
+    await tester.tap(saveButton);
+    await tester.pumpAndSettle();
+
+    expect(
+      controller.data!
+          .entity('Categories')
+          .any((row) => row['Name'] == 'ของหวาน'),
+      isTrue,
+    );
+  });
+
+  testWidgets('catalog shows the category archive guard message', (tester) async {
+    final api = FakeApiClient();
+    final admin = await api.login(pin: 'zaq1234', expectedRole: 'ADMIN');
+    final controller = AdminController(api: api, token: admin.token);
+    await controller.load();
+    final data = controller.data!;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: AdminCatalog(
+            categories: data.entity('Categories'),
+            menu: data.entity('MenuItems'),
+            options: data.entity('Options'),
+            addOns: data.entity('AddOns'),
+            controller: controller,
+          ),
+        ),
+      ),
+    );
+
+    await tester.tap(find.widgetWithText(TextButton, 'ปิดรายการ').first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('ย้ายหรือลบเมนูในหมวดนี้ก่อน แล้วจึงลบหมวดหมู่'),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('tables render an order URL and can display its QR details', (
+    tester,
+  ) async {
+    final api = FakeApiClient();
+    final admin = await api.login(pin: 'zaq1234', expectedRole: 'ADMIN');
+    final controller = AdminController(api: api, token: admin.token);
+    await controller.load();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: AdminTables(
+            rows: controller.data!.entity('Tables'),
+            controller: controller,
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.widgetWithText(TextButton, 'ดู QR'));
+    await tester.pumpAndSettle();
+
+    expect(
+      find.descendant(
+        of: find.byType(AlertDialog),
+        matching: find.textContaining('table=tbl_demo'),
+      ),
+      findsOneWidget,
+    );
   });
 }

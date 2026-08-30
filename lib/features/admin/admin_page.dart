@@ -5,8 +5,12 @@ import 'package:provider/provider.dart';
 import '../../state/admin_controller.dart';
 import '../../state/auth_controller.dart';
 import '../staff/login_page.dart';
+import 'widgets/admin_catalog.dart';
 import 'widgets/admin_nav.dart';
 import 'widgets/admin_overview.dart';
+import 'widgets/admin_promotions.dart';
+import 'widgets/admin_staff.dart';
+import 'widgets/admin_tables.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({super.key, this.enablePolling = true});
@@ -136,9 +140,28 @@ class _AdminPageState extends State<AdminPage> with WidgetsBindingObserver {
                         ],
                         const SizedBox(height: 20),
                         Expanded(
-                          child: _tab == 'overview'
-                              ? AdminOverview(data: data)
-                              : Center(child: Text(_titleFor(_tab))),
+                          child: switch (_tab) {
+                            'tables' => AdminTables(
+                              rows: data.entity('Tables'),
+                              controller: controller,
+                            ),
+                            'catalog' => AdminCatalog(
+                              categories: data.entity('Categories'),
+                              menu: data.entity('MenuItems'),
+                              options: data.entity('Options'),
+                              addOns: data.entity('AddOns'),
+                              controller: controller,
+                            ),
+                            'promotions' => AdminPromotions(
+                              rows: data.entity('Promotions'),
+                              controller: controller,
+                            ),
+                            'staff' => AdminStaff(
+                              rows: data.entity('Staff'),
+                              controller: controller,
+                            ),
+                            _ => AdminOverview(data: data),
+                          },
                         ),
                       ],
                     ),

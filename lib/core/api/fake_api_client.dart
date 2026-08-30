@@ -878,6 +878,27 @@ class FakeApiClient implements ApiClient {
     if (entity.toLowerCase() == 'staff' && id == user.staffId) {
       throw StateError('SELF_ARCHIVE_DENIED');
     }
+    if (entity.toLowerCase() == 'category') {
+      final menuInUse = _adminEntities['MenuItems']!.any(
+        (row) => '${row['CategoryID']}' == id && row['Status'] != 'ARCHIVED',
+      );
+      if (menuInUse) {
+        throw const AppError(
+          code: 'CATEGORY_IN_USE',
+          message: 'ย้ายหรือลบเมนูในหมวดนี้ก่อน แล้วจึงลบหมวดหมู่',
+        );
+      }
+      final addOnInUse = _adminEntities['AddOns']!.any(
+        (row) =>
+            '${row['LinkedCategoryID']}' == id && row['Status'] != 'ARCHIVED',
+      );
+      if (addOnInUse) {
+        throw const AppError(
+          code: 'CATEGORY_ADDON_IN_USE',
+          message: 'ย้ายหรือลบ Add-on ที่ผูกกับหมวดนี้ก่อน แล้วจึงลบหมวดหมู่',
+        );
+      }
+    }
     final archived = {...rows![index], 'Status': 'ARCHIVED'};
     rows[index] = archived;
     return archived;
