@@ -13,6 +13,19 @@ void main() {
     expect(find.text('หน้าลูกค้าต้องเปิดผ่าน QR ประจำโต๊ะ'), findsOneWidget);
   });
 
+  testWidgets('kitchen portal link opens the guarded kitchen screen', (
+    tester,
+  ) async {
+    await tester.pumpWidget(PhiusApp(api: FakeApiClient()));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('หน้าครัว'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Kitchen Display System'), findsOneWidget);
+    expect(find.text('เข้าสู่ระบบ'), findsOneWidget);
+  });
+
   testWidgets('setup-required bootstrap does not expose the portal', (
     tester,
   ) async {

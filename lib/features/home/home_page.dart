@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/api/api_client.dart';
 import '../../core/theme/tokens.dart';
@@ -269,8 +270,7 @@ class _PortalLink extends StatelessWidget {
       borderRadius: BorderRadius.circular(PhiusTokens.radius),
       child: InkWell(
         borderRadius: BorderRadius.circular(PhiusTokens.radius),
-        onTap: () => ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('ส่วนนี้กำลังพัฒนา'))),
+        onTap: () => context.go('/?page=${entry.page}'),
         child: Container(
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
@@ -309,12 +309,14 @@ class _PortalEntry {
     this.icon,
     this.title,
     this.description, {
+    required this.page,
     this.featured = false,
   });
 
   final String icon;
   final String title;
   final String description;
+  final String page;
   final bool featured;
 }
 
@@ -323,10 +325,11 @@ const _portalEntries = [
     '🧭',
     'รวมงานหน้าร้าน',
     'ครัว พนักงาน และแคชเชียร์ในหน้าเดียว',
+    page: 'operations',
     featured: true,
   ),
-  _PortalEntry('🔥', 'หน้าครัว', 'รับและอัปเดตออเดอร์'),
-  _PortalEntry('🛎️', 'พนักงาน', 'งานเสิร์ฟและลูกค้าเรียก'),
-  _PortalEntry('🧾', 'แคชเชียร์', 'ตรวจบิลและรับชำระ'),
-  _PortalEntry('⚙️', 'ผู้ดูแล', 'เมนู โต๊ะ และตั้งค่า'),
+  _PortalEntry('🔥', 'หน้าครัว', 'รับและอัปเดตออเดอร์', page: 'kitchen'),
+  _PortalEntry('🛎️', 'พนักงาน', 'งานเสิร์ฟและลูกค้าเรียก', page: 'staff'),
+  _PortalEntry('🧾', 'แคชเชียร์', 'ตรวจบิลและรับชำระ', page: 'cashier'),
+  _PortalEntry('⚙️', 'ผู้ดูแล', 'เมนู โต๊ะ และตั้งค่า', page: 'admin'),
 ];
