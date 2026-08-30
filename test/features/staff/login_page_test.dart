@@ -17,12 +17,16 @@ void main() {
       api: FakeApiClient(),
       route: StaffRoute.kitchen,
     );
+    var authenticated = false;
     await tester.pumpWidget(
       ChangeNotifierProvider.value(
         value: controller,
         child: MaterialApp(
           home: LoginPage(
-            onAuthenticated: () => const Text('kitchen-authorized'),
+            onAuthenticated: () {
+              authenticated = true;
+              return const SizedBox();
+            },
           ),
         ),
       ),
@@ -45,7 +49,7 @@ void main() {
     await tester.tap(find.text('บันทึก PIN ใหม่'));
     await tester.pumpAndSettle();
 
-    expect(find.text('kitchen-authorized'), findsOneWidget);
+    expect(authenticated, isTrue);
     final preferences = await SharedPreferences.getInstance();
     expect(preferences.getString('pos-auth-kitchen'), isNotEmpty);
     expect(preferences.getString('pos-auth-kitchen-pin'), isNull);

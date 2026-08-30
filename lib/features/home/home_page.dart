@@ -270,7 +270,12 @@ class _PortalLink extends StatelessWidget {
       borderRadius: BorderRadius.circular(PhiusTokens.radius),
       child: InkWell(
         borderRadius: BorderRadius.circular(PhiusTokens.radius),
-        onTap: () => context.go('/?page=${entry.page}'),
+        onTap: () => context.push(
+          switch (entry.page) {
+            'kitchen' || 'staff' => '/${entry.page}',
+            _ => '/?page=${entry.page}',
+          },
+        ),
         child: Container(
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(

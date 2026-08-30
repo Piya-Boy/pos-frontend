@@ -13,6 +13,7 @@ import '../../models/staff_models.dart';
 import '../../models/totals.dart';
 import '../utils/client_id.dart';
 import 'api_client.dart';
+import 'app_error.dart';
 
 class FakeApiClient implements ApiClient {
   final Map<String, SubmitResult> _submissions = {};
@@ -554,10 +555,16 @@ class FakeApiClient implements ApiClient {
       'STAFF' => 'STAFF',
       'CASHIER' => 'CASHIER',
       'ALL' => 'ADMIN',
-      _ => throw StateError('INVALID_VIEW'),
+      _ => throw const AppError(
+        code: 'INVALID_VIEW',
+        message: 'ไม่พบหน้าการทำงานที่เลือก',
+      ),
     };
     if (user.role != 'ADMIN' && user.role != requiredRole) {
-      throw StateError('PERMISSION_DENIED');
+      throw const AppError(
+        code: 'PERMISSION_DENIED',
+        message: 'คุณไม่มีสิทธิ์เข้าถึงหน้านี้',
+      );
     }
     final activeSessionIds = _opsSessions.values
         .where(

@@ -8,6 +8,41 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+  testWidgets('kitchen loads its board after first-login PIN change', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    final api = FakeApiClient();
+    final auth = AuthController(api: api, route: StaffRoute.kitchen);
+    final controller = OpsController(api: api, token: '', view: 'KITCHEN');
+
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: auth),
+          ChangeNotifierProvider.value(value: controller),
+        ],
+        child: const MaterialApp(
+          home: OpsPage(route: StaffRoute.kitchen, enablePolling: false),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(TextFormField), 'zaq1234');
+    await tester.tap(find.widgetWithText(FilledButton, 'เข้าสู่ระบบ'));
+    await tester.pumpAndSettle();
+    expect(find.text('ตั้ง PIN ใหม่'), findsOneWidget);
+
+    await tester.enterText(find.byType(TextFormField), 'kitchen123');
+    await tester.tap(find.widgetWithText(FilledButton, 'บันทึก PIN ใหม่'));
+    await tester.pumpAndSettle();
+
+    expect(controller.error, isNull);
+    expect(find.text('ออเดอร์ใหม่'), findsOneWidget);
+    expect(find.text('1 × กะเพราหมูสับ'), findsOneWidget);
+  });
+
   testWidgets('operations dashboard renders summary cards and three tabs', (
     tester,
   ) async {
@@ -89,6 +124,10 @@ void main() {
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
     await tester.pump();
     expect(controller.polling, isFalse);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    await tester.pump();
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    await tester.pump();
     tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
     await tester.pump();
     expect(controller.polling, isTrue);

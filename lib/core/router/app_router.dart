@@ -22,6 +22,14 @@ GoRouter appRouter(ApiClient api) => GoRouter(
         return _routeFor(api, q['page'] ?? 'home', q['table'] ?? '');
       },
     ),
+    GoRoute(
+      path: '/kitchen',
+      builder: (_, _) => _opsRoute(api, StaffRoute.kitchen, 'KITCHEN'),
+    ),
+    GoRoute(
+      path: '/staff',
+      builder: (_, _) => _opsRoute(api, StaffRoute.staff, 'STAFF'),
+    ),
   ],
 );
 

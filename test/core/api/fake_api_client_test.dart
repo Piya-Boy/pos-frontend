@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:pos_frontend/core/api/app_error.dart';
 import 'package:pos_frontend/core/api/fake_api_client.dart';
 
 void main() {
@@ -73,7 +74,13 @@ void main() {
 
     expect(
       () => api.opsDashboard(token: kitchen.token, view: 'CASHIER'),
-      throwsA(isA<StateError>()),
+      throwsA(
+        isA<AppError>().having(
+          (error) => error.code,
+          'code',
+          'PERMISSION_DENIED',
+        ),
+      ),
     );
   });
 

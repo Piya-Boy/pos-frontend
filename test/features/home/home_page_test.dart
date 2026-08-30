@@ -24,6 +24,11 @@ void main() {
 
     expect(find.text('Kitchen Display System'), findsOneWidget);
     expect(find.text('เข้าสู่ระบบ'), findsOneWidget);
+
+    await tester.tap(find.text('กลับหน้าหลัก'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Phius Order'), findsOneWidget);
   });
 
   testWidgets('setup-required bootstrap does not expose the portal', (

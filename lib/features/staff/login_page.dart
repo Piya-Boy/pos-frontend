@@ -35,9 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       _pin.clear();
       return;
     }
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute<void>(builder: (_) => widget.onAuthenticated()),
-    );
+    widget.onAuthenticated();
   }
 
   @override

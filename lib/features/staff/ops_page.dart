@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/tokens.dart';
@@ -77,7 +78,7 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final controller = context.watch<OpsController>();
     final auth = context.watch<AuthController>();
-    if (auth.session == null) {
+    if (auth.session == null || auth.mustChangePin) {
       return LoginPage(onAuthenticated: _authenticatedPage);
     }
     final dashboard = controller.dashboard;
@@ -86,7 +87,24 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
     }
     if (dashboard == null) {
       return Scaffold(
-        body: Center(child: Text(controller.error ?? 'เกิดข้อผิดพลาด')),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(controller.error ?? 'เกิดข้อผิดพลาด'),
+              TextButton.icon(
+                onPressed: () => context.go('/'),
+                style: TextButton.styleFrom(
+                  minimumSize: Size.zero,
+                  padding: EdgeInsets.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                icon: const Text('←'),
+                label: const Text('กลับหน้าหลัก'),
+              ),
+            ],
+          ),
+        ),
       );
     }
     final operations = widget.route == StaffRoute.operations;
@@ -97,7 +115,7 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -118,6 +136,15 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.w800),
                     ),
+                  ),
+                  TextButton(
+                    onPressed: () => context.go('/'),
+                    style: TextButton.styleFrom(
+                      minimumSize: Size.zero,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    child: const Text('← กลับหน้าหลัก'),
                   ),
                   TextButton.icon(
                     onPressed: auth.loading ? null : () => _logout(auth),
@@ -187,7 +214,12 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
 
   Widget _authenticatedPage() {
     final session = context.read<AuthController>().session;
-    if (session != null) _controller?.useToken(session.token);
+    if (session != null) {
+      _controller?.useToken(session.token);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _loadAndPoll();
+      });
+    }
     return OpsPage(route: widget.route, enablePolling: widget.enablePolling);
   }
 }
