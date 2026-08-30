@@ -83,6 +83,12 @@ class AdminController extends ChangeNotifier {
     );
   }
 
+  Future<void> saveSettings(Map<String, dynamic> settings) async {
+    await _mutate(
+      () => _api.adminSaveSettings(token: _token, settings: settings),
+    );
+  }
+
   Future<void> archiveEntity(String entity, String id) async {
     await _mutate(
       () => _api.adminArchiveEntity(token: _token, entity: entity, id: id),

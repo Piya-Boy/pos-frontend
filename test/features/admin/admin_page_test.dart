@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pos_frontend/core/api/fake_api_client.dart';
 import 'package:pos_frontend/features/admin/admin_page.dart';
 import 'package:pos_frontend/features/admin/widgets/admin_catalog.dart';
+import 'package:pos_frontend/features/admin/widgets/admin_settings.dart';
 import 'package:pos_frontend/features/admin/widgets/admin_tables.dart';
 import 'package:pos_frontend/state/admin_controller.dart';
 import 'package:pos_frontend/state/auth_controller.dart';
@@ -179,5 +180,37 @@ void main() {
       ),
       findsOneWidget,
     );
+  });
+
+  testWidgets('settings update the live brand preview before saving', (
+    tester,
+  ) async {
+    final api = FakeApiClient();
+    final admin = await api.login(pin: 'zaq1234', expectedRole: 'ADMIN');
+    final controller = AdminController(api: api, token: admin.token);
+    await controller.load();
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: AdminSettings(
+            settings: controller.data!.settings,
+            controller: controller,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('แบรนด์และหน้าตาร้าน'), findsOneWidget);
+    await tester.enterText(
+      find.byKey(const Key('settings-PrimaryColor')),
+      '#2F6B4F',
+    );
+    await tester.pump();
+
+    final preview = tester.widget<Container>(
+      find.byKey(const Key('brand-preview')),
+    );
+    expect((preview.decoration as BoxDecoration).color, const Color(0xFF2F6B4F));
   });
 }

@@ -9,6 +9,7 @@ import 'widgets/admin_catalog.dart';
 import 'widgets/admin_nav.dart';
 import 'widgets/admin_overview.dart';
 import 'widgets/admin_promotions.dart';
+import 'widgets/admin_settings.dart';
 import 'widgets/admin_staff.dart';
 import 'widgets/admin_tables.dart';
 
@@ -158,6 +159,10 @@ class _AdminPageState extends State<AdminPage> with WidgetsBindingObserver {
                             ),
                             'staff' => AdminStaff(
                               rows: data.entity('Staff'),
+                              controller: controller,
+                            ),
+                            'settings' => AdminSettings(
+                              settings: data.settings,
                               controller: controller,
                             ),
                             _ => AdminOverview(data: data),
