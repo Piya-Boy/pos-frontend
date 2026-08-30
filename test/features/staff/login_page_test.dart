@@ -31,6 +31,14 @@ void main() {
     await tester.tap(find.text('เข้าสู่ระบบ'));
     await tester.pumpAndSettle();
     expect(find.text('ตั้ง PIN ใหม่'), findsOneWidget);
+    expect(find.text('กลับหน้าหลัก'), findsNothing);
+    final preferencesBeforeChange = await SharedPreferences.getInstance();
+    expect(preferencesBeforeChange.getString('pos-auth-kitchen'), isNull);
+
+    await tester.enterText(find.byType(TextFormField), 'zaq1234');
+    await tester.tap(find.text('บันทึก PIN ใหม่'));
+    await tester.pumpAndSettle();
+    expect(find.text('กรุณาตั้ง PIN ใหม่ที่ไม่ใช่รหัสเริ่มต้น'), findsWidgets);
 
     await tester.enterText(find.byType(TextFormField), 'kitchen01');
     await tester.tap(find.text('บันทึก PIN ใหม่'));

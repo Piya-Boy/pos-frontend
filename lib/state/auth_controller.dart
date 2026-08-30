@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/api/api_client.dart';
+import '../core/api/app_error.dart';
 import '../models/staff_models.dart';
 
 enum StaffRoute { kitchen, staff, cashier, operations, admin }
@@ -61,8 +62,10 @@ class AuthController extends ChangeNotifier {
         expectedRole: route.expectedRole,
       );
       _session = session;
-      final preferences = await SharedPreferences.getInstance();
-      await preferences.setString(storageKey, session.token);
+      if (!session.mustChangePin) {
+        final preferences = await SharedPreferences.getInstance();
+        await preferences.setString(storageKey, session.token);
+      }
     });
   }
 
@@ -71,6 +74,11 @@ class AuthController extends ChangeNotifier {
     if (session == null) return false;
     if (!RegExp(r'^[A-Za-z0-9]{6,12}$').hasMatch(newPin)) {
       _error = 'PIN ใหม่ต้องเป็นตัวอักษรภาษาอังกฤษหรือตัวเลข 6–12 ตัว';
+      notifyListeners();
+      return false;
+    }
+    if (newPin == 'zaq1234') {
+      _error = 'กรุณาตั้ง PIN ใหม่ที่ไม่ใช่รหัสเริ่มต้น';
       notifyListeners();
       return false;
     }
@@ -84,6 +92,8 @@ class AuthController extends ChangeNotifier {
         issuedAt: session.issuedAt,
         mustChangePin: false,
       );
+      final preferences = await SharedPreferences.getInstance();
+      await preferences.setString(storageKey, session.token);
     });
   }
 
@@ -110,6 +120,14 @@ class AuthController extends ChangeNotifier {
     try {
       await action();
       return true;
+    } on AppError catch (error) {
+      _error = error.message;
+      if (error.code == 'AUTH_REQUIRED' || error.code == 'AUTH_EXPIRED') {
+        final preferences = await SharedPreferences.getInstance();
+        await preferences.remove(storageKey);
+        _session = null;
+      }
+      return false;
     } catch (_) {
       _error = 'PIN หรือบทบาทไม่ถูกต้อง';
       return false;

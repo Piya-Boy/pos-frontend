@@ -62,12 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextButton.icon(
-                      onPressed: () => Navigator.of(context).maybePop(),
-                      icon: const Text('←'),
-                      label: const Text('กลับหน้าหลัก'),
-                    ),
-                    const SizedBox(height: 16),
+                    if (!changingPin) ...[
+                      TextButton.icon(
+                        onPressed: () => Navigator.of(context).maybePop(),
+                        icon: const Text('←'),
+                        label: const Text('กลับหน้าหลัก'),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
                     const Row(
                       children: [
                         BrandMark(small: true),
