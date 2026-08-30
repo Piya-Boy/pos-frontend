@@ -35,5 +35,18 @@
 **Use skills:** `flutter-add-widget-test`, `flutter-fix-runtime-errors` (dart-fix-runtime-errors) to trace, `superpowers:systematic-debugging`.
 **Verify:** rebuild → login to kitchen → board renders with seeded orders.
 
+## F4 — can't leave a staff/error screen; browser back doesn't work — HIGH
+
+**Repro:** land on the ops error page (F3) or any staff screen → there's no way back to the home portal; the browser Back button does nothing.
+**Causes:**
+1. **No back affordance on non-login staff screens.** LoginPage has "← กลับหน้าหลัก" (`login_page.dart:68`), but the ops error branch (`ops_page.dart:88-90`) and the ops shell header have none. cp-pos shows a back/logout on every staff screen. Add "← กลับหน้าหลัก" (→ `context.go('/')`) to the ops error state AND keep the logout in the ops header working.
+2. **Browser Back is dead** because every navigation is `context.go('/?page=X')` — a single route `/` with a query param, and `go` *replaces* rather than pushes, so no history entry is created and same-path query changes may not rebuild. Options (pick one, keep it simple):
+   - Give each page its own path (`/order`, `/kitchen`, `/staff`, `/cashier`, `/operations`, `/admin`) as GoRoutes so `go` builds real history and Back works; keep `?table=` for order. OR
+   - Keep the query-param scheme but use `context.push` for portal→screen (so Back pops) and ensure the router rebuilds on query change (include `state.uri` in a `key`).
+   Prefer per-path routes — cleaner, real deep links, Back/forward just work.
+**Also:** unfinished pages (admin/cashier before their tasks land) fall back to HomePage silently — that's why "กดหน้าอื่นไม่ได้". That's expected until P4-T6..T9 wire them; F2 says wire each route as its screen completes. Just make sure every reachable screen has a visible way home.
+**Use skills:** `flutter-setup-declarative-routing`.
+**Verify:** from home → kitchen → back to home (via on-screen back AND browser Back); repeat for each finished role.
+
 ## Note on layout
 The page IS centered (max-width 1120). On very wide screens it looks left-biased only because the single promo card + empty right gutter — that matches cp-pos mobile-first behavior. No change needed. If you later add a desktop-specific treatment, spec it first (don't改 silently).
