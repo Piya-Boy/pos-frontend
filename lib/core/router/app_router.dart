@@ -28,6 +28,7 @@ GoRouter appRouter(ApiClient api) => GoRouter(
 Widget _routeFor(ApiClient api, String page, String table) => switch (page) {
   'order' => CustomerPage(api: api, tableToken: table),
   'kitchen' => _opsRoute(api, StaffRoute.kitchen, 'KITCHEN'),
+  'staff' => _opsRoute(api, StaffRoute.staff, 'STAFF'),
   _ => HomePage(api: api),
 };
 

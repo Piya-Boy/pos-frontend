@@ -77,6 +77,11 @@ class OpsController extends ChangeNotifier {
     await load();
   }
 
+  Future<void> updateCallStatus(OpsCall call, String status) async {
+    await _api.updateCall(token: token, logId: call.logId, status: status);
+    await load();
+  }
+
   Future<void> _loadDashboard(String token, int tokenGeneration) async {
     _loading = true;
     _error = null;

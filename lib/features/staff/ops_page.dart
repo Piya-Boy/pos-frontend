@@ -7,6 +7,7 @@ import '../../state/auth_controller.dart';
 import '../../state/ops_controller.dart';
 import 'login_page.dart';
 import 'widgets/kitchen_board.dart';
+import 'widgets/staff_queue.dart';
 
 class OpsPage extends StatefulWidget {
   const OpsPage({super.key, required this.route, this.enablePolling = true});
@@ -91,6 +92,8 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
     final operations = widget.route == StaffRoute.operations;
     final kitchenView =
         widget.route == StaffRoute.kitchen || (operations && _tab == 'KITCHEN');
+    final staffView =
+        widget.route == StaffRoute.staff || (operations && _tab == 'STAFF');
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -150,6 +153,13 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
                     ? KitchenBoard(
                         items: dashboard.items,
                         onUpdateStatus: controller.updateOrderStatus,
+                      )
+                    : staffView
+                    ? StaffQueue(
+                        calls: dashboard.calls,
+                        items: dashboard.items,
+                        onUpdateCall: controller.updateCallStatus,
+                        onUpdateItem: controller.updateOrderStatus,
                       )
                     : Center(child: Text(operations ? _tab : dashboard.view)),
               ),
