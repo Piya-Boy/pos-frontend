@@ -37,7 +37,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | P4-T2 | Login + token store + AuthController | **sol** | ✅ |
 | P4-T3 | Ops shell + summary + tabs + polling | terra | ✅ |
 | P4-T4 | Kitchen board (kanban) | terra | ✅ |
-| P4-T5 | Staff queue (calls + ready) | terra | ⬜ |
+| P4-T5 | Staff queue (calls + ready) | terra | ✅ |
 | P4-T6 | Cashier bills + payment + receipt | **sol** | ⬜ |
 | P4-T7 | Admin shell + nav + overview | terra | ⬜ |
 | P4-T8 | Admin tables/catalog/promotions/staff CRUD | terra | ⬜ |
