@@ -11,6 +11,8 @@ void main() {
   testWidgets('kitchen loads its board after first-login PIN change', (
     tester,
   ) async {
+    await tester.binding.setSurfaceSize(const Size(800, 700));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     SharedPreferences.setMockInitialValues({});
     final api = FakeApiClient();
     final auth = AuthController(api: api, route: StaffRoute.kitchen);
@@ -41,6 +43,12 @@ void main() {
     expect(controller.error, isNull);
     expect(find.text('ออเดอร์ใหม่'), findsOneWidget);
     expect(find.text('1 × กะเพราหมูสับ'), findsOneWidget);
+    final summary = tester.widget<GridView>(find.byType(GridView).first);
+    expect(
+      (summary.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount)
+          .crossAxisCount,
+      4,
+    );
   });
 
   testWidgets('operations dashboard renders summary cards and three tabs', (

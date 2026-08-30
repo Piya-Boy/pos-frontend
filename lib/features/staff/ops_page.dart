@@ -272,16 +272,20 @@ class _SummaryGrid extends StatelessWidget {
         waitingCalls ? dashboard.summary.waitingCalls : dashboard.summary.ready,
       ),
     ];
-    return GridView.count(
-      crossAxisCount: 2,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 12,
-      mainAxisSpacing: 12,
-      childAspectRatio: 2.4,
-      children: cards
-          .map((card) => _SummaryCard(label: card.$1, value: card.$2))
-          .toList(),
+    return LayoutBuilder(
+      builder: (context, constraints) => GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: cards.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: constraints.maxWidth >= 640 ? 4 : 2,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          mainAxisExtent: 96,
+        ),
+        itemBuilder: (_, index) =>
+            _SummaryCard(label: cards[index].$1, value: cards[index].$2),
+      ),
     );
   }
 }
@@ -294,7 +298,7 @@ class _SummaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(14),
+    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
     decoration: BoxDecoration(
       color: PhiusTokens.surface,
       border: Border.all(color: PhiusTokens.border),
@@ -311,7 +315,7 @@ class _SummaryCard extends StatelessWidget {
         Text(
           '$value',
           style: Theme.of(context).textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.w800),
+              ?.copyWith(fontWeight: FontWeight.w800, fontSize: 27),
         ),
       ],
     ),
