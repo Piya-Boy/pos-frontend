@@ -1,0 +1,45 @@
+lib/features/staff/login_page.dart
+  s_1777e3b50195d9::t_76392d822589d6 38
+test/features/staff/login_page_test.dart
+  s_1777e3b50195d9::t_a4eef77cce3f27 20,26-29,52
+lib/core/api/fake_api_client.dart
+  s_1777e3b50195d9::t_361a6f4faebc21 16,558-561,564-567
+test/core/api/fake_api_client_test.dart
+  s_1777e3b50195d9::t_361a6f4faebc21 2,77-83
+test/features/staff/ops_page_test.dart
+  s_1777e3b50195d9::t_6d492cef5d5bdc 11-45
+  s_1777e3b50195d9::t_8175f987a561a4 127-128
+  s_1777e3b50195d9::t_b7cc942ebcb145 129-130
+lib/features/staff/ops_page.dart
+  s_1777e3b50195d9::t_76392d822589d6 217-222
+  s_1777e3b50195d9::t_361a6f4faebc21 140-147
+  s_1777e3b50195d9::t_b9b91722d40a09 81
+  s_1777e3b50195d9::t_86f4b88a60a085 90-107
+  s_1777e3b50195d9::t_718977d311eb11 118
+  s_1777e3b50195d9::t_1caa81c37766df 2
+  s_1777e3b50195d9::t_b60f57711295cc 148
+test/features/home/home_page_test.dart
+  s_1777e3b50195d9::t_98cf2b2e5ee36d 28
+  s_1777e3b50195d9::t_576b6b7edce660 27,29-31
+lib/core/router/app_router.dart
+  s_1777e3b50195d9::t_1dd085ce6aa84c 25-32
+lib/features/home/home_page.dart
+  s_1777e3b50195d9::t_1dd085ce6aa84c 274-278
+  s_1777e3b50195d9::t_576b6b7edce660 273
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "200947559b04217fde713309b923f6049e4c3ccc",
+  "prompts": {},
+  "sessions": {
+    "s_1777e3b50195d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05257-2d8d-7e01-8699-fcd16b4cac62",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
