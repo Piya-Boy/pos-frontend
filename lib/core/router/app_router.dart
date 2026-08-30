@@ -30,6 +30,10 @@ GoRouter appRouter(ApiClient api) => GoRouter(
       path: '/staff',
       builder: (_, _) => _opsRoute(api, StaffRoute.staff, 'STAFF'),
     ),
+    GoRoute(
+      path: '/cashier',
+      builder: (_, _) => _opsRoute(api, StaffRoute.cashier, 'CASHIER'),
+    ),
   ],
 );
 
@@ -37,6 +41,7 @@ Widget _routeFor(ApiClient api, String page, String table) => switch (page) {
   'order' => CustomerPage(api: api, tableToken: table),
   'kitchen' => _opsRoute(api, StaffRoute.kitchen, 'KITCHEN'),
   'staff' => _opsRoute(api, StaffRoute.staff, 'STAFF'),
+  'cashier' => _opsRoute(api, StaffRoute.cashier, 'CASHIER'),
   _ => HomePage(api: api),
 };
 

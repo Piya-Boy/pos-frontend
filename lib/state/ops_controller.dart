@@ -82,6 +82,23 @@ class OpsController extends ChangeNotifier {
     await load();
   }
 
+  Future<Receipt> closeTable(
+    OpsSession session,
+    String method,
+    String reference,
+    String idempotencyKey,
+  ) async {
+    final receipt = await _api.closeTable(
+      token: token,
+      sessionId: session.session.sessionId,
+      method: method,
+      reference: reference.isEmpty ? null : reference,
+      idempotencyKey: idempotencyKey,
+    );
+    await load();
+    return receipt;
+  }
+
   Future<void> _loadDashboard(String token, int tokenGeneration) async {
     _loading = true;
     _error = null;

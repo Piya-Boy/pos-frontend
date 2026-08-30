@@ -7,6 +7,7 @@ import '../../models/staff_models.dart';
 import '../../state/auth_controller.dart';
 import '../../state/ops_controller.dart';
 import 'login_page.dart';
+import 'widgets/cashier_bills.dart';
 import 'widgets/kitchen_board.dart';
 import 'widgets/staff_queue.dart';
 
@@ -112,6 +113,8 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
         widget.route == StaffRoute.kitchen || (operations && _tab == 'KITCHEN');
     final staffView =
         widget.route == StaffRoute.staff || (operations && _tab == 'STAFF');
+    final cashierView =
+        widget.route == StaffRoute.cashier || (operations && _tab == 'CASHIER');
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -187,6 +190,11 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
                         items: dashboard.items,
                         onUpdateCall: controller.updateCallStatus,
                         onUpdateItem: controller.updateOrderStatus,
+                      )
+                    : cashierView
+                    ? CashierBills(
+                        sessions: dashboard.sessions,
+                        onClose: controller.closeTable,
                       )
                     : Center(child: Text(operations ? _tab : dashboard.view)),
               ),
