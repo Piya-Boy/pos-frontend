@@ -39,4 +39,87 @@ void main() {
 
     expect(first.sessionId, second.sessionId);
   });
+
+  test(
+    'staff login exposes seeded kitchen work and updates its status',
+    () async {
+      final api = FakeApiClient();
+
+      final staff = await api.login(pin: 'zaq1234', expectedRole: 'KITCHEN');
+      final before = await api.opsDashboard(
+        token: staff.token,
+        view: 'KITCHEN',
+      );
+
+      expect(staff.role, 'KITCHEN');
+      expect(staff.token, isNotEmpty);
+      expect(before.items, isNotEmpty);
+      expect(before.items.first.status, 'NEW');
+
+      await api.updateOrderItem(
+        token: staff.token,
+        orderItemId: before.items.first.orderItemId,
+        status: 'PREPARING',
+      );
+      final after = await api.opsDashboard(token: staff.token, view: 'KITCHEN');
+
+      expect(after.items.first.status, 'PREPARING');
+    },
+  );
+
+  test('staff token is restricted to its permitted ops view', () async {
+    final api = FakeApiClient();
+    final kitchen = await api.login(pin: 'zaq1234', expectedRole: 'KITCHEN');
+
+    expect(
+      () => api.opsDashboard(token: kitchen.token, view: 'CASHIER'),
+      throwsA(isA<StateError>()),
+    );
+  });
+
+  test(
+    "changing a PIN enables the staff member's new fake credential",
+    () async {
+      final api = FakeApiClient();
+      final first = await api.login(pin: 'zaq1234', expectedRole: 'KITCHEN');
+
+      await api.changePin(token: first.token, newPin: 'kitchen01');
+      await api.logout(token: first.token);
+
+      final fallback = await api.login(pin: 'zaq1234', expectedRole: 'KITCHEN');
+      final renewed = await api.login(
+        pin: 'kitchen01',
+        expectedRole: 'KITCHEN',
+      );
+
+      expect(fallback.role, 'ADMIN');
+      expect(renewed.role, 'KITCHEN');
+      expect(renewed.mustChangePin, isFalse);
+    },
+  );
+
+  test(
+    'paid fake sessions no longer appear in the cashier dashboard',
+    () async {
+      final api = FakeApiClient();
+      final cashier = await api.login(pin: 'zaq1234', expectedRole: 'CASHIER');
+      final before = await api.opsDashboard(
+        token: cashier.token,
+        view: 'CASHIER',
+      );
+
+      await api.closeTable(
+        token: cashier.token,
+        sessionId: before.sessions.single.session.sessionId,
+        method: 'CASH',
+        idempotencyKey: 'payment-1',
+      );
+      final after = await api.opsDashboard(
+        token: cashier.token,
+        view: 'CASHIER',
+      );
+
+      expect(after.sessions, isEmpty);
+    },
+  );
 }

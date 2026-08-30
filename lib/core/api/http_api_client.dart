@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:pos_frontend/core/api/api_client.dart';
 import 'package:pos_frontend/core/api/app_error.dart';
 import 'package:pos_frontend/models/session_bundle.dart';
+import 'package:pos_frontend/models/staff_models.dart';
 
 class HttpApiClient implements ApiClient {
   HttpApiClient({required String baseUrl, http.Client? client})
@@ -67,6 +68,145 @@ class HttpApiClient implements ApiClient {
         'idempotencyKey': idempotencyKey,
       }),
     ),
+  );
+
+  @override
+  Future<StaffSession> login({
+    required String pin,
+    String? expectedRole,
+  }) async => StaffSession.fromJson(
+    _map(
+      await _post('/api/auth/login', {
+        'pin': pin,
+        'expectedRole': ?expectedRole,
+      }),
+    ),
+  );
+
+  @override
+  Future<void> logout({required String token}) async {
+    await _post('/api/auth/logout', {'token': token});
+  }
+
+  @override
+  Future<void> changePin({
+    required String token,
+    required String newPin,
+  }) async {
+    await _post('/api/auth/change-pin', {'token': token, 'newPin': newPin});
+  }
+
+  @override
+  Future<OpsDashboard> opsDashboard({
+    required String token,
+    required String view,
+  }) async => OpsDashboard.fromJson(
+    _map(await _post('/api/ops/dashboard', {'token': token, 'view': view})),
+  );
+
+  @override
+  Future<OpsOrderItem> updateOrderItem({
+    required String token,
+    required String orderItemId,
+    required String status,
+    String? kitchenNote,
+  }) async => OpsOrderItem.fromJson(
+    _map(
+      await _post('/api/ops/order-status', {
+        'token': token,
+        'orderItemId': orderItemId,
+        'status': status,
+        'kitchenNote': ?kitchenNote,
+      }),
+    ),
+  );
+
+  @override
+  Future<OpsCall> updateCall({
+    required String token,
+    required String logId,
+    required String status,
+  }) async => OpsCall.fromJson(
+    _map(
+      await _post('/api/ops/call-status', {
+        'token': token,
+        'logId': logId,
+        'status': status,
+      }),
+    ),
+  );
+
+  @override
+  Future<Receipt> closeTable({
+    required String token,
+    required String sessionId,
+    required String method,
+    String? reference,
+    required String idempotencyKey,
+  }) async {
+    final result = _map(
+      await _post('/api/ops/close-table', {
+        'token': token,
+        'sessionId': sessionId,
+        'method': method,
+        'reference': ?reference,
+        'idempotencyKey': idempotencyKey,
+      }),
+    );
+    return Receipt.fromJson(
+      Map<String, dynamic>.from(result['receipt'] as Map),
+    );
+  }
+
+  @override
+  Future<AdminData> adminData({required String token}) async =>
+      AdminData.fromJson(
+        _map(await _post('/api/admin/data', {'token': token})),
+      );
+
+  @override
+  Future<Map<String, dynamic>> adminSaveSettings({
+    required String token,
+    required Map<String, dynamic> settings,
+  }) async => _map(
+    await _post('/api/admin/settings', {'token': token, 'settings': settings}),
+  );
+
+  @override
+  Future<Map<String, dynamic>> adminSaveEntity({
+    required String token,
+    required String entity,
+    required Map<String, dynamic> data,
+  }) async => _map(
+    await _post('/api/admin/entity', {
+      'token': token,
+      'entity': entity,
+      'data': data,
+    }),
+  );
+
+  @override
+  Future<Map<String, dynamic>> adminArchiveEntity({
+    required String token,
+    required String entity,
+    required String id,
+  }) async => _map(
+    await _post('/api/admin/entity/archive', {
+      'token': token,
+      'entity': entity,
+      'id': id,
+    }),
+  );
+
+  @override
+  Future<Map<String, dynamic>> adminRotateToken({
+    required String token,
+    required String tableId,
+  }) async => _map(
+    await _post('/api/admin/table/rotate-token', {
+      'token': token,
+      'tableId': tableId,
+    }),
   );
 
   Future<Object?> _post(String path, Map<String, dynamic> body) async {

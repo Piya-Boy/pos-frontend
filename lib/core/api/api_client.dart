@@ -4,6 +4,7 @@ import '../../models/menu_item.dart';
 import '../../models/order_item.dart';
 import '../../models/promotion.dart';
 import '../../models/session_bundle.dart';
+import '../../models/staff_models.dart';
 import '../../models/totals.dart';
 
 abstract class ApiClient {
@@ -28,6 +29,62 @@ abstract class ApiClient {
     required String type,
     required String idempotencyKey,
   });
+
+  Future<StaffSession> login({required String pin, String? expectedRole});
+
+  Future<void> logout({required String token});
+
+  Future<void> changePin({required String token, required String newPin});
+
+  Future<OpsDashboard> opsDashboard({
+    required String token,
+    required String view,
+  });
+
+  Future<OpsOrderItem> updateOrderItem({
+    required String token,
+    required String orderItemId,
+    required String status,
+    String? kitchenNote,
+  });
+
+  Future<OpsCall> updateCall({
+    required String token,
+    required String logId,
+    required String status,
+  });
+
+  Future<Receipt> closeTable({
+    required String token,
+    required String sessionId,
+    required String method,
+    String? reference,
+    required String idempotencyKey,
+  });
+
+  Future<AdminData> adminData({required String token});
+
+  Future<Map<String, dynamic>> adminSaveSettings({
+    required String token,
+    required Map<String, dynamic> settings,
+  });
+
+  Future<Map<String, dynamic>> adminSaveEntity({
+    required String token,
+    required String entity,
+    required Map<String, dynamic> data,
+  });
+
+  Future<Map<String, dynamic>> adminArchiveEntity({
+    required String token,
+    required String entity,
+    required String id,
+  });
+
+  Future<Map<String, dynamic>> adminRotateToken({
+    required String token,
+    required String tableId,
+  });
 }
 
 class CustomerData {
@@ -48,16 +105,26 @@ class CustomerData {
   factory CustomerData.fromJson(Map<String, dynamic> json) => CustomerData(
     table: Map<String, dynamic>.from(json['table'] as Map),
     categories: ((json['categories'] as List?) ?? const [])
-        .map((category) => Category.fromJson(Map<String, dynamic>.from(category as Map)))
+        .map(
+          (category) =>
+              Category.fromJson(Map<String, dynamic>.from(category as Map)),
+        )
         .toList(),
     menu: ((json['menu'] as List?) ?? const [])
-        .map((item) => MenuItem.fromJson(Map<String, dynamic>.from(item as Map)))
+        .map(
+          (item) => MenuItem.fromJson(Map<String, dynamic>.from(item as Map)),
+        )
         .toList(),
     promotions: ((json['promotions'] as List?) ?? const [])
-        .map((promotion) => Promotion.fromJson(Map<String, dynamic>.from(promotion as Map)))
+        .map(
+          (promotion) =>
+              Promotion.fromJson(Map<String, dynamic>.from(promotion as Map)),
+        )
         .toList(),
     session: json['session'] is Map
-        ? SessionBundle.fromJson(Map<String, dynamic>.from(json['session'] as Map))
+        ? SessionBundle.fromJson(
+            Map<String, dynamic>.from(json['session'] as Map),
+          )
         : null,
   );
 
@@ -85,13 +152,14 @@ class OrderRequestItem {
   final List<String> addOnIds;
   final String note;
 
-  factory OrderRequestItem.fromJson(Map<String, dynamic> json) => OrderRequestItem(
-    itemId: '${json['itemId'] ?? ''}',
-    qty: _number(json['qty']).toInt(),
-    optionIds: _stringList(json['optionIds']),
-    addOnIds: _stringList(json['addOnIds']),
-    note: '${json['note'] ?? ''}',
-  );
+  factory OrderRequestItem.fromJson(Map<String, dynamic> json) =>
+      OrderRequestItem(
+        itemId: '${json['itemId'] ?? ''}',
+        qty: _number(json['qty']).toInt(),
+        optionIds: _stringList(json['optionIds']),
+        addOnIds: _stringList(json['addOnIds']),
+        note: '${json['note'] ?? ''}',
+      );
 
   Map<String, dynamic> toJson() => {
     'itemId': itemId,
@@ -122,9 +190,12 @@ class SubmitResult {
     table: Map<String, dynamic>.from(json['table'] as Map),
     totals: Totals.fromJson(Map<String, dynamic>.from(json['totals'] as Map)),
     items: ((json['items'] as List?) ?? const [])
-        .map((item) => OrderItem.fromJson(Map<String, dynamic>.from(item as Map)))
+        .map(
+          (item) => OrderItem.fromJson(Map<String, dynamic>.from(item as Map)),
+        )
         .toList(),
-    submittedAt: DateTime.tryParse('${json['submittedAt'] ?? ''}') ??
+    submittedAt:
+        DateTime.tryParse('${json['submittedAt'] ?? ''}') ??
         DateTime.fromMillisecondsSinceEpoch(0, isUtc: true),
   );
 
@@ -145,13 +216,19 @@ class CallResult {
 
   factory CallResult.fromJson(Map<String, dynamic> json) => CallResult(
     call: CallLog.fromJson(Map<String, dynamic>.from(json['call'] as Map)),
-    duplicate: json['duplicate'] == true || '${json['duplicate']}'.toLowerCase() == 'true',
+    duplicate:
+        json['duplicate'] == true ||
+        '${json['duplicate']}'.toLowerCase() == 'true',
   );
 
-  Map<String, dynamic> toJson() => {'call': call.toJson(), 'duplicate': duplicate};
+  Map<String, dynamic> toJson() => {
+    'call': call.toJson(),
+    'duplicate': duplicate,
+  };
 }
 
-num _number(Object? value) => value is num ? value : num.tryParse('$value') ?? 0;
+num _number(Object? value) =>
+    value is num ? value : num.tryParse('$value') ?? 0;
 
 List<String> _stringList(Object? value) =>
     value is List ? value.map((item) => '$item').toList() : const [];
