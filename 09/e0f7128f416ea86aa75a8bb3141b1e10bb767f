@@ -1,0 +1,32 @@
+lib/features/customer/customer_page.dart
+  s_1777e3b50195d9::t_1fa2390ecb48dd 207,210
+test/features/customer/menu_test.dart
+  s_1777e3b50195d9::t_9392a66653cf87 64
+  s_1777e3b50195d9::t_30840ecf9e13c1 5,54-63,65-67
+  s_1777e3b50195d9::t_817cd45d4b5ef8 6,31-53
+  s_1777e3b50195d9::t_228b178d28d62f 68
+lib/features/customer/widgets/menu_toolbar.dart
+  s_1777e3b50195d9::t_7d8a3b7ad86b23 33
+  s_1777e3b50195d9::t_49095c23439860 24-32,34-46
+test/core/theme/tokens_test.dart
+  s_1777e3b50195d9::t_cd8cd6cf790d29 3,21-36
+  s_1777e3b50195d9::t_7bd740770cd410 37
+lib/core/theme/phius_theme.dart
+  s_1777e3b50195d9::t_49095c23439860 20-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "09e0f7128f416ea86aa75a8bb3141b1e10bb767f",
+  "prompts": {},
+  "sessions": {
+    "s_1777e3b50195d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05257-2d8d-7e01-8699-fcd16b4cac62",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
