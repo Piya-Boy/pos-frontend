@@ -17,5 +17,23 @@ ThemeData phiusTheme() {
       bodyColor: PhiusTokens.ink,
       displayColor: PhiusTokens.ink,
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: PhiusTokens.surface,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
+      hintStyle: const TextStyle(color: PhiusTokens.muted),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(13),
+        borderSide: const BorderSide(color: PhiusTokens.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(13),
+        borderSide: const BorderSide(color: PhiusTokens.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(13),
+        borderSide: const BorderSide(color: PhiusTokens.primary, width: 2),
+      ),
+    ),
   );
 }

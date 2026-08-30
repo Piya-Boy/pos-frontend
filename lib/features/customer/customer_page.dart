@@ -204,10 +204,10 @@ class _MenuToolbarDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
 
   @override
-  double get minExtent => 126;
+  double get minExtent => 134;
 
   @override
-  double get maxExtent => 126;
+  double get maxExtent => 134;
 
   @override
   Widget build(

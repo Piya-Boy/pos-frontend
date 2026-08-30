@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:pos_frontend/core/theme/phius_theme.dart';
 import 'package:pos_frontend/core/theme/tokens.dart';
 
 void main() {
@@ -16,5 +17,22 @@ void main() {
     expect(PhiusTokens.radius, 18.0);
     expect(PhiusTokens.radiusLg, 24.0);
     expect(PhiusTokens.baseFontSize, 15.0);
+  });
+
+  testWidgets('text fields use the cp-pos filled outline theme', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: phiusTheme(),
+        home: const Scaffold(body: TextField()),
+      ),
+    );
+
+    final decorationTheme = Theme.of(
+      tester.element(find.byType(TextField)),
+    ).inputDecorationTheme;
+
+    expect(decorationTheme.filled, isTrue);
+    expect(decorationTheme.fillColor, PhiusTokens.surface);
+    expect(decorationTheme.enabledBorder, isA<OutlineInputBorder>());
   });
 }

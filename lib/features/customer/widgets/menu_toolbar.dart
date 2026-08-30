@@ -21,11 +21,29 @@ class MenuToolbar extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      TextField(
-        onChanged: onSearch,
-        decoration: const InputDecoration(
-          prefixIcon: Center(child: Text('⌕', style: TextStyle(fontSize: 24))),
-          hintText: 'ค้นหาเมนูที่อยากทาน',
+      DecoratedBox(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          boxShadow: PhiusTokens.shadowSm,
+        ),
+        child: TextField(
+          onChanged: onSearch,
+          decoration: const InputDecoration(
+            prefixIcon: Center(child: Text('⌕', style: TextStyle(fontSize: 24))),
+            prefixIconConstraints: BoxConstraints.tightFor(width: 44, height: 46),
+            hintText: 'ค้นหาเมนูที่อยากทาน',
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              borderSide: BorderSide(color: PhiusTokens.border),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              borderSide: BorderSide(color: PhiusTokens.primary, width: 2),
+            ),
+          ),
         ),
       ),
       const SizedBox(height: 12),
