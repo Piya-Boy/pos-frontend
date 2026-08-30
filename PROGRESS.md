@@ -40,7 +40,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | P4-T5 | Staff queue (calls + ready) | terra | ✅ |
 | P4-T6 | Cashier bills + payment + receipt | **sol** | ✅ |
 | P4-T7 | Admin shell + nav + overview | terra | ✅ |
-| P4-T8 | Admin tables/catalog/promotions/staff CRUD | terra | ⬜ |
+| P4-T8 | Admin tables/catalog/promotions/staff CRUD | terra | ✅ |
 | P4-T9 | Admin settings + brand preview | terra | ⬜ |
 | P4-T10 | Staff/Admin routing + parity pass | terra | ⬜ |
 
