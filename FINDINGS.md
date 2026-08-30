@@ -26,5 +26,14 @@
 **Use skills:** `flutter-setup-declarative-routing`.
 **Verify:** build web → from home, each finished role card opens its screen (or login first); unfinished ones may still stub, but ครัว must work now.
 
+## F3 — ops screen shows "เกิดข้อผิดพลาด" right after login — HIGH (real, live-repro)
+
+**Repro:** build web → `?page=kitchen` → login `zaq1234` → instead of the kitchen board you get a blank page with "เกิดข้อผิดพลาด".
+**Cause:** `OpsPage` renders `LoginPage` inline while `auth.session == null` (`ops_page.dart:81`). Its dashboard load runs in `initState`/`didChangeDependencies` postFrame, but `_loadAndPoll` early-returns when `auth.session == null` (`ops_page.dart:186-192`). After a successful inline login the session flips null→set and the widget rebuilds, but **nothing re-triggers the load** — so `dashboard` stays null, `loading` is false, `error` is null → the `dashboard == null` branch shows the generic fallback (`ops_page.dart:88-90`).
+**Fix:** when `auth.session` transitions from null to non-null, trigger `_loadAndPoll()` (e.g. listen to AuthController, or in `build` detect the transition and schedule a postFrame load; or have LoginPage's `onAuthenticated` callback kick the load). Also: `FakeApiClient.opsDashboard` throws `StateError('PERMISSION_DENIED'/'INVALID_VIEW')` — throw `AppError` with those codes instead so the controller's catch surfaces a real message, not a generic one.
+**Test gap:** existing widget tests seed a session + dashboard up front, so they never exercise the login→load transition. Add a widget test: pump OpsPage with NO session → enter PIN → submit → assert the kitchen board (not the error text) appears.
+**Use skills:** `flutter-add-widget-test`, `flutter-fix-runtime-errors` (dart-fix-runtime-errors) to trace, `superpowers:systematic-debugging`.
+**Verify:** rebuild → login to kitchen → board renders with seeded orders.
+
 ## Note on layout
 The page IS centered (max-width 1120). On very wide screens it looks left-biased only because the single promo card + empty right gutter — that matches cp-pos mobile-first behavior. No change needed. If you later add a desktop-specific treatment, spec it first (don't改 silently).
