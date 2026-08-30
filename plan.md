@@ -185,9 +185,32 @@ ThemeData phiusTheme() {
       bodyColor: PhiusTokens.ink,
       displayColor: PhiusTokens.ink,
     ),
+    // Ports cp-pos input styling (Styles.html:75-77): filled surface,
+    // 1px border, radius 13, focus = primary border. WITHOUT this every
+    // TextField renders as a bare underline invisible on the cream bg
+    // (search box, note, promo, price fields all break parity).
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: PhiusTokens.surface,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
+      hintStyle: const TextStyle(color: PhiusTokens.muted),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(13),
+        borderSide: const BorderSide(color: PhiusTokens.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(13),
+        borderSide: const BorderSide(color: PhiusTokens.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(13),
+        borderSide: const BorderSide(color: PhiusTokens.primary, width: 2),
+      ),
+    ),
   );
 }
 ```
+Note: the search box specifically has radius 16 + `shadowSm` (Styles.html:143) — wrap it or override its decoration in `MenuToolbar`, don't rely on the theme's radius 13 alone.
 
 Create `pos-frontend/lib/app.dart` (router wired in Task 4; temporary home for now):
 ```dart
