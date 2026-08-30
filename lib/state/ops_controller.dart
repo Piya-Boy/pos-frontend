@@ -68,6 +68,15 @@ class OpsController extends ChangeNotifier {
     }
   }
 
+  Future<void> updateOrderStatus(OpsOrderItem item, String status) async {
+    await _api.updateOrderItem(
+      token: token,
+      orderItemId: item.orderItemId,
+      status: status,
+    );
+    await load();
+  }
+
   Future<void> _loadDashboard(String token, int tokenGeneration) async {
     _loading = true;
     _error = null;
