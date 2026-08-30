@@ -1,0 +1,22 @@
+lib/features/staff/login_page.dart
+  s_1777e3b50195d9::t_fd8ea99bd54e82 2,68
+test/features/staff/login_page_test.dart
+  s_1777e3b50195d9::t_85b93154b7e3f7 3,53-77
+  s_1777e3b50195d9::t_e1c2b531a298cd 78
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "630365d9782cf8306842a2dd6929004cb6e8616e",
+  "prompts": {},
+  "sessions": {
+    "s_1777e3b50195d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05257-2d8d-7e01-8699-fcd16b4cac62",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
