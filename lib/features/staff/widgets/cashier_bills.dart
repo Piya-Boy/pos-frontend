@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/utils/client_id.dart';
 import '../../../core/theme/tokens.dart';
+import '../../shared/widgets/confirm_dialog.dart';
 import '../../../models/order_session.dart';
 import '../../../models/staff_models.dart';
 
@@ -240,26 +241,15 @@ class _BillDialogState extends State<_BillDialog> {
       setState(() => _error = 'กรุณาเลือกวิธีชำระเงิน');
       return;
     }
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: const Text('ยืนยันการปิดโต๊ะ?'),
-        content: const Text(
-          'ระบบจะบันทึกการชำระและเปิดโต๊ะสำหรับลูกค้ารอบใหม่',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, false),
-            child: const Text('ตรวจสอบอีกครั้ง'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(dialogContext, true),
-            child: const Text('ยืนยันรับชำระ'),
-          ),
-        ],
-      ),
+    final confirmed = await showConfirmDialog(
+      context,
+      title: 'ยืนยันการปิดโต๊ะ?',
+      message: 'ระบบจะบันทึกการชำระและเปิดโต๊ะสำหรับลูกค้ารอบใหม่',
+      confirmLabel: 'ยืนยันรับชำระ',
+      cancelLabel: 'ตรวจสอบอีกครั้ง',
+      icon: '🧾',
     );
-    if (confirmed != true || !mounted) return;
+    if (!confirmed || !mounted) return;
     setState(() {
       _busy = true;
       _error = null;
