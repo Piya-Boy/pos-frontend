@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/utils/client_id.dart';
 import '../../../core/theme/tokens.dart';
 import '../../shared/widgets/confirm_dialog.dart';
+import 'receipt_pdf.dart';
 import '../../../models/order_session.dart';
 import '../../../models/staff_models.dart';
 
@@ -325,7 +326,10 @@ class _ReceiptDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(onPressed: () {}, child: const Text('พิมพ์ใบเสร็จ')),
+        TextButton(
+          onPressed: () => printReceipt(receipt),
+          child: const Text('พิมพ์ใบเสร็จ'),
+        ),
         FilledButton(
           onPressed: () => Navigator.pop(context),
           child: const Text('ปิด'),
