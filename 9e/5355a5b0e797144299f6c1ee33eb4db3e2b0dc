@@ -1,0 +1,21 @@
+lib/features/staff/widgets/staff_queue.dart
+  s_ac235bdd8b9dc7::t_d6412bdaa709b1 22-57,59-80,82-84
+lib/features/staff/widgets/cashier_bills.dart
+  s_ac235bdd8b9dc7::t_db4fe79de65651 67-83,91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "9e5355a5b0e797144299f6c1ee33eb4db3e2b0dc",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
