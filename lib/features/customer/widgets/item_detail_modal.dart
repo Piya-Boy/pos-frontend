@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pos_frontend/core/utils/client_id.dart';
 import 'package:pos_frontend/core/theme/tokens.dart';
@@ -124,17 +125,13 @@ class _ItemDetailContentState extends State<_ItemDetailContent> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Sticky header bar — cp-pos ".modal-header" (App.html:437).
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Text(
-                widget.item.name,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
+            const Text(
+              'รายละเอียดเมนู',
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.w700),
             ),
             IconButton(
               icon: const Icon(Icons.close),
@@ -142,20 +139,67 @@ class _ItemDetailContentState extends State<_ItemDetailContent> {
             ),
           ],
         ),
-        if (widget.item.description.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(
-              widget.item.description,
-              style: const TextStyle(color: PhiusTokens.muted),
-            ),
-          ),
-        const Divider(),
+        const SizedBox(height: 12),
         Flexible(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Large item image — cp-pos ".item-detail-image" aspect 1.6, radius 20.
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: AspectRatio(
+                    aspectRatio: 1.6,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.item.imageUrl,
+                      fit: BoxFit.cover,
+                      errorWidget: (_, _, _) => Image.network(
+                        placeholderImage(widget.item.name),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // Title row: name + description left, large price right — ".item-detail-title".
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.item.name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          if (widget.item.description.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Text(
+                                widget.item.description,
+                                style: const TextStyle(color: PhiusTokens.muted),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Text(
+                      formatMoney(widget.item.price),
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: PhiusTokens.primary,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const Divider(),
                 ...grouped.entries.map((entry) {
                   final groupName = entry.key;
                   final options = entry.value;
