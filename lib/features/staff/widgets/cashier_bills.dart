@@ -64,7 +64,23 @@ class _CashierBillsState extends State<CashierBills> {
               ?.copyWith(fontWeight: FontWeight.w800),
         ),
         const SizedBox(height: 12),
-        ...widget.sessions.map(_billCard),
+        // cp-pos .bill-grid: 2 cols >=640, 3 cols >=900 (Styles.html:357/379).
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final cols = constraints.maxWidth >= 900 ? 3 : (constraints.maxWidth >= 640 ? 2 : 1);
+            final width = cols == 1
+                ? constraints.maxWidth
+                : (constraints.maxWidth - (cols - 1) * 12) / cols;
+
+            return Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              children: widget.sessions
+                  .map((s) => SizedBox(width: width, child: _billCard(s)))
+                  .toList(),
+            );
+          },
+        ),
       ],
     );
   }
@@ -72,7 +88,7 @@ class _CashierBillsState extends State<CashierBills> {
   Widget _billCard(OpsSession session) {
     final pending = session.session.status == 'PAYMENT_PENDING';
     return Card(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
