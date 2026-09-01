@@ -65,5 +65,15 @@ Adding the back link pushed the ops header past the test viewport by 4px (Render
 **Use skills:** `flutter-fix-layout-issues`, `flutter-build-responsive-layout`, `flutter-add-widget-test` (assert summary is 4-wide ≥640 and the order card is present).
 **Verify:** login kitchen → compact summary strip on top + a 3-column board with the seeded order card below.
 
+## F6 — Admin overview metric cards oversized (same class of bug as F5) — MEDIUM (live-repro)
+
+**Repro:** login admin → overview shows 4 huge metric cards in a 2×2 grid filling the screen.
+**Cause:** `admin_overview.dart:26-27` uses `GridView.count(crossAxisCount: 2, childAspectRatio: 1.8)` always — same mistake F5 fixed for the kitchen summary, but here for admin metrics.
+**cp-pos ref:** `.metric-grid` = 2 cols mobile, **4 cols ≥640** (Styles.html:310/360), each `.metric-card` min-height 120, number ~clamp 26-38px. Compact, not full-screen.
+**Fix:** 4 cols ≥640 (2 on mobile), `childAspectRatio` giving ~120-160px tall cards (not near-square huge), `shrinkWrap`, not `Expanded`. Reuse whatever responsive helper the kitchen summary now uses (DRY — consider a shared `StatCardGrid`).
+**Also (parity sweep for P4-T10):** grep the repo for any other `crossAxisCount: 2` + large `childAspectRatio` stat grids and fix them the same way. This bug pattern recurs.
+**Use skills:** `flutter-fix-layout-issues`, `flutter-build-responsive-layout`.
+**Verify:** admin overview shows a compact 4-across metric row ≥640.
+
 ## Note on layout
 The page IS centered (max-width 1120). On very wide screens it looks left-biased only because the single promo card + empty right gutter — that matches cp-pos mobile-first behavior. No change needed. If you later add a desktop-specific treatment, spec it first (don't改 silently).
