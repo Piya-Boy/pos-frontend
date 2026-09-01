@@ -1,0 +1,22 @@
+lib/core/utils/formatters.dart
+  s_ac235bdd8b9dc7::t_59cb210e6f371f 18-22
+lib/features/staff/widgets/cashier_bills.dart
+  s_ac235bdd8b9dc7::t_fb7c1ab05a8cf1 4
+  s_ac235bdd8b9dc7::t_03dd834944bea0 109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "0128818cdfb55a78a749eb279bf307ff012e8a92",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
