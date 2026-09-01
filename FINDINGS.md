@@ -75,5 +75,19 @@ Adding the back link pushed the ops header past the test viewport by 4px (Render
 **Use skills:** `flutter-fix-layout-issues`, `flutter-build-responsive-layout`.
 **Verify:** admin overview shows a compact 4-across metric row ≥640.
 
+## F7 — Item detail modal missing image + header + price layout — MEDIUM (live-repro)
+
+**Repro:** on the customer menu, quick-add (+) any item → the modal shows only: name + close ×, description, note field, qty stepper, "เพิ่มลงตะกร้า" button. It's narrow and plain.
+**cp-pos reference** (`openItemModal` App.html:436-447, CSS `.item-detail-image`/`.item-detail-title`/`.modal-header` Styles.html:191-199):
+- **Sticky header** `รายละเอียดเมนู` + close × on its own bar (`.modal-header`).
+- **Large item image** at the top — `.item-detail-image` aspect 1.6, radius 20, `cover`, with `placeholderImage` fallback. **Currently missing entirely** (the `imageUrl` is only passed into the CartLine, never rendered — `item_detail_modal.dart:100`).
+- **Title row**: name + description on the left, **large price on the right** (`.item-detail-title strong`, primary, 20px). Currently name only, no price.
+- Then option groups, add-ons, note, qty, sticky footer button `เพิ่มลงตะกร้า · {liveTotal}`.
+- Panel width up to 640 (`.modal-panel`), top radius 26, body scrolls, header+footer sticky.
+**Fix `item_detail_modal.dart` build():** prepend a modal header bar + a `CachedNetworkImage` (aspect 1.6, radius 20, errorWidget→`placeholderImage(item.name)`), and make the title a Row(name+desc, price). Keep the rest. Check `showPhiusModal` gives it the 640 max-width + top-26 radius + scrollable body (front.md §4.10 / §4.14 ModalSheet).
+**Also check the cart modal** (`cart_modal.dart`) and **bill modal** (cashier) against the same `.modal-*` structure — same header/footer/radius conventions.
+**Use skills:** `flutter-add-widget-test` (assert the image + header + price render), `flutter-fix-layout-issues`.
+**Verify:** open an item modal → large image on top, header bar, name+price row, then note/qty/add button; matches cp-pos.
+
 ## Note on layout
 The page IS centered (max-width 1120). On very wide screens it looks left-biased only because the single promo card + empty right gutter — that matches cp-pos mobile-first behavior. No change needed. If you later add a desktop-specific treatment, spec it first (don't改 silently).
