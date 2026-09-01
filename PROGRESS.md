@@ -42,7 +42,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | P4-T7 | Admin shell + nav + overview | terra | ✅ |
 | P4-T8 | Admin tables/catalog/promotions/staff CRUD | terra | ✅ |
 | P4-T9 | Admin settings + brand preview | terra | ✅ |
-| P4-T10 | Staff/Admin routing + parity pass | terra | ⬜ |
+| P4-T10 | Staff/Admin routing + parity pass | terra | ✅ |
 
 ## Phase 5 — Enhancements (opt-in) · plan `plan-enhance.md`
 Do NOT start unless told. E1 realtime, E2 offline, E3 Drive upload, E4 PDF receipt. Add rows when an epic is picked.
