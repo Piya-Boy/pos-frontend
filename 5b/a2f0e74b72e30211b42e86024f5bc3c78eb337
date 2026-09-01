@@ -1,0 +1,22 @@
+lib/features/shared/widgets/confirm_dialog.dart
+  s_ac235bdd8b9dc7::t_b3662d670b0442 1-103
+lib/features/staff/widgets/cashier_bills.dart
+  s_ac235bdd8b9dc7::t_7a35b7ceba27d8 244-250,252
+  s_ac235bdd8b9dc7::t_0f5090fc6aef7d 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "5ba2f0e74b72e30211b42e86024f5bc3c78eb337",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
