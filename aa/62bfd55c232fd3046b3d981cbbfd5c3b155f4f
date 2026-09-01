@@ -1,0 +1,56 @@
+lib/features/admin/admin_page.dart
+  s_53d10df07bd567::t_ca1ecb3c97738b 95
+test/features/admin/admin_page_test.dart
+  s_53d10df07bd567::t_d42bf16c4d0403 53-55,57-79,81-82,158-160,249-251
+  s_53d10df07bd567::t_cbaea0d0340927 56,80
+  s_53d10df07bd567::t_ca1ecb3c97738b 17-18
+  s_53d10df07bd567::t_76d8346b187fae 83
+  s_53d10df07bd567::t_88c98377c47c6d 252
+test/features/home/home_page_test.dart
+  s_1777e3b50195d9::t_f5454a991b9f81 48-50
+  s_1777e3b50195d9::t_656b4287964465 34-47,51-57
+lib/features/home/home_page.dart
+  s_1777e3b50195d9::t_a00fc8ae77caee 274
+lib/core/router/app_router.dart
+  s_1777e3b50195d9::t_a00fc8ae77caee 39-42,52
+lib/features/admin/widgets/admin_overview.dart
+  s_53d10df07bd567::t_ca1ecb3c97738b 28
+  s_53d10df07bd567::t_e8e1557661d7ab 31
+  s_53d10df07bd567::t_d42bf16c4d0403 27,29-30,32-55,58-60
+  s_53d10df07bd567::t_6169be8874b8aa 25-26
+.gitignore
+  s_ac235bdd8b9dc7::t_e941f8ed01183e 50-51
+  s_ac235bdd8b9dc7::t_2de0b71d8279de 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "aa62bfd55c232fd3046b3d981cbbfd5c3b155f4f",
+  "prompts": {},
+  "sessions": {
+    "s_1777e3b50195d9": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05257-2d8d-7e01-8699-fcd16b4cac62",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    },
+    "s_53d10df07bd567": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a05cd4-05b4-7af0-a7a1-209129374bd3",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    },
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
