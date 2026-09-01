@@ -31,6 +31,30 @@ void main() {
     expect(find.text('Phius Order'), findsOneWidget);
   });
 
+  testWidgets('every staff portal card opens its guarded path route', (
+    tester,
+  ) async {
+    const expectations = {
+      'รวมงานหน้าร้าน': 'Small Team Operations',
+      'หน้าครัว': 'Kitchen Display System',
+      'พนักงาน': 'Service Queue',
+      'แคชเชียร์': 'Billing & Checkout',
+      'ผู้ดูแล': 'เข้าสู่ระบบ',
+    };
+
+    for (final expectation in expectations.entries) {
+      await tester.pumpWidget(PhiusApp(api: FakeApiClient()));
+      await tester.pumpAndSettle();
+      final portalCard = find.text(expectation.key);
+      await tester.ensureVisible(portalCard);
+      await tester.tap(portalCard);
+      await tester.pumpAndSettle();
+
+      expect(find.text(expectation.value), findsOneWidget);
+      expect(find.text('เข้าสู่ระบบ'), findsOneWidget);
+    }
+  });
+
   testWidgets('setup-required bootstrap does not expose the portal', (
     tester,
   ) async {

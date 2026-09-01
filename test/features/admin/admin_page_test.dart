@@ -14,6 +14,8 @@ void main() {
   testWidgets('admin shell renders all navigation items and overview metrics', (
     tester,
   ) async {
+    await tester.binding.setSurfaceSize(const Size(1000, 800));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     SharedPreferences.setMockInitialValues({});
     final api = FakeApiClient();
     final auth = AuthController(api: api, route: StaffRoute.admin);
@@ -47,6 +49,37 @@ void main() {
     expect(find.text('รายการเมนู'), findsOneWidget);
     expect(find.text('ยอดขายวันนี้'), findsOneWidget);
   });
+
+  testWidgets(
+    'admin overview keeps metrics compact in four columns on wide screens',
+    (tester) async {
+      await tester.binding.setSurfaceSize(const Size(640, 800));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      SharedPreferences.setMockInitialValues({});
+      final api = FakeApiClient();
+      final auth = AuthController(api: api, route: StaffRoute.admin);
+      await auth.login('zaq1234');
+      await auth.changePin('admin123');
+      final controller = AdminController(api: api, token: auth.session!.token);
+
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider.value(value: auth),
+            ChangeNotifierProvider.value(value: controller),
+          ],
+          child: const MaterialApp(home: AdminPage(enablePolling: false)),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final grid = tester.widget<GridView>(find.byType(GridView));
+      final delegate =
+          grid.gridDelegate as SliverGridDelegateWithFixedCrossAxisCount;
+      expect(delegate.crossAxisCount, 4);
+      expect(delegate.mainAxisExtent, 140);
+    },
+  );
 
   testWidgets('mobile admin shell exposes navigation from its menu toggle', (
     tester,
@@ -122,7 +155,9 @@ void main() {
     );
   });
 
-  testWidgets('catalog shows the category archive guard message', (tester) async {
+  testWidgets('catalog shows the category archive guard message', (
+    tester,
+  ) async {
     final api = FakeApiClient();
     final admin = await api.login(pin: 'zaq1234', expectedRole: 'ADMIN');
     final controller = AdminController(api: api, token: admin.token);
@@ -211,6 +246,9 @@ void main() {
     final preview = tester.widget<Container>(
       find.byKey(const Key('brand-preview')),
     );
-    expect((preview.decoration as BoxDecoration).color, const Color(0xFF2F6B4F));
+    expect(
+      (preview.decoration as BoxDecoration).color,
+      const Color(0xFF2F6B4F),
+    );
   });
 }

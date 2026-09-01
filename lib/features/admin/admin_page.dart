@@ -92,7 +92,7 @@ class _AdminPageState extends State<AdminPage> with WidgetsBindingObserver {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final compact = constraints.maxWidth < 720;
+            final compact = constraints.maxWidth < 900;
             final nav = AdminNav(selected: _tab, onSelected: _selectTab);
             return Padding(
               padding: const EdgeInsets.all(16),
