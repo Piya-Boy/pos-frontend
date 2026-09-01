@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/client_id.dart';
+import '../../../core/utils/formatters.dart';
 import '../../../core/theme/tokens.dart';
 import '../../shared/widgets/confirm_dialog.dart';
 import 'receipt_pdf.dart';
@@ -105,7 +106,7 @@ class _CashierBillsState extends State<CashierBills> {
             ),
             const SizedBox(height: 8),
             Text(
-              '${session.items.length} รายการ · เปิด ${session.session.sessionId}',
+              '${session.items.length} รายการ · เปิด ${formatTime(session.openTime)}',
               style: const TextStyle(color: PhiusTokens.muted),
             ),
             const SizedBox(height: 12),

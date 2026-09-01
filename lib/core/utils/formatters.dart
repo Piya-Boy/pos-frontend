@@ -15,3 +15,8 @@ String placeholderImage(String label) {
   final text = Uri.encodeComponent(label.isEmpty ? 'Menu' : label);
   return 'https://placehold.co/900x700/F4EEE5/706A63?text=$text';
 }
+
+// Ports App.html:1289 formatTime — th-TH HH:mm; '—' when null/invalid.
+final _time = DateFormat('HH:mm');
+
+String formatTime(DateTime? value) => value == null ? '—' : _time.format(value);
