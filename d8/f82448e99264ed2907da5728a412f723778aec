@@ -1,0 +1,41 @@
+lib/features/admin/widgets/admin_entity_form.dart
+  s_ac235bdd8b9dc7::t_a49ed6180c06fb 72
+  s_ac235bdd8b9dc7::t_2ef7ca1f92f91c 199
+  s_ac235bdd8b9dc7::t_ae5a7e74c609f9 31,39-41
+  s_ac235bdd8b9dc7::t_1192e8c36f84ce 1
+  s_ac235bdd8b9dc7::t_933aae99bb9ea3 157,174-196,202-203,205-210
+  s_ac235bdd8b9dc7::t_aeb1d63412ab8e 197-198,200-201,204
+  s_ac235bdd8b9dc7::t_2c1be7db776eb8 42
+pubspec.yaml
+  s_ac235bdd8b9dc7::t_3b29c6c6ee2707 49
+lib/features/admin/widgets/admin_entity_panel.dart
+  s_ac235bdd8b9dc7::t_829144d3c849f9 82
+lib/state/admin_controller.dart
+  s_ac235bdd8b9dc7::t_0dd70461e3bff6 92-95
+PROGRESS.md
+  s_ac235bdd8b9dc7::t_0da2fa1c2367b6 51
+lib/core/api/api_client.dart
+  s_ac235bdd8b9dc7::t_02ba6e4ab0b4e5 88-94
+lib/core/api/http_api_client.dart
+  s_ac235bdd8b9dc7::t_058eb0f0a76c64 212-251
+lib/core/api/fake_api_client.dart
+  s_ac235bdd8b9dc7::t_f4314006e619dd 924-934
+pubspec.lock
+  s_ac235bdd8b9dc7::t_0b5816d9c8a54f 4-11,116-123,140-147,164-171,180-219,792-807
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "d8f82448e99264ed2907da5728a412f723778aec",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
