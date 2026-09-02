@@ -45,6 +45,8 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | P4-T10 | Staff/Admin routing + parity pass | terra | ✅ |
 
 ## Phase 5 — Enhancements (opt-in) · plan `plan-enhance.md`
-Do NOT start unless told. E1 realtime, E2 offline, E3 Drive upload, E4 PDF receipt. Add rows when an epic is picked.
+| Epic | งาน | สถานะ |
+|---|---|---|
+| E4 | PDF receipt (client-side, `printing`/`pdf`) | ✅ buildReceiptPdf() + "สร้าง PDF" (sharePdf → download) + "พิมพ์ใบเสร็จ" on receipt modal |
 
 **Build order**: finish Phase 1 → (Phase 2 backend by the other repo) → Phase 3 → Phase 4 → Phase 5 epics as requested.

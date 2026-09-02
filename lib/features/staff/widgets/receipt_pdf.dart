@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -5,11 +6,29 @@ import 'package:printing/printing.dart';
 
 import '../../../models/staff_models.dart';
 
-/// Builds + prints a receipt PDF from a paid session (ports cp-pos PdfService
-/// receipt: restaurant, table, payment meta, items, totals).
+/// Opens the print dialog for a receipt (which also offers "save as PDF").
+Future<void> printReceipt(Receipt receipt) async {
+  final bytes = await buildReceiptPdf(receipt);
+  await Printing.layoutPdf(onLayout: (format) async => bytes);
+}
+
+/// Shares/downloads the receipt as a PDF file (E4). On web this triggers a
+/// browser download; on mobile it opens the OS share sheet.
+Future<void> shareReceiptPdf(Receipt receipt) async {
+  final bytes = await buildReceiptPdf(receipt);
+  await Printing.sharePdf(bytes: bytes, filename: _receiptFilename(receipt));
+}
+
+String _receiptFilename(Receipt receipt) {
+  final id = receipt.session.sessionId.replaceAll(RegExp(r'[^A-Za-z0-9_-]'), '');
+  return 'receipt-$id.pdf';
+}
+
+/// Builds a receipt PDF from a paid session (ports cp-pos PdfService receipt:
+/// restaurant, table, payment meta, items, totals) and returns its bytes.
 /// Thai text needs an embedded font — use the Prompt Google font for both
 /// regular + bold so Thai glyphs render (the built-in PDF fonts have no Thai).
-Future<void> printReceipt(Receipt receipt) async {
+Future<Uint8List> buildReceiptPdf(Receipt receipt) async {
   final regular = await PdfGoogleFonts.promptRegular();
   final bold = await PdfGoogleFonts.promptBold();
   final theme = pw.ThemeData.withFont(base: regular, bold: bold);
@@ -66,7 +85,7 @@ Future<void> printReceipt(Receipt receipt) async {
     ),
   );
 
-  await Printing.layoutPdf(onLayout: (format) => doc.save());
+  return doc.save();
 }
 
 pw.Widget _row(String label, String value, {bool bold = false}) => pw.Padding(

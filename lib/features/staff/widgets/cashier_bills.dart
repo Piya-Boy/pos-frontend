@@ -344,6 +344,10 @@ class _ReceiptDialog extends StatelessWidget {
       ),
       actions: [
         TextButton(
+          onPressed: () => shareReceiptPdf(receipt),
+          child: const Text('สร้าง PDF'),
+        ),
+        TextButton(
           onPressed: () => printReceipt(receipt),
           child: const Text('พิมพ์ใบเสร็จ'),
         ),
