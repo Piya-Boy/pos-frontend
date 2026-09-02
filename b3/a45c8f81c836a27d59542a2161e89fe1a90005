@@ -1,0 +1,39 @@
+PROGRESS.md
+  s_ac235bdd8b9dc7::t_03f4f633473024 52
+lib/core/realtime/realtime_client.dart
+  s_ac235bdd8b9dc7::t_e692c6a107009f 156
+  s_ac235bdd8b9dc7::t_73c183714ecf55 1-155,157-160
+lib/state/ops_controller.dart
+  s_ac235bdd8b9dc7::t_352a4aad6873d8 6
+  s_ac235bdd8b9dc7::t_8933d56e6429ce 130-132,142-157,162
+  s_ac235bdd8b9dc7::t_7bfec123fe9715 41-49
+pubspec.yaml
+  s_ac235bdd8b9dc7::t_9addf1c5eddd54 50
+lib/features/staff/ops_page.dart
+  s_ac235bdd8b9dc7::t_d442c639a79893 220-223
+lib/state/customer_controller.dart
+  s_ac235bdd8b9dc7::t_92ba62acfac0fd 64,68-81
+  s_ac235bdd8b9dc7::t_5ab8951ce3a042 247
+  s_ac235bdd8b9dc7::t_1969554baf76c1 31-32
+  s_ac235bdd8b9dc7::t_285302d74e14d9 8
+  s_ac235bdd8b9dc7::t_afaf97060a2972 220-221
+  s_ac235bdd8b9dc7::t_d4726b4fad3754 82-83
+pubspec.lock
+  s_ac235bdd8b9dc7::t_8d2e5d22ee1d85 792-807
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "b3a45c8f81c836a27d59542a2161e89fe1a90005",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
