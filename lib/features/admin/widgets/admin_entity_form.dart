@@ -1,3 +1,4 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 enum AdminFieldType { text, number, select, color, multiline, imageUrl, password, toggle }
@@ -27,12 +28,17 @@ class AdminEntityForm extends StatefulWidget {
     required this.fields,
     required this.initial,
     required this.onSave,
+    this.onUploadImage,
   });
 
   final String title;
   final List<AdminField> fields;
   final Map<String, dynamic> initial;
   final Future<void> Function(Map<String, dynamic>) onSave;
+
+  /// Uploads picked image bytes and returns its URL (E3). When null, imageUrl
+  /// fields stay plain text-entry only.
+  final Future<String> Function(List<int> bytes, String filename)? onUploadImage;
 
   @override
   State<AdminEntityForm> createState() => _AdminEntityFormState();
@@ -63,6 +69,7 @@ class _AdminEntityFormState extends State<AdminEntityForm> {
   };
   bool _saving = false;
   String? _error;
+  String? _uploadingKey; // field key currently uploading, or null
 
   @override
   void dispose() {
@@ -147,7 +154,7 @@ class _AdminEntityFormState extends State<AdminEntityForm> {
         onChanged: (value) => setState(() => _toggles[field.key] = value),
       );
     }
-    return TextFormField(
+    final textField = TextFormField(
       controller: _controllers[field.key],
       keyboardType: field.keyboardType ??
           switch (field.type) {
@@ -164,5 +171,42 @@ class _AdminEntityFormState extends State<AdminEntityForm> {
                 : null
           : null,
     );
+    if (field.type == AdminFieldType.imageUrl && widget.onUploadImage != null) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: textField),
+          const SizedBox(width: 8),
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: OutlinedButton.icon(
+              onPressed: _uploadingKey != null ? null : () => _pickAndUpload(field.key),
+              icon: _uploadingKey == field.key
+                  ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
+                  : const Icon(Icons.upload, size: 18),
+              label: const Text('อัปโหลด'),
+            ),
+          ),
+        ],
+      );
+    }
+    return textField;
+  }
+
+  Future<void> _pickAndUpload(String key) async {
+    // file_picker 12: static pickFiles returns List<PlatformFile>.
+    final files = await FilePicker.pickFiles(type: FileType.image);
+    final file = files.firstOrNull;
+    if (file == null) return;
+    final bytes = await file.readAsBytes();
+    setState(() => _uploadingKey = key);
+    try {
+      final url = await widget.onUploadImage!(bytes, file.name);
+      if (mounted && url.isNotEmpty) _controllers[key]?.text = url;
+    } catch (_) {
+      if (mounted) setState(() => _error = 'อัปโหลดรูปไม่สำเร็จ');
+    } finally {
+      if (mounted) setState(() => _uploadingKey = null);
+    }
   }
 }

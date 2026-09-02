@@ -89,6 +89,10 @@ class AdminController extends ChangeNotifier {
     );
   }
 
+  /// Uploads an image and returns its public URL (E3). Does not mutate admin data.
+  Future<String> uploadImage(List<int> bytes, String filename) =>
+      _api.adminUploadImage(token: _token, bytes: bytes, filename: filename);
+
   Future<void> archiveEntity(String entity, String id) async {
     await _mutate(
       () => _api.adminArchiveEntity(token: _token, entity: entity, id: id),

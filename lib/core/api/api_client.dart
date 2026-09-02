@@ -85,6 +85,13 @@ abstract class ApiClient {
     required String token,
     required String tableId,
   });
+
+  /// Uploads an image and returns its public URL (E3). [bytes] is the raw file.
+  Future<String> adminUploadImage({
+    required String token,
+    required List<int> bytes,
+    required String filename,
+  });
 }
 
 class CustomerData {

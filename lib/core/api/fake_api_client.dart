@@ -921,6 +921,17 @@ class FakeApiClient implements ApiClient {
     return updated;
   }
 
+  @override
+  Future<String> adminUploadImage({
+    required String token,
+    required List<int> bytes,
+    required String filename,
+  }) async {
+    _requireRole(token, const {'ADMIN'});
+    // Offline stub: return a deterministic placeholder URL (no real Drive).
+    return 'https://drive.google.com/uc?export=view&id=${clientId('img')}';
+  }
+
   StaffSession _requireStaff(String token) {
     final user = _staffTokens[token];
     if (user == null) throw StateError('AUTH_REQUIRED');

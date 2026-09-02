@@ -48,5 +48,6 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 | Epic | งาน | สถานะ |
 |---|---|---|
 | E4 | PDF receipt (client-side, `printing`/`pdf`) | ✅ buildReceiptPdf() + "สร้าง PDF" (sharePdf → download) + "พิมพ์ใบเสร็จ" on receipt modal |
+| E3 | Drive image upload (picker) | ✅ file_picker + "อัปโหลด" button on imageUrl fields → adminUploadImage → sets ImageURL; FakeApiClient stub for offline |
 
 **Build order**: finish Phase 1 → (Phase 2 backend by the other repo) → Phase 3 → Phase 4 → Phase 5 epics as requested.

@@ -209,6 +209,46 @@ class HttpApiClient implements ApiClient {
     }),
   );
 
+  @override
+  Future<String> adminUploadImage({
+    required String token,
+    required List<int> bytes,
+    required String filename,
+  }) async {
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$_baseUrl/api/admin/upload-image'),
+    )
+      ..fields['token'] = token
+      ..files.add(http.MultipartFile.fromBytes('image', bytes, filename: filename));
+
+    http.Response response;
+    try {
+      final streamed = await request.send().timeout(const Duration(seconds: 30));
+      response = await http.Response.fromStream(streamed);
+    } on TimeoutException {
+      throw const AppError(code: 'NETWORK_TIMEOUT', message: 'The upload timed out.');
+    } on http.ClientException catch (error) {
+      throw AppError(code: 'NETWORK_ERROR', message: error.message);
+    }
+
+    final decoded = _decode(response.body);
+    if (decoded == null || decoded['ok'] != true) {
+      final error = decoded?['error'] is Map
+          ? Map<String, dynamic>.from(decoded!['error'] as Map)
+          : const <String, dynamic>{};
+      throw AppError(
+        code: '${error['code'] ?? 'UPLOAD_FAILED'}',
+        message: '${error['message'] ?? 'Image upload failed.'}',
+        details: error['details'],
+      );
+    }
+    final data = decoded['data'] is Map
+        ? Map<String, dynamic>.from(decoded['data'] as Map)
+        : const <String, dynamic>{};
+    return '${data['url'] ?? ''}';
+  }
+
   Future<Object?> _post(String path, Map<String, dynamic> body) async {
     http.Response response;
     try {

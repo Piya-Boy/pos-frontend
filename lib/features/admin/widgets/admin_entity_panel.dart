@@ -79,6 +79,7 @@ class AdminEntityPanel extends StatelessWidget {
           fields: fields,
           initial: initial,
           onSave: (data) => controller.saveEntity(entity, data),
+          onUploadImage: controller.uploadImage,
         ),
       );
 
