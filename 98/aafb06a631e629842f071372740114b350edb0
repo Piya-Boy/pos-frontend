@@ -1,0 +1,41 @@
+lib/state/customer_controller.dart
+  s_ac235bdd8b9dc7::t_ab71e1b61d8ce4 157-209,212,222-241
+  s_ac235bdd8b9dc7::t_369605c9bafbf7 10
+  s_ac235bdd8b9dc7::t_ecdb454bece8aa 37-39,44-50,53-61
+  s_ac235bdd8b9dc7::t_37e14ee51f2741 51-52
+  s_ac235bdd8b9dc7::t_21dc5c46b85bcc 210-211,213-221
+  s_ac235bdd8b9dc7::t_6e874227de045f 7-8,11
+  s_ac235bdd8b9dc7::t_964f64748b49f3 330
+test/core/offline_store_test.dart
+  s_ac235bdd8b9dc7::t_8e76fa0d2d4e55 1-49
+lib/core/offline/offline_store.dart
+  s_ac235bdd8b9dc7::t_4d98eb26c36f98 1-110
+lib/features/customer/customer_page.dart
+  s_ac235bdd8b9dc7::t_4f9b927b895d0e 96-109
+docs/E2-offline-spec.md
+  s_ac235bdd8b9dc7::t_b3895d0de87117 1-55
+pubspec.yaml
+  s_ac235bdd8b9dc7::t_f86af1ec9fb171 51
+PROGRESS.md
+  s_ac235bdd8b9dc7::t_f1f9825b2156df 53
+test/state/customer_controller_test.dart
+  s_ac235bdd8b9dc7::t_c8586352305fce 1,9-21
+pubspec.lock
+  s_ac235bdd8b9dc7::t_79006f72c2b93c 116-131,427-434
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "98aafb06a631e629842f071372740114b350edb0",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
