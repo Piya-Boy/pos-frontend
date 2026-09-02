@@ -217,7 +217,10 @@ class _OpsPageState extends State<OpsPage> with WidgetsBindingObserver {
       return;
     }
     _controller?.load();
-    if (widget.enablePolling) _controller?.startPolling();
+    if (widget.enablePolling) {
+      _controller?.startPolling();
+      _controller?.startRealtime();
+    }
   }
 
   Widget _authenticatedPage() {

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/api/api_client.dart';
+import '../core/realtime/realtime_client.dart';
 import '../core/utils/client_id.dart';
 import '../models/app_config.dart';
 import '../models/cart_line.dart';
@@ -27,6 +28,8 @@ class CustomerController extends ChangeNotifier {
   bool _submitting = false;
   bool _refreshing = false;
   String? _checkoutKey;
+  RealtimeClient? _realtime;
+  bool _live = false;
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
@@ -58,7 +61,24 @@ class CustomerController extends ChangeNotifier {
       await refreshStatus();
       startPolling();
     }
+    startRealtime();
     notifyListeners();
+  }
+
+  /// Subscribes to this table's realtime channel. On any event (kitchen updated
+  /// an item, table closed), refresh the session; polling stays as a fallback.
+  void startRealtime() {
+    final config = RealtimeConfig.fromEnvironment();
+    if (!config.isEnabled || _realtime != null) return;
+    _realtime = RealtimeClient(
+      config: config,
+      channels: ['pos-table.$tableToken'],
+      onEvent: (_) => refreshStatus(),
+      onConnectionChange: (connected) {
+        _live = connected;
+        if (session != null) startPolling(); // re-arm at the new interval
+      },
+    )..connect();
   }
 
   List<MenuItem> filteredMenu() => (data?.menu ?? const []).where((item) {
@@ -197,7 +217,8 @@ class CustomerController extends ChangeNotifier {
   void startPolling() {
     stopPolling();
     if (session == null) return;
-    final seconds = (app?.pollSeconds ?? 5).clamp(5, 1 << 31);
+    final base = (app?.pollSeconds ?? 5).clamp(5, 1 << 31);
+    final seconds = _live ? 30 : base; // slow safety-net poll while socket is live
     _poller = Timer.periodic(Duration(seconds: seconds), (_) async {
       try {
         await refreshStatus();
@@ -223,6 +244,7 @@ class CustomerController extends ChangeNotifier {
   @override
   void dispose() {
     stopPolling();
+    _realtime?.dispose();
     super.dispose();
   }
 }

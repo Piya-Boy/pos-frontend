@@ -49,5 +49,6 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 |---|---|---|
 | E4 | PDF receipt (client-side, `printing`/`pdf`) | ✅ buildReceiptPdf() + "สร้าง PDF" (sharePdf → download) + "พิมพ์ใบเสร็จ" on receipt modal |
 | E3 | Drive image upload (picker) | ✅ file_picker + "อัปโหลด" button on imageUrl fields → adminUploadImage → sets ImageURL; FakeApiClient stub for offline |
+| E1 | Reverb realtime (subscribe) | ✅ RealtimeClient (raw pusher-protocol WS via web_socket_channel, web+mobile); ops+customer controllers subscribe, refresh on event, slow-poll (30s) while live, auto-reconnect + poll fallback on drop; E2E verified |
 
 **Build order**: finish Phase 1 → (Phase 2 backend by the other repo) → Phase 3 → Phase 4 → Phase 5 epics as requested.

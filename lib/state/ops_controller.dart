@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../core/api/api_client.dart';
+import '../core/realtime/realtime_client.dart';
 import '../models/staff_models.dart';
 
 class OpsController extends ChangeNotifier {
@@ -37,6 +38,15 @@ class OpsController extends ChangeNotifier {
   Future<void>? _activeLoad;
   bool _disposed = false;
   int _tokenGeneration = 0;
+  RealtimeClient? _realtime;
+  bool _live = false; // true while the socket is connected
+
+  /// When the socket is live, poll slowly as a safety net; otherwise poll at the
+  /// normal interval so a dropped socket still gets timely updates.
+  int get _effectivePollSeconds {
+    final base = pollSeconds < 5 ? 5 : pollSeconds;
+    return _live ? 30 : base;
+  }
 
   OpsDashboard? get dashboard => _dashboard;
   String get token => _token;
@@ -117,8 +127,9 @@ class OpsController extends ChangeNotifier {
   }
 
   void startPolling() {
-    _pollTimer ??= Timer.periodic(
-      Duration(seconds: pollSeconds < 5 ? 5 : pollSeconds),
+    stopPolling();
+    _pollTimer = Timer.periodic(
+      Duration(seconds: _effectivePollSeconds),
       (_) => load(),
     );
   }
@@ -128,10 +139,27 @@ class OpsController extends ChangeNotifier {
     _pollTimer = null;
   }
 
+  /// Subscribes to the staff realtime channel. On every ops event, refresh the
+  /// dashboard immediately; polling continues as a fallback (slower while live).
+  void startRealtime() {
+    final config = RealtimeConfig.fromEnvironment();
+    if (!config.isEnabled || _realtime != null) return;
+    _realtime = RealtimeClient(
+      config: config,
+      channels: const ['pos-ops'],
+      onEvent: (_) => load(),
+      onConnectionChange: (connected) {
+        _live = connected;
+        if (!_disposed) startPolling(); // re-arm timer at the new interval
+      },
+    )..connect();
+  }
+
   @override
   void dispose() {
     _disposed = true;
     stopPolling();
+    _realtime?.dispose();
     super.dispose();
   }
 }
