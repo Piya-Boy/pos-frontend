@@ -1,0 +1,26 @@
+PROGRESS.md
+  s_ac235bdd8b9dc7::t_a44edbc27eaf84 48-50
+lib/features/staff/widgets/receipt_pdf.dart
+  s_ac235bdd8b9dc7::t_5181fef94ebc61 9-28,31
+  s_ac235bdd8b9dc7::t_e5f7ab129ef2cd 88
+  s_ac235bdd8b9dc7::t_a7af0c6bcf6623 1
+lib/features/staff/widgets/cashier_bills.dart
+  s_ac235bdd8b9dc7::t_dd8213733ecc01 347-349
+  s_ac235bdd8b9dc7::t_4295c37c1c702d 346
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "96000f73fb876a6e823a372c9b84d20236e6f38f",
+  "prompts": {},
+  "sessions": {
+    "s_ac235bdd8b9dc7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0ee4f32-2778-42a1-bf1d-2bd3d8ba1620",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Piya Miang-lae <piyaboy097@gmail.com>"
+    }
+  }
+}
