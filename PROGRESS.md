@@ -28,7 +28,7 @@ Branch: `feature/customer-frontend`. Models per `AGENTS.md §4.5`.
 |---|---|---|---|
 | P3-T1 | HttpApiClient (over Laravel) | terra | ✅ |
 | P3-T2 | switch Http vs Fake by config | terra | ✅ |
-| P3-T4 | E2E smoke (needs backend running) | terra | ⬜ |
+| P3-T4 | E2E smoke (needs backend running) | terra | ✅ full flow verified in Chrome vs live Sheets (order → kitchen → cashier close+receipt) |
 
 ## Phase 4 — Staff & Admin UI · plan `plan-staff.md`
 | Task | งาน | Model | สถานะ |
