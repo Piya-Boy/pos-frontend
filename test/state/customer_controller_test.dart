@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pos_frontend/core/api/fake_api_client.dart';
 import 'package:pos_frontend/models/cart_line.dart';
@@ -5,7 +6,19 @@ import 'package:pos_frontend/state/customer_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  setUp(() => SharedPreferences.setMockInitialValues({}));
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    // Stub connectivity_plus so the controller's listener doesn't hit a real
+    // platform channel in unit tests.
+    const method = MethodChannel('dev.fluttercommunity.plus/connectivity');
+    const event = EventChannel('dev.fluttercommunity.plus/connectivity_status');
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(method, (call) async => ['wifi']);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockStreamHandler(event, MockStreamHandler.inline(onListen: (_, sink) {}));
+  });
 
   test('filteredMenu respects category + search', () async {
     final controller = CustomerController(api: FakeApiClient(), tableToken: 't');

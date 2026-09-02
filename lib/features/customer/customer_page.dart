@@ -93,6 +93,20 @@ class _CustomerPageState extends State<CustomerPage>
                                       tagline: app?.tagline ?? '',
                                       tableName: '${table?['Name'] ?? ''}',
                                     ),
+                                    if (controller.offline)
+                                      Container(
+                                        width: double.infinity,
+                                        margin: const EdgeInsets.only(top: 8),
+                                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFCE9C8),
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        child: const Text(
+                                          '⚠ ออฟไลน์อยู่ — ดูเมนูได้ ออเดอร์จะถูกส่งอัตโนมัติเมื่อกลับมาออนไลน์',
+                                          style: TextStyle(fontWeight: FontWeight.w600),
+                                        ),
+                                      ),
                                     const CustomerGuide(),
                                     CustomerHero(
                                       kicker:

@@ -4,7 +4,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 import '../core/api/api_client.dart';
+import '../core/api/app_error.dart';
+import '../core/offline/offline_store.dart';
 import '../core/realtime/realtime_client.dart';
 import '../core/utils/client_id.dart';
 import '../models/app_config.dart';
@@ -30,15 +34,31 @@ class CustomerController extends ChangeNotifier {
   String? _checkoutKey;
   RealtimeClient? _realtime;
   bool _live = false;
+  late final OfflineStore _store = OfflineStore(tableToken);
+  StreamSubscription<List<ConnectivityResult>>? _connSub;
+  bool offline = false;
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
     final rawCart = prefs.getString(_cartKey);
-    data = await api.getCustomerData(tableToken: tableToken);
-    final bootstrap = await api.bootstrap(tableToken: tableToken);
-    app = AppConfig.fromJson(
-      Map<String, dynamic>.from(bootstrap['app'] as Map),
-    );
+    try {
+      data = await api.getCustomerData(tableToken: tableToken);
+      final bootstrap = await api.bootstrap(tableToken: tableToken);
+      app = AppConfig.fromJson(Map<String, dynamic>.from(bootstrap['app'] as Map));
+      offline = false;
+      // cache the fresh snapshot for offline reads
+      await _store.cacheCatalog(data!.toJson(), {'app': app!.toJson()});
+      // a successful load means we're online — flush any parked order
+      await _drainQueue();
+    } catch (_) {
+      // network failed: fall back to the last cached catalog if we have one
+      final cached = await _store.readCatalog();
+      if (cached == null) rethrow; // nothing to show — let the UI surface the error
+      data = CustomerData.fromJson(cached.customer);
+      app = AppConfig.fromJson(Map<String, dynamic>.from(cached.bootstrap['app'] as Map));
+      offline = true;
+    }
+    _watchConnectivity();
     if (rawCart != null) {
       final available = data!.menu
           .where((item) => item.available)
@@ -134,29 +154,91 @@ class CustomerController extends ChangeNotifier {
     _submitting = true;
     try {
       _checkoutKey ??= clientId('order');
-      final result = await api.submitOrder(
-        tableToken: tableToken,
-        idempotencyKey: _checkoutKey!,
-        promoCode: promoCode,
-        items: cart
-            .map(
-              (line) => OrderRequestItem(
-                itemId: line.itemId,
-                qty: line.qty,
-                optionIds: line.optionIds,
-                addOnIds: line.addOnIds,
-                note: line.note,
-              ),
-            )
-            .toList(),
-      );
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_sessionKey, result.sessionId);
-      cart = [];
-      await _saveCart();
-      _checkoutKey = null;
-      await refreshStatus();
-      startPolling();
+      final items = cart
+          .map(
+            (line) => OrderRequestItem(
+              itemId: line.itemId,
+              qty: line.qty,
+              optionIds: line.optionIds,
+              addOnIds: line.addOnIds,
+              note: line.note,
+            ),
+          )
+          .toList();
+      try {
+        await _sendOrder(_checkoutKey!, promoCode, items);
+      } on AppError catch (error) {
+        // Network failure → queue for reconnect; the key is reused so the server
+        // dedupes if the request actually reached it. Business errors rethrow.
+        if (_isNetworkError(error)) {
+          await _store.queueOrder(QueuedOrder(idempotencyKey: _checkoutKey!, promoCode: promoCode, items: items));
+          offline = true;
+          notifyListeners();
+          return;
+        }
+        rethrow;
+      }
+    } finally {
+      _submitting = false;
+    }
+  }
+
+  /// Submits an order and clears the cart/session on success. Shared by the
+  /// online path and the offline-queue drain.
+  Future<void> _sendOrder(String key, String promoCode, List<OrderRequestItem> items) async {
+    final result = await api.submitOrder(
+      tableToken: tableToken,
+      idempotencyKey: key,
+      promoCode: promoCode,
+      items: items,
+    );
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_sessionKey, result.sessionId);
+    cart = [];
+    await _saveCart();
+    _checkoutKey = null;
+    offline = false;
+    await _store.clearQueue();
+    await refreshStatus();
+    startPolling();
+  }
+
+  bool _isNetworkError(AppError error) =>
+      error.code == 'NETWORK_ERROR' || error.code == 'NETWORK_TIMEOUT';
+
+  /// Listens for connectivity changes; on reconnect, drains a queued order.
+  /// Guarded because the platform channel is unavailable in unit tests — the
+  /// queue still drains via the next successful load/submit either way.
+  void _watchConnectivity() {
+    if (_connSub != null) return;
+    try {
+      _connSub = Connectivity().onConnectivityChanged.listen((results) {
+        final online = results.any((r) => r != ConnectivityResult.none);
+        if (online) _drainQueue();
+      });
+    } catch (_) {
+      // no connectivity channel (headless/test) — rely on request-driven drain
+    }
+  }
+
+  /// Sends a parked offline order exactly once. Server idempotency + our stored
+  /// key dedupe a request that actually landed before we lost the response.
+  Future<void> _drainQueue() async {
+    if (_submitting) return;
+    final queued = await _store.readQueued();
+    if (queued == null) return;
+    _submitting = true;
+    try {
+      await _sendOrder(queued.idempotencyKey, queued.promoCode, queued.items);
+      notifyListeners();
+    } on AppError catch (error) {
+      // Real rejection (item archived, promo expired…) — drop it, surface later.
+      if (!_isNetworkError(error)) {
+        await _store.clearQueue();
+        offline = false;
+        notifyListeners();
+      }
+      // Network still down → leave it queued for the next reconnect.
     } finally {
       _submitting = false;
     }
@@ -245,6 +327,7 @@ class CustomerController extends ChangeNotifier {
   void dispose() {
     stopPolling();
     _realtime?.dispose();
+    _connSub?.cancel();
     super.dispose();
   }
 }
